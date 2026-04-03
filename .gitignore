@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+dist/
+*.egg-info/
+
+# Results — local only
+results/
+*.jsonl
+
+.env
+.DS_Store
+.vscode/

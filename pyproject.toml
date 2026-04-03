@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "toke-eval"
+version = "0.1.0"
+description = "Evaluation toolkit for toke code generation models"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+
+dependencies = [
+    "pyyaml>=6.0",
+    "tiktoken>=0.5.0",
+]
+
+[project.optional-dependencies]
+safety = ["transformers", "torch"]
+
+[tool.setuptools.packages.find]
+include = ["toke_eval*"]
