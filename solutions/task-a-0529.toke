@@ -1,0 +1,1 @@
+M=hasZero;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let found=mut.false;lp(let i=0;i<arr.len;i=i+1){if(arr[i]=0){found=true;br;};};j.print(found);};

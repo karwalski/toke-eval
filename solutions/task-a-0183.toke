@@ -1,0 +1,1 @@
+M=longestRun;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=longestRun(input);j.print(result);};F=longestRun(s:Str):i64{let n=s.len;if(n=0){<0};let longest=mut.1;let current=mut.1;lp(let i=1;i<n;i=i+1){if(s[i]=s[i-1]){current=current+1}el{if(current>longest){longest=current};current=1}};if(current>longest){longest=current};<longest};

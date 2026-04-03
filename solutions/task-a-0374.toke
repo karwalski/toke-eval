@@ -1,0 +1,1 @@
+M=main;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let result=mut.0;if(n<0){result=0}el{result=n+373;let modval=result-result/1000*1000;result=modval};j.print(result)};

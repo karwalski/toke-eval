@@ -1,0 +1,1 @@
+M=range;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let start=input[0];let end=input[1];let result=mut.[];if(start<end){lp(let i=start;i<end;i=i+1){result=result+[i];};};j.print(result);};

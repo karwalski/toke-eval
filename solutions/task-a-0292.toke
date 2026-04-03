@@ -1,0 +1,1 @@
+M=main;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=mut."";let n=input.len;lp(let i=0;i<n;i=i+1){let c=input[i];let shifted=mut.c;if(c>96){if(c<123){let key=115;let pos=c-97;let shiftedPos=pos+key;let wrapped=shiftedPos-shiftedPos/26*26;if(wrapped<0){wrapped=wrapped+26};shifted=97+wrapped}};result=result+shifted as Str};j.print(result)};

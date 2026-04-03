@@ -1,0 +1,1 @@
+M=prime;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let result=mut.false;if(n<2){result=false}el{let isPrime=mut.true;lp(let i=2;i*!(i>n);i=i+1){let mod=n-n/i*i;if(mod=0){isPrime=false}};result=isPrime};j.print(result)};

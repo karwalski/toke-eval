@@ -1,0 +1,1 @@
+M=absdiff;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let a=arr[0];let b=arr[1];let diff=a-b;if(diff<0){let absdiff=0-diff;<j.print(absdiff)}el{<j.print(diff)}};

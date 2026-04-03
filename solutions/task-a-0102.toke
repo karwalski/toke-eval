@@ -1,0 +1,1 @@
+M=main;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let target=input[1];let result=mut.[];lp(let i=0;i<arr.len;i=i+1){lp(let j=i+1;j<arr.len;j=j+1){if(arr[i]+arr[j]=target){result=result+[[i;j]];};};};j.print(result);};

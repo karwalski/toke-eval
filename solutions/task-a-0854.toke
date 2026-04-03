@@ -1,0 +1,1 @@
+M=modulo;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let a=input[0];let b=input[1];let result=a-a/b*b;j.print(result);};

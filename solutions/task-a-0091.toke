@@ -1,0 +1,1 @@
+M=concat;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let x=input[0];let y=input[1];let result=mut."";let lenx=x.len;let leny=y.len;lp(let i=0;i<lenx;i=i+1){result=result+x[i];};lp(let i=0;i<leny;i=i+1){result=result+y[i];};j.print(result);};

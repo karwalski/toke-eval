@@ -1,0 +1,1 @@
+M=range;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let n=arr.len;let min=mut.arr[0];let max=mut.arr[0];lp(let i=1;i<n;i=i+1){let val=arr[i];if(val<min){min=val};if(val>max){max=val}};let range=max-min;j.print(range)};

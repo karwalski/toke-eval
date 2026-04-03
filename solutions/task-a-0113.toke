@@ -1,0 +1,1 @@
+M=abundant;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let sum=mut.0;lp(let i=1;i<n;i=i+1){let rem=n-n/i*i;if(rem=0){sum=sum+i}};if(sum>n){<true};<false};

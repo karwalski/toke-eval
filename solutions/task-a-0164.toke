@@ -1,0 +1,1 @@
+M=bitpack;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let bits=input as [i64];let result=mut.0;let n=bits.len;lp(let i=0;i<n;i=i+1){let bit=bits[i];if(bit=1){result=result+1};};j.print(result);};

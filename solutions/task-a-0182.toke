@@ -1,0 +1,1 @@
+M=unique;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=hasUniqueChars(input);j.print(result);};F=hasUniqueChars(s:Str):bool{let n=s.len;if(n=0){<true};let m=mut.0;lp(let i=0;i<n;i=i+1){let c=s[i];let found=mut.false;lp(let j=0;j<m;j=j+1){if(s[j]=c){found=true;br;};};if(found){<false};m=m+1;};<true};

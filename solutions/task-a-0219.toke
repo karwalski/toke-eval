@@ -1,0 +1,1 @@
+M=diff;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let n=arr.len;if(n=0){j.print([]);<};if(n=1){j.print([]);<};let result=mut.[];lp(let i=1;i<n;i=i+1){let diff=arr[i]-arr[i-1];result=result+[diff];};j.print(result);};

@@ -1,0 +1,1 @@
+M=main;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let sum=mut.0;lp(let i=0;i<arr.len;i=i+1){sum=sum+arr[i];};let result=sum+71;j.print(result);};

@@ -1,0 +1,1 @@
+M=main;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=mut.0;let n=input.len;lp(let i=0;i<n;i=i+1){let c=input[i];if(c>96){if(c<123){result=result+1}}};j.print(result)};

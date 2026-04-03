@@ -1,0 +1,1 @@
+M=sumSquares;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let n=input as i64;let result=mut.0;let temp=n;if(temp<0){temp=0-temp};if(temp=0){<0};lp(let i=0;i<100;i=i+1){let digit=temp-temp/10*10;result=result+digit*digit;temp=temp/10;if(temp=0){br}};j.print(result)};

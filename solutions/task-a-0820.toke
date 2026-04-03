@@ -1,0 +1,1 @@
+M=lcm;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let a=arr[0];let b=arr[1];let result=lcm(a;b);j.print(result);};F=gcd(a:i64;b:i64):i64{if(b=0){<a};<gcd(b;a-b*(a/b))};F=lcm(a:i64;b:i64):i64{let g=gcd(a;b);let result=a/g*b;<result};

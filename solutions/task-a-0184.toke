@@ -1,0 +1,1 @@
+M=removeDupChars;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=removeDupChars(input);j.print(result);};F=removeDupChars(s:Str):Str{let n=s.len;let result=mut."";lp(let i=0;i<n;i=i+1){let ch=s[i];let found=mut.false;lp(let j=0;j<result.len;j=j+1){if(result[j]=ch){found=true;br;}};if(!(found)){result=result+ch;}};<result};

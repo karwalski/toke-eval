@@ -1,0 +1,1 @@
+M=first;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let first=arr[0];j.print(first);};

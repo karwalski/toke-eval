@@ -1,0 +1,1 @@
+M=ascToString;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=ascToString(input);j.print(result);};F=ascToString(arr:[i64]):Str{let n=arr.len;let result=mut."";lp(let i=0;i<n;i=i+1){let code=arr[i];let ch=code as u8;result=result+ch as Str};<result};

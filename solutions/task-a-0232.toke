@@ -1,0 +1,1 @@
+M=rightPad;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let str=input[0];let width=input[1];let result=rightPad(str;width);j.print(result);};F=rightPad(s:Str;width:i64):Str{let slen=s.len;if(slen>width){<s};let result=mut.s;let padlen=width-slen;lp(let i=0;i<padlen;i=i+1){result=result+" "};<result};

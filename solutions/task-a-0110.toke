@@ -1,0 +1,1 @@
+M=prodDigits;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let val=input as i64;let other=val;if(val=other){<1};let prod=mut.1;let n=val;if(n<0){n=0-n};lp(let i=0;i<10;i=i+1){if(n=0){br};let digit=n-n/10*10;prod=prod*digit;n=n/10};j.print(prod)};

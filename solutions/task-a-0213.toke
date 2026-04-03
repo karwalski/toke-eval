@@ -1,0 +1,1 @@
+M=alternatingSum;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let result=mut.0;let n=arr.len;lp(let i=0;i<n;i=i+1){let idx=i as u64;let elem=arr[idx];let isEven=i-i/2*2;if(isEven=0){result=result+elem}el{result=result-elem}};j.print(result);};

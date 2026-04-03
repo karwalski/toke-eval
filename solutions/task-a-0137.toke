@@ -1,0 +1,1 @@
+M=filterge;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let threshold=input[1];let result=mut.[];lp(let i=0;i<arr.len;i=i+1){let elem=arr[i];if(elem=threshold){result=result+[elem];}el{if(elem>threshold){result=result+[elem];}};};j.print(result);};

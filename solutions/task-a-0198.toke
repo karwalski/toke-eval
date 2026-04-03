@@ -1,0 +1,1 @@
+M=arrmax;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let val=input[0];let other=input[1];if(val=other){<j.print(val)};let n=val.len;let result=mut.[];lp(let i=0;i<n;i=i+1){if(val[i]>other[i]){result=result+[val[i]]}el{result=result+[other[i]]}};j.print(result)};

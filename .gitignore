@@ -3,6 +3,11 @@ __pycache__/
 .venv/
 dist/
 
+# Compiled native binaries from benchmark runs
+task-a-*
+!task-a-*.toke
+baselines/c/solutions/
+
 # Raw benchmark run results — commit only aggregated reports
 results/raw/
 results/*.jsonl

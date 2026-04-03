@@ -1,0 +1,1 @@
+M=replaceDigits;I=j:std.json;I=s:std.str;F=main():void{let input=s.argv(1);let result=replaceDigits(input);j.print(result);};F=replaceDigits(val:Str):Str{let n=val.len;let result=mut."";lp(let i=0;i<n;i=i+1){let c=val[i];if(c>47){if(c<58){result=result+"#"}el{result=result+c as Str}}el{result=result+c as Str}};<result};

@@ -1,0 +1,1 @@
+M=firstAbove;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let threshold=input[1];let result=mut.-1;lp(let i=0;i<arr.len;i=i+1){if(arr[i]>threshold){result=i;br;};};j.print(result);};

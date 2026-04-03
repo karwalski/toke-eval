@@ -1,0 +1,1 @@
+M=main;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let maxVal=mut.arr[0];let maxIdx=mut.0;lp(let i=1;i<arr.len;i=i+1){if(arr[i]>maxVal){maxVal=arr[i];maxIdx=i;};};let sum=mut.0;lp(let i=0;i<arr.len;i=i+1){if(!(i=maxIdx)){sum=sum+arr[i];};};j.print(sum);};

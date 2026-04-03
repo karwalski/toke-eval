@@ -1,0 +1,1 @@
+M=padovan;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let n=input as i64;let result=padovan(n);j.print(result);};F=padovan(n:i64):i64{if(n=0){<1};if(n=1){<1};if(n=2){<1};let p=mut.1;let q=mut.1;let r=mut.1;let i=mut.3;lp(let j=0;j<n-3;j=j+1){let temp=p+q;r=temp;p=q;q=temp;i=i+1};<r};

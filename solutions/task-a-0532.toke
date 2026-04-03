@@ -1,0 +1,1 @@
+M=arrget;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let idx=input[1];let result=arrget(arr;idx);j.print(result);};F=arrget(arr:[i64];idx:i64):i64{let val=arr[idx as u64];let other=idx;if(val=other){<val};<val};

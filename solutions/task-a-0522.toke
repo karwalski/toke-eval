@@ -1,0 +1,1 @@
+M=arrdouble;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let result=mut.[];lp(let i=0;i<arr.len;i=i+1){let val=arr[i];let doubled=val+val;result=result+[doubled];};j.print(result);};

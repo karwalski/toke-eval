@@ -1,0 +1,1 @@
+M=replaceall;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let old=arr[1];let new=arr[2];let result=mut.[];lp(let i=0;i<arr.len;i=i+1){if(arr[i]=old){result=result+[new];}el{result=result+[arr[i]];};};j.print(result);};

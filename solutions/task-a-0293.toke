@@ -1,0 +1,1 @@
+M=join;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=join(input);j.print(result);};F=join(parts:[i64]):Str{let n=parts.len;if(n=0){<""};let result=mut.parts[0 as u64]as Str;lp(let i=1;i<n;i=i+1){result=result+",";result=result+parts[i as u64]as Str};<result};

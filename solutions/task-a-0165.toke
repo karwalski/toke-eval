@@ -1,0 +1,1 @@
+M=binrep;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let n=input[0];let m=input[1];let result=mut.[];let temp=mut.n;lp(let i=0;i<m;i=i+1){let bit=temp-temp/2*2;if(bit=0){result=result+[0];}el{result=result+[1];};temp=temp/2;};let reversed=mut.[];let len=result.len;lp(let i=0;i<len;i=i+1){reversed=reversed+[result[len-1-i]];};j.print(reversed);};

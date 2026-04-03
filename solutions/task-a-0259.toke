@@ -1,0 +1,1 @@
+M=graycode;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let m=mut.0;m=n-n/2*2;if(m=0){m=n/2}el{m=n/2-1};let r=mut.0;r=n^m;j.print(r)};

@@ -1,0 +1,1 @@
+M=issubseq;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let a=input[0];let b=input[1];let result=issubseq(a;b);j.print(result);};F=issubseq(a:[i64];b:[i64]):bool{let i=mut.0;let j=mut.0;let n=a.len;let m=b.len;let found=mut.false;lp(let i=0;i<n;i=i+1){let found=mut.false;lp(let j=0;j<m;j=j+1){if(a[i]=b[j]){found=true;br;};};if(found=false){<false};};<true};

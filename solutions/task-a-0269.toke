@@ -1,0 +1,1 @@
+M=modpow;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let m=j.parse(s.argv(2));let r=mut.0;let base=n;let exp=m;lp(let i=0;!(i=0);i=i+1){if(exp=0){br};let rem=exp-exp/2*2;if(rem=1){r=r+base};base=base+base;exp=exp/2};j.print(r);};

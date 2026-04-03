@@ -1,0 +1,1 @@
+M=max;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let maxVal=mut.arr[0];lp(let i=1;i<arr.len;i=i+1){let curr=arr[i];if(curr>maxVal){maxVal=curr;};};j.print(maxVal);};

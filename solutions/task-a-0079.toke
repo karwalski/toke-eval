@@ -1,0 +1,1 @@
+M=startsWith;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let s=input[0];let p=input[1];let result=mut.false;if(p.len>s.len){<false};let match=mut.true;lp(let i=0;i<p.len;i=i+1){if(s[i]=p[i]){}el{match=false}};if(match){result=true}el{result=false};j.print(result)};

@@ -1,0 +1,1 @@
+M=product;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let x=arr[0];let y=arr[1];let result=x*y;j.print(result);};

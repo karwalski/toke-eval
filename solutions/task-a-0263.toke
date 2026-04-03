@@ -1,0 +1,1 @@
+M=absmax;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let val=arr[0];let other=arr[1];if(val=other){<val};if(val<0){if(other<0){if(val>other){<val};<other};<val};if(other<0){<val};if(val>other){<val};<other};

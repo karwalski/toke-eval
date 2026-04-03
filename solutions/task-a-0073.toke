@@ -1,0 +1,1 @@
+M=reverse;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=reverse(input);j.print(result);};F=reverse(val:Str):Str{if(val.len=0){<""};let n=val.len;let m=mut.n-1;let r=mut."";lp(let i=0;i<n;i=i+1){r=r+val[m];m=m-1;};<r};

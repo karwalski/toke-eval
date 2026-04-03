@@ -1,0 +1,1 @@
+M=divisible;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let k=input[1];let result=mut.true;lp(let i=0;i<arr.len;i=i+1){let elem=arr[i];let mod=elem-elem/k*k;if(mod=0){result=result}el{result=false}};j.print(result)};

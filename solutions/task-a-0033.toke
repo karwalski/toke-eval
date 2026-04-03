@@ -1,0 +1,1 @@
+M=divisible;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let n=input[0];let m=input[1];let result=mut.false;if(m=0){<false};let remainder=mut.0;let temp=n;lp(let i=0;i<m;i=i+1){if(temp<m){br};temp=temp-m;remainder=temp};if(remainder=0){result=true};j.print(result)};

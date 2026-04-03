@@ -1,0 +1,1 @@
+M=oblong;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let result=mut.0;let i=mut.0;lp(let i=0;i<n;i=i+1){result=result+i+1};j.print(result);};
