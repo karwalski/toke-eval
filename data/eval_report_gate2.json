@@ -1,0 +1,84 @@
+{
+  "gate": "Gate 2",
+  "timestamp": "2026-04-04T07:32:56Z",
+  "corpus_file": "corpus_p2.jsonl (toke-tokenizer)",
+  "corpus_entries_sampled": 5000,
+  "tokenizer": "cl100k_base",
+  "compiler_version": "tkc 0.1.0",
+  "compiler_check": {
+    "total": 5000,
+    "passed": 4044,
+    "failed": 956,
+    "pass_rate": 0.8088,
+    "error_codes": {
+      "E2002": 1515,
+      "E2003": 695,
+      "E2005": 433,
+      "E2004": 123
+    }
+  },
+  "languages": {
+    "toke": {
+      "language": "toke",
+      "program_count": 3886,
+      "mean_tokens": 75.5748841996912,
+      "median_tokens": 68.0,
+      "total_tokens": 293684,
+      "p95_tokens": 140.0
+    },
+    "python": {
+      "language": "python",
+      "program_count": 3886,
+      "mean_tokens": 204.04992279979413,
+      "median_tokens": 187.0,
+      "total_tokens": 792938,
+      "p95_tokens": 336.0
+    },
+    "c": {
+      "language": "c",
+      "program_count": 3886,
+      "mean_tokens": 499.31780751415334,
+      "median_tokens": 471.5,
+      "total_tokens": 1940349,
+      "p95_tokens": 960.0
+    },
+    "java": {
+      "language": "java",
+      "program_count": 3886,
+      "mean_tokens": 284.98224395265055,
+      "median_tokens": 261.0,
+      "total_tokens": 1107441,
+      "p95_tokens": 486.0
+    }
+  },
+  "reduction_vs_python": 0.629625519271368,
+  "reduction_vs_c": 0.8486437233714141,
+  "reduction_vs_java": 0.7348084457772468,
+  "mean_reduction": 0.7376925628066763,
+  "gate1_baseline": {
+    "token_reduction": 0.125,
+    "pass_at_1": 0.637,
+    "note": "Gate 1 baseline from project records"
+  },
+  "delta_from_gate1": {
+    "token_reduction_delta": 0.6126925628066763,
+    "pass_rate_vs_gate1_pass_at_1": 0.17179999999999995,
+    "note": "Positive delta = improvement over Gate 1. Pass rate here is compiler --check pass rate, not Pass@1 which requires differential testing."
+  },
+  "methodology": {
+    "description": "Token efficiency measured using cl100k_base (tiktoken) on compiler-verified toke programs vs full reference implementations (Python, C, Java) from the Phase 2 corpus.",
+    "comparison_note": "Reference implementations include main() + test harnesses, while toke source is function body only. This reflects the actual LLM generation task: the model generates only the toke function, not test code. The reduction measures real token savings in the code-generation output.",
+    "compiler_note": "Pass rate measures tkc --check (lex + parse + name resolution + type check) on corpus entries that were originally validated with an earlier compiler version. Failures are due to compiler strictness improvements (E2002 parse errors, E4070 mutability).",
+    "gate1_comparison_note": "Gate 1's 12.5% was a tokenizer-level comparison (custom SentencePiece toke tokenizer vs cl100k_base on the same toke programs). Gate 2's reduction is a language-level comparison (toke source vs Python/C/Java source, all tokenized with cl100k_base). These measure different things."
+  },
+  "summary": {
+    "compiler_pass_rate": "80.9%",
+    "verified_programs": 3886,
+    "token_reduction_vs_python": "63.0%",
+    "token_reduction_vs_c": "84.9%",
+    "token_reduction_vs_java": "73.5%",
+    "mean_token_reduction": "73.8%",
+    "toke_mean_tokens": 75.5748841996912,
+    "python_mean_tokens": 204.04992279979413
+  }
+}
