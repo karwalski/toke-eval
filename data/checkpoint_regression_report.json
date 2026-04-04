@@ -1,0 +1,122 @@
+{
+  "timestamp": "2026-04-03T23:47:28Z",
+  "mode": "dry-run",
+  "seed": 42,
+  "n_checkpoints": 5,
+  "thresholds": {
+    "pass1": 5.0,
+    "compile": 10.0,
+    "tokens": 20.0
+  },
+  "checkpoints": [
+    {
+      "checkpoint_name": "checkpoint-500",
+      "step": 500,
+      "pass_at_1": 0.28,
+      "compile_rate": 0.52,
+      "mean_tokens": 82.43,
+      "mean_reward": 0.352,
+      "n_tasks": 50,
+      "n_compiled": 26,
+      "n_passed": 14,
+      "error_distribution": {
+        "counts": {
+          "E1001": 2,
+          "E2001": 8,
+          "E4010": 4,
+          "E4031": 9,
+          "E3011": 1
+        }
+      }
+    },
+    {
+      "checkpoint_name": "checkpoint-1000",
+      "step": 1000,
+      "pass_at_1": 0.4,
+      "compile_rate": 0.58,
+      "mean_tokens": 77.22,
+      "mean_reward": 0.402,
+      "n_tasks": 50,
+      "n_compiled": 29,
+      "n_passed": 20,
+      "error_distribution": {
+        "counts": {
+          "E1001": 6,
+          "E2001": 5,
+          "E4010": 2,
+          "E4031": 5,
+          "E3011": 6
+        }
+      }
+    },
+    {
+      "checkpoint_name": "checkpoint-1500",
+      "step": 1500,
+      "pass_at_1": 0.36,
+      "compile_rate": 0.68,
+      "mean_tokens": 66.54,
+      "mean_reward": 0.464,
+      "n_tasks": 50,
+      "n_compiled": 34,
+      "n_passed": 18,
+      "error_distribution": {
+        "counts": {
+          "E1001": 5,
+          "E2001": 6,
+          "E4031": 5
+        }
+      }
+    },
+    {
+      "checkpoint_name": "checkpoint-2000",
+      "step": 2000,
+      "pass_at_1": 0.56,
+      "compile_rate": 0.74,
+      "mean_tokens": 58.09,
+      "mean_reward": 0.5362,
+      "n_tasks": 50,
+      "n_compiled": 37,
+      "n_passed": 28,
+      "error_distribution": {
+        "counts": {
+          "E1001": 1,
+          "E2001": 7,
+          "E4031": 5
+        }
+      }
+    },
+    {
+      "checkpoint_name": "checkpoint-2500",
+      "step": 2500,
+      "pass_at_1": 0.68,
+      "compile_rate": 0.86,
+      "mean_tokens": 57.6,
+      "mean_reward": 0.7743,
+      "n_tasks": 50,
+      "n_compiled": 43,
+      "n_passed": 34,
+      "error_distribution": {
+        "counts": {
+          "E1001": 1,
+          "E2001": 1,
+          "E4010": 1,
+          "E4031": 1,
+          "E3011": 3
+        }
+      }
+    }
+  ],
+  "alerts": [
+    {
+      "checkpoint": "checkpoint-1500",
+      "previous_checkpoint": "checkpoint-1000",
+      "metric": "pass_at_1",
+      "previous_value": 0.4,
+      "current_value": 0.36,
+      "change_pct": 10.0,
+      "threshold_pct": 5.0,
+      "message": "REGRESSION: Pass@1 dropped 10.0% (0.4000 -> 0.3600) at checkpoint-1500"
+    }
+  ],
+  "regression_detected": true
+}

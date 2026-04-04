@@ -1,0 +1,122 @@
+[
+  {
+    "pass_at_1": 0.05,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.025063,
+    "toke_cheaper": false
+  },
+  {
+    "pass_at_1": 0.1,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.010025,
+    "toke_cheaper": false
+  },
+  {
+    "pass_at_1": 0.15,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.006266,
+    "toke_cheaper": false
+  },
+  {
+    "pass_at_1": 0.2,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.005013,
+    "toke_cheaper": false
+  },
+  {
+    "pass_at_1": 0.25,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.004177,
+    "toke_cheaper": false
+  },
+  {
+    "pass_at_1": 0.3,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.003342,
+    "toke_cheaper": false
+  },
+  {
+    "pass_at_1": 0.35,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.002785,
+    "toke_cheaper": false
+  },
+  {
+    "pass_at_1": 0.4,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.002506,
+    "toke_cheaper": false
+  },
+  {
+    "pass_at_1": 0.45,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.002278,
+    "toke_cheaper": true
+  },
+  {
+    "pass_at_1": 0.5,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.002005,
+    "toke_cheaper": true
+  },
+  {
+    "pass_at_1": 0.55,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.00179,
+    "toke_cheaper": true
+  },
+  {
+    "pass_at_1": 0.6,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.001671,
+    "toke_cheaper": true
+  },
+  {
+    "pass_at_1": 0.65,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.001566,
+    "toke_cheaper": true
+  },
+  {
+    "pass_at_1": 0.7,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.001432,
+    "toke_cheaper": true
+  },
+  {
+    "pass_at_1": 0.75,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.001319,
+    "toke_cheaper": true
+  },
+  {
+    "pass_at_1": 0.8,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.001253,
+    "toke_cheaper": true
+  },
+  {
+    "pass_at_1": 0.85,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.001193,
+    "toke_cheaper": true
+  },
+  {
+    "pass_at_1": 0.9,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.001114,
+    "toke_cheaper": true
+  },
+  {
+    "pass_at_1": 0.95,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.001044,
+    "toke_cheaper": true
+  },
+  {
+    "pass_at_1": 1.0,
+    "python_cost_per_correct": 0.002506,
+    "toke_cost_per_correct": 0.001003,
+    "toke_cheaper": true
+  }
+]

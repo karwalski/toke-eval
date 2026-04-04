@@ -1,0 +1,14 @@
+title = "toke gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Project-wide allowlist"
+paths = [
+  '''.gitleaks\.toml''',
+  '''test/fixtures/.*''',
+  '''testdata/.*''',
+  '''examples/.*''',
+  '''vendor/.*''',
+]

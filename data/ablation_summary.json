@@ -1,0 +1,142 @@
+{
+  "n_tasks": 50,
+  "seed": 42,
+  "dry_run": true,
+  "toke_grammar_source": "/Users/matthew.watt/tk/toke-spec/spec/grammar.ebnf",
+  "conditions": [
+    {
+      "condition": "toke_constrained",
+      "n_tasks": 50,
+      "pass_at_1": 0.9,
+      "mean_tokens": 34.6,
+      "median_tokens": 34.0,
+      "syntax_error_rate": 0.0,
+      "semantic_error_rate": 0.1,
+      "token_ci_lower": 31.78,
+      "token_ci_upper": 37.48
+    },
+    {
+      "condition": "toke_unconstrained",
+      "n_tasks": 50,
+      "pass_at_1": 0.76,
+      "mean_tokens": 39.72,
+      "median_tokens": 42.5,
+      "syntax_error_rate": 0.14,
+      "semantic_error_rate": 0.1,
+      "token_ci_lower": 35.92,
+      "token_ci_upper": 43.38
+    },
+    {
+      "condition": "python_constrained",
+      "n_tasks": 50,
+      "pass_at_1": 0.88,
+      "mean_tokens": 49.6,
+      "median_tokens": 51.0,
+      "syntax_error_rate": 0.04,
+      "semantic_error_rate": 0.08,
+      "token_ci_lower": 45.02,
+      "token_ci_upper": 54.02
+    },
+    {
+      "condition": "python_unconstrained",
+      "n_tasks": 50,
+      "pass_at_1": 0.64,
+      "mean_tokens": 47.1,
+      "median_tokens": 46.0,
+      "syntax_error_rate": 0.2,
+      "semantic_error_rate": 0.24,
+      "token_ci_lower": 42.74,
+      "token_ci_upper": 51.38
+    }
+  ],
+  "comparisons": [
+    {
+      "comparison": "toke_constrained vs python_constrained",
+      "metric": "pass_at_1",
+      "test_name": "McNemar",
+      "statistic": 0.0,
+      "p_value": 1.0,
+      "effect_size": 0.02,
+      "effect_size_name": "pass_rate_difference",
+      "ci_lower": -0.12,
+      "ci_upper": 0.14
+    },
+    {
+      "comparison": "toke_constrained vs python_constrained",
+      "metric": "token_count",
+      "test_name": "Cohen_d",
+      "statistic": -0.8173743550309559,
+      "p_value": 5.103931400203051e-07,
+      "effect_size": -0.8173743550309559,
+      "effect_size_name": "cohens_d",
+      "ci_lower": -19.9,
+      "ci_upper": -9.919500000000006
+    },
+    {
+      "comparison": "toke_unconstrained vs python_unconstrained",
+      "metric": "pass_at_1",
+      "test_name": "McNemar",
+      "statistic": 1.25,
+      "p_value": 0.26355247728296954,
+      "effect_size": 0.12,
+      "effect_size_name": "pass_rate_difference",
+      "ci_lower": -0.06,
+      "ci_upper": 0.3
+    },
+    {
+      "comparison": "toke_unconstrained vs python_unconstrained",
+      "metric": "token_count",
+      "test_name": "Cohen_d",
+      "statistic": -0.39694118147793145,
+      "p_value": 0.007160773347677142,
+      "effect_size": -0.39694118147793145,
+      "effect_size_name": "cohens_d",
+      "ci_lower": -12.480499999999996,
+      "ci_upper": -2.22
+    },
+    {
+      "comparison": "toke_constrained vs toke_unconstrained",
+      "metric": "pass_at_1",
+      "test_name": "McNemar",
+      "statistic": 2.1176470588235294,
+      "p_value": 0.1456100953968629,
+      "effect_size": 0.14,
+      "effect_size_name": "pass_rate_difference",
+      "ci_lower": -0.02,
+      "ci_upper": 0.3
+    },
+    {
+      "comparison": "toke_constrained vs toke_unconstrained",
+      "metric": "token_count",
+      "test_name": "Cohen_d",
+      "statistic": -0.32191397456176907,
+      "p_value": 0.027235816039651035,
+      "effect_size": -0.32191397456176907,
+      "effect_size_name": "cohens_d",
+      "ci_lower": -9.52,
+      "ci_upper": -0.78
+    },
+    {
+      "comparison": "python_constrained vs python_unconstrained",
+      "metric": "pass_at_1",
+      "test_name": "McNemar",
+      "statistic": 6.722222222222222,
+      "p_value": 0.009521891184098834,
+      "effect_size": 0.24,
+      "effect_size_name": "pass_rate_difference",
+      "ci_lower": 0.08,
+      "ci_upper": 0.4
+    },
+    {
+      "comparison": "python_constrained vs python_unconstrained",
+      "metric": "token_count",
+      "test_name": "Cohen_d",
+      "statistic": 0.1145860839357867,
+      "p_value": 0.42171653836381995,
+      "effect_size": 0.1145860839357867,
+      "effect_size_name": "cohens_d",
+      "ci_lower": -3.34,
+      "ci_upper": 8.44
+    }
+  ]
+}

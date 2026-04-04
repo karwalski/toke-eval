@@ -1,0 +1,48 @@
+{
+  "python": {
+    "mode": "python",
+    "n_tasks": 50,
+    "n_passed": 44,
+    "pass_rate": 0.88,
+    "total_input_tokens": 2700,
+    "total_output_tokens": 10350,
+    "total_tokens": 13050,
+    "total_cost": 0.11025,
+    "cost_per_task": 0.002205,
+    "cost_per_correct": 0.002506,
+    "total_time": 179.8761,
+    "time_per_task": 3.5975,
+    "time_per_correct": 4.0881,
+    "mean_input_tokens": 54.0,
+    "mean_output_tokens": 207.0
+  },
+  "toke": {
+    "mode": "toke",
+    "n_tasks": 50,
+    "n_passed": 33,
+    "pass_rate": 0.66,
+    "total_input_tokens": 2750,
+    "total_output_tokens": 4325,
+    "total_tokens": 7075,
+    "total_cost": 0.050125,
+    "cost_per_task": 0.001003,
+    "cost_per_correct": 0.001519,
+    "total_time": 89.9848,
+    "time_per_task": 1.7997,
+    "time_per_correct": 2.7268,
+    "mean_input_tokens": 55.0,
+    "mean_output_tokens": 86.5
+  },
+  "token_savings_total": 5975,
+  "token_savings_pct": 45.79,
+  "cost_savings_total": 0.060125,
+  "cost_savings_pct": 54.54,
+  "time_savings_total": 89.8913,
+  "time_savings_pct": 49.97,
+  "break_even_pass_at_1": 0.4001,
+  "pricing": {
+    "input_price_per_1M": 2.5,
+    "output_price_per_1M": 10.0,
+    "model": "GPT-4o (default)"
+  }
+}

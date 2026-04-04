@@ -1,0 +1,1602 @@
+[
+  {
+    "task_id": "task_0000",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 41,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0001",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 14,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0002",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 37,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0003",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 38,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0004",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 42,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0005",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 35,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0006",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 32,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0007",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 42,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0008",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 31,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0009",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 36,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0010",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 46,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0011",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 30,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0012",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 48,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0013",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 41,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0014",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 32,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0015",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 27,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0016",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 39,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0017",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 33,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0018",
+    "condition": "toke_constrained",
+    "passed": false,
+    "token_count": 22,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0019",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 43,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0020",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 39,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0021",
+    "condition": "toke_constrained",
+    "passed": false,
+    "token_count": 30,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0022",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 23,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0023",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 43,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0024",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 32,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0025",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 22,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0026",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 33,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0027",
+    "condition": "toke_constrained",
+    "passed": false,
+    "token_count": 26,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0028",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 33,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0029",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 40,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0030",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 31,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0031",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 35,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0032",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 54,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0033",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 23,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0034",
+    "condition": "toke_constrained",
+    "passed": false,
+    "token_count": 21,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0035",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 20,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0036",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 61,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0037",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 12,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0038",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 30,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0039",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 36,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0040",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 37,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0041",
+    "condition": "toke_constrained",
+    "passed": false,
+    "token_count": 32,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0042",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 29,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0043",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 27,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0044",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 37,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0045",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 23,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0046",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 39,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0047",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 40,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0048",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 56,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0049",
+    "condition": "toke_constrained",
+    "passed": true,
+    "token_count": 57,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0000",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 63,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0001",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 51,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0002",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 47,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0003",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 11,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0004",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 28,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0005",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 42,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0006",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 34,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0007",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 62,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0008",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 45,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0009",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 43,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0010",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 29,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0011",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 46,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0012",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 32,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0013",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 34,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0014",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 15,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0015",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 25,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0016",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 24,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0017",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 27,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0018",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 48,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0019",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 38,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0020",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 33,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0021",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 47,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0022",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 46,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0023",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 65,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0024",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 25,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0025",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 49,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0026",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 48,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0027",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 42,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0028",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 44,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0029",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 44,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0030",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 46,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0031",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 37,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0032",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 61,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0033",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 48,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0034",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 37,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0035",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 24,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0036",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 59,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0037",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 52,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0038",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 34,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0039",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 26,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0040",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 46,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0041",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 46,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0042",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 11,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0043",
+    "condition": "toke_unconstrained",
+    "passed": false,
+    "token_count": 18,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0044",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 54,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0045",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 45,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0046",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 39,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0047",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 26,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0048",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 29,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0049",
+    "condition": "toke_unconstrained",
+    "passed": true,
+    "token_count": 61,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0000",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 89,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0001",
+    "condition": "python_constrained",
+    "passed": false,
+    "token_count": 44,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0002",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 26,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0003",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 59,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0004",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 15,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0005",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 63,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0006",
+    "condition": "python_constrained",
+    "passed": false,
+    "token_count": 64,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0007",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 40,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0008",
+    "condition": "python_constrained",
+    "passed": false,
+    "token_count": 45,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0009",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 50,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0010",
+    "condition": "python_constrained",
+    "passed": false,
+    "token_count": 28,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0011",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 63,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0012",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 73,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0013",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 50,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0014",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 42,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0015",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 64,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0016",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 35,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0017",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 66,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0018",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 41,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0019",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 57,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0020",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 69,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0021",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 49,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0022",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 53,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0023",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 57,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0024",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 26,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0025",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 47,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0026",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 57,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0027",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 61,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0028",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 52,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0029",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 53,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0030",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 39,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0031",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 61,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0032",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 47,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0033",
+    "condition": "python_constrained",
+    "passed": false,
+    "token_count": 22,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0034",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 28,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0035",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 27,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0036",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 58,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0037",
+    "condition": "python_constrained",
+    "passed": false,
+    "token_count": 47,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0038",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 64,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0039",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 66,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0040",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 73,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0041",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 75,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0042",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 46,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0043",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 26,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0044",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 13,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0045",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 55,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0046",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 55,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0047",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 58,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0048",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 50,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0049",
+    "condition": "python_constrained",
+    "passed": true,
+    "token_count": 32,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0000",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 56,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0001",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 74,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0002",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 46,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0003",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 56,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0004",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 31,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0005",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 64,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0006",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 38,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0007",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 36,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0008",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 35,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0009",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 50,
+    "syntax_error": true,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0010",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 50,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0011",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 26,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0012",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 46,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0013",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 66,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0014",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 39,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0015",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 43,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0016",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 46,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0017",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 62,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0018",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 48,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0019",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 14,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0020",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 23,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0021",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 37,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0022",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 31,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0023",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 51,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0024",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 26,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0025",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 54,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0026",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 68,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0027",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 61,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0028",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 57,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0029",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 27,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0030",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 11,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0031",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 34,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0032",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 64,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0033",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 72,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0034",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 50,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0035",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 49,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0036",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 75,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0037",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 43,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0038",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 41,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0039",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 39,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0040",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 40,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0041",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 69,
+    "syntax_error": true,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0042",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 39,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0043",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 36,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0044",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 39,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0045",
+    "condition": "python_unconstrained",
+    "passed": true,
+    "token_count": 31,
+    "syntax_error": false,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0046",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 71,
+    "syntax_error": true,
+    "semantic_error": false
+  },
+  {
+    "task_id": "task_0047",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 66,
+    "syntax_error": true,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0048",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 54,
+    "syntax_error": false,
+    "semantic_error": true
+  },
+  {
+    "task_id": "task_0049",
+    "condition": "python_unconstrained",
+    "passed": false,
+    "token_count": 71,
+    "syntax_error": true,
+    "semantic_error": true
+  }
+]

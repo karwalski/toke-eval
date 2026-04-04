@@ -1,0 +1,42 @@
+[
+  {
+    "checkpoint_name": "checkpoint-500",
+    "step": 500,
+    "pass_at_1": 0.28,
+    "compile_rate": 0.52,
+    "mean_tokens": 82.43,
+    "mean_reward": 0.352
+  },
+  {
+    "checkpoint_name": "checkpoint-1000",
+    "step": 1000,
+    "pass_at_1": 0.4,
+    "compile_rate": 0.58,
+    "mean_tokens": 77.22,
+    "mean_reward": 0.402
+  },
+  {
+    "checkpoint_name": "checkpoint-1500",
+    "step": 1500,
+    "pass_at_1": 0.36,
+    "compile_rate": 0.68,
+    "mean_tokens": 66.54,
+    "mean_reward": 0.464
+  },
+  {
+    "checkpoint_name": "checkpoint-2000",
+    "step": 2000,
+    "pass_at_1": 0.56,
+    "compile_rate": 0.74,
+    "mean_tokens": 58.09,
+    "mean_reward": 0.5362
+  },
+  {
+    "checkpoint_name": "checkpoint-2500",
+    "step": 2500,
+    "pass_at_1": 0.68,
+    "compile_rate": 0.86,
+    "mean_tokens": 57.6,
+    "mean_reward": 0.7743
+  }
+]

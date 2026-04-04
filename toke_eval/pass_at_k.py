@@ -35,15 +35,67 @@ except ImportError:
     sys.exit("ERROR: pyyaml required. Install: pip install pyyaml")
 
 
+def classify_error(error_text: str) -> str:
+    """Classify a compile/runtime error into a taxonomy category.
+
+    Categories:
+        syntax    — lexer errors (E1xxx)
+        parse     — parser/grammar errors (E2xxx)
+        name      — name resolution errors (E3xxx)
+        type      — type checking errors (E4xxx)
+        codegen   — code generation / backend errors (E9xxx)
+        runtime   — compiled but failed at runtime (timeout, crash, wrong output)
+        logic     — compiled and ran but produced wrong output
+        unknown   — error text could not be classified
+    """
+    import re
+    codes = re.findall(r'[EW](\d{4})', error_text)
+    if not codes:
+        if "timeout" in error_text.lower():
+            return "runtime"
+        return "unknown"
+    # Use the first error code to classify
+    code = int(codes[0])
+    if 1000 <= code < 2000:
+        return "syntax"
+    if 2000 <= code < 3000:
+        return "parse"
+    if 3000 <= code < 4000:
+        return "name"
+    if 4000 <= code < 5000:
+        return "type"
+    if 9000 <= code < 10000:
+        return "codegen"
+    return "unknown"
+
+
 @dataclass
 class TaskResult:
     task_id: str
     compiled: bool = False
     compile_error: str = ""
+    error_category: str = ""
     tests_total: int = 0
     tests_passed: int = 0
     pass_at_1: float = 0.0
     runtime_ms: float = 0.0
+
+
+@dataclass
+class ErrorTaxonomy:
+    """Breakdown of failures by category."""
+    syntax: int = 0
+    parse: int = 0
+    name: int = 0
+    type: int = 0
+    codegen: int = 0
+    runtime: int = 0
+    logic: int = 0
+    unknown: int = 0
+
+    def total(self) -> int:
+        return (self.syntax + self.parse + self.name + self.type +
+                self.codegen + self.runtime + self.logic + self.unknown)
 
 
 @dataclass
@@ -56,6 +108,7 @@ class BenchmarkReport:
     pass_at_1: float = 0.0
     mean_pass_at_1: float = 0.0
     duration_s: float = 0.0
+    error_taxonomy: ErrorTaxonomy = field(default_factory=ErrorTaxonomy)
     results: list[TaskResult] = field(default_factory=list)
 
 
@@ -163,7 +216,12 @@ def evaluate(solutions_dir: Path, tests_dir: Path, compiler: str,
             result.compiled = compiled
             result.compile_error = err
 
-            if compiled:
+            if not compiled:
+                cat = classify_error(err)
+                result.error_category = cat
+                setattr(report.error_taxonomy, cat,
+                        getattr(report.error_taxonomy, cat) + 1)
+            else:
                 report.tasks_compiled += 1
                 t0 = time.monotonic()
                 passed, total = run_tests(binary_path, test_path, timeout)
@@ -174,6 +232,10 @@ def evaluate(solutions_dir: Path, tests_dir: Path, compiler: str,
 
                 if result.pass_at_1 == 1.0:
                     report.tasks_passed += 1
+                elif total > 0:
+                    # Compiled but wrong output = logic error
+                    result.error_category = "logic"
+                    report.error_taxonomy.logic += 1
         finally:
             try:
                 os.unlink(binary_path)
@@ -216,12 +278,21 @@ def main():
     report = evaluate(args.solutions_dir, args.tests_dir, args.compiler,
                       args.timeout)
 
+    tax = report.error_taxonomy
     print(f"\n{'=' * 60}", file=sys.stderr)
     print(f"  Tasks:     {report.tasks_total}", file=sys.stderr)
     print(f"  Compiled:  {report.tasks_compiled}/{report.tasks_total}", file=sys.stderr)
     print(f"  Pass@1:    {report.tasks_passed}/{report.tasks_compiled}", file=sys.stderr)
     print(f"  Mean:      {report.mean_pass_at_1:.4f}", file=sys.stderr)
     print(f"  Duration:  {report.duration_s:.1f}s", file=sys.stderr)
+    if tax.total() > 0:
+        print(f"\n  Error Taxonomy ({tax.total()} failures):", file=sys.stderr)
+        for cat in ["syntax", "parse", "name", "type", "codegen",
+                     "runtime", "logic", "unknown"]:
+            count = getattr(tax, cat)
+            if count > 0:
+                print(f"    {cat:10s}  {count:4d}  "
+                      f"({100*count/tax.total():.1f}%)", file=sys.stderr)
     print(f"{'=' * 60}", file=sys.stderr)
 
     output = json.dumps(asdict(report), indent=2)
