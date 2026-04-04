@@ -1,0 +1,1 @@
+M=indexOf;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let x=arr as [i64];let y=input[1];let yval=y as i64;let result=indexOf(x;yval);j.print(result);};F=indexOf(arr:[i64];val:i64):i64{let n=arr.len;let i=mut.0;lp(let i=0;i<n;i=i+1){if(arr[i]=val){<i};};<-1};

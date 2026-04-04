@@ -1,0 +1,1 @@
+M=power2;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let result=mut.false;if(n>0){let m=mut.n;lp(let i=0;i<64;i=i+1){let rem=m-m/2*2;if(rem=0){m=m/2}el{br}};if(m=1){result=true}};j.print(result)};

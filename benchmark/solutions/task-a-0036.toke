@@ -1,0 +1,1 @@
+M=arrlen;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arrlen=mut.0;let i=mut.0;lp(let i=0;i<input.len;i=i+1){arrlen=arrlen+1;};j.print(arrlen);};

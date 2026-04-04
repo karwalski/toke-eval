@@ -1,0 +1,68 @@
+name: Benchmark
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      language:
+        description: 'Baseline language to evaluate'
+        required: false
+        default: 'python'
+        type: choice
+        options:
+          - python
+          - c
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]" pyyaml
+
+      - name: Run harness unit tests
+        run: python -m pytest tests/test_harness.py -v
+
+  python-baselines:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]" pyyaml
+
+      - name: Dry-run benchmark harness (Python)
+        run: python run_benchmark.py --solutions-dir baselines/python --tasks-dir tasks/ --language python --dry-run
+
+  c-baselines:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]" pyyaml
+
+      - name: Build C baselines
+        run: cd baselines/c && make
+
+      - name: Smoke test C baselines
+        run: cd baselines/c && make test

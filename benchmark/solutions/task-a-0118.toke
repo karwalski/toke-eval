@@ -1,0 +1,1 @@
+M=sumsquares;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let result=mut.0;lp(let i=1;!(i>n);i=i+1){result=result+i*i};j.print(result)};

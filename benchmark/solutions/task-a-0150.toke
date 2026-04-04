@@ -1,0 +1,1 @@
+M=hex;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let m=mut.0;if(n=0){<"0"};let digits=[48;49;50;51;52;53;54;55;56;57;97;98;99;100;101;102];let result=mut."";let x=mut.n;lp(let i=0;i<16;i=i+1){if(x=0){br};let digit=x-x/16*16;result=digits[digit as u64]+result;x=x/16};<result};

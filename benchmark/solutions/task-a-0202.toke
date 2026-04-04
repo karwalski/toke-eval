@@ -1,0 +1,1 @@
+M=factorial;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let n=input as i64;let result=mut.[];lp(let i=0;i<n+1;i=i+1){let fact=mut.1;lp(let j=1;j<i+1;j=j+1){fact=fact*j;};result=result+[fact];};j.print(result);};

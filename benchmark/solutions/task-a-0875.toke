@@ -1,0 +1,1 @@
+M=inc;I=j:std.json;I=s:std.str;F=main():void{let x=j.parse(s.argv(1));let y=x+1;j.print(y);};

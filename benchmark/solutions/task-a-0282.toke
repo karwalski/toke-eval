@@ -1,0 +1,1 @@
+M=tribonacci;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let n=input as i64;let result=tribonacci(n);j.print(result);};F=tribonacci(n:i64):i64{if(n=0){<0};if(n=1){<0};if(n=2){<1};let a=mut.0;let b=mut.0;let c=mut.1;let i=mut.3;lp(let j=0;j<n-3;j=j+1){let temp=a+b+c;a=b;b=c;c=temp;i=i+1};<c};

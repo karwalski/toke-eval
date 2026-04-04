@@ -1,0 +1,1 @@
+M=absdiff;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr1=input[0];let arr2=input[1];let n=arr1.len;let sum=mut.0;lp(let i=0;i<n;i=i+1){let diff=arr1[i]-arr2[i];let absdiff=mut.0;if(diff<0){absdiff=0-diff}el{absdiff=diff};sum=sum+absdiff};j.print(sum)};

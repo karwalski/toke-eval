@@ -1,0 +1,1 @@
+M=chunk;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let k=input[1];let result=chunk(arr;k);j.print(result);};F=chunk(arr:[i64];k:i64):[[i64]]{let n=arr.len;let result=mut.[];let i=mut.0;lp(let i=0;i<n;i=i+k){let chunk=mut.[];let j=mut.0;lp(let j=0;j<k;j=j+1){if(i+j<n){chunk=chunk+[arr[i+j]];};};result=result+[chunk];};<result};

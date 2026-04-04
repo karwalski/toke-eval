@@ -1,0 +1,1 @@
+M=arrEqual;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let val=input[0];let other=input[1];let result=arrEquals(val;other);j.print(result);};F=arrEquals(val:[i64];other:[i64]):bool{if(val.len=other.len){let i=mut.0;lp(let i=0;i<val.len;i=i+1){if(!(val[i]=other[i])){<false};};<true}el{<false}};

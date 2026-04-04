@@ -1,0 +1,1 @@
+M=div;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let a=input[0];let b=input[1];let r=mut.0;let x=a;let y=b;lp(let i=0;i<1000000;i=i+1){if(x<y){br};x=x-y;r=r+1};j.print(r)};

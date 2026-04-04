@@ -1,0 +1,1 @@
+M=countChar;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let s=input[0];let c=input[1];let count=mut.0;let n=s.len;lp(let i=0;i<n;i=i+1){if(s[i]=c){count=count+1}};j.print(count)};

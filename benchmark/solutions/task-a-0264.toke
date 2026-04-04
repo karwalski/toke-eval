@@ -1,0 +1,1 @@
+M=absmin;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let val=arr[0];let other=arr[1];if(val=other){<val};let absval=val;if(val<0){absval=0-val};let absother=other;if(other<0){absother=0-other};if(absval<absother){<val};<other};

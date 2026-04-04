@@ -1,0 +1,1 @@
+M=contains;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let x=arr as [i64];let y=input[1];let found=mut.false;lp(let i=0;i<x.len;i=i+1){if(x[i]=y){found=true;br;};};j.print(found);};

@@ -1,0 +1,1 @@
+M=swapPairs;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=swapPairs(input);j.print(result);};F=swapPairs(arr:[i64]):[i64]{let n=arr.len;let result=mut.[];let i=mut.0;lp(let i=0;i<n;i=i+1){if(i+1<n){result=result+[arr[i+1]];result=result+[arr[i]];i=i+1;}el{result=result+[arr[i]];};};<result};

@@ -1,0 +1,1 @@
+M=arrindex;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let n=input[1];let result=mut.[];let len=arr.len;lp(let i=0;i<len;i=i+1){let idx=i-i/n*n;if(idx=0){result=result+[arr[i]];};};j.print(result);};

@@ -1,0 +1,1 @@
+M=sumDigits;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let n=input as i64;let absn=n;if(n<0){absn=0-n};let sum=mut.0;let temp=absn;lp(let i=0;i<100;i=i+1){if(temp=0){br};let digit=temp-temp/10*10;sum=sum+digit;temp=temp/10};j.print(sum)};

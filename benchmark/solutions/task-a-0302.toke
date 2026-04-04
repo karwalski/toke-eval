@@ -1,0 +1,1 @@
+M=checkprime;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));if(n<2){<0};let isprime=mut.1;lp(let i=2;i<n;i=i+1){let mod=n-n/i*i;if(mod=0){isprime=0;br;};};<isprime};

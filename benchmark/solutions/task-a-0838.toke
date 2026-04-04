@@ -1,0 +1,1 @@
+M=checkPos;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let result=mut.true;lp(let i=0;i<arr.len;i=i+1){if(arr[i]>0){}el{result=false;};};j.print(result);};

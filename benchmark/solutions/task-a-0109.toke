@@ -1,0 +1,1 @@
+M=perfect;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let result=mut.false;if(n>1){let sum=mut.0;lp(let i=1;i<n;i=i+1){let mod=n-n/i*i;if(mod=0){sum=sum+i}};if(sum=n){result=true}};j.print(result)};

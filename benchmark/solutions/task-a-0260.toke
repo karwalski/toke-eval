@@ -1,0 +1,1 @@
+M=gray;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let n=input as i64;let result=mut.0;let m=mut.n;lp(let i=0;!(m=0);i=i+1){let bit=m-m/2*2;if(bit=1){result=result+1};m=m/2};j.print(result)};

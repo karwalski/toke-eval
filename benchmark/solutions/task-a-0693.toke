@@ -1,0 +1,1 @@
+M=main;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let val=input as i64;let other=val+127;if(val=other){<j.print(val)};j.print(other)};

@@ -1,0 +1,1 @@
+M=digitalroot;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let val=input as i64;let other=val;if(val=other){<val};let result=mut.0;let n=mut.val;if(n<0){n=0-n};lp(let i=0;i<1;i=i+1){if(n<10){result=n;br};let sum=mut.0;let temp=mut.n;lp(let j=0;j<1;j=j+1){if(temp=0){br};let digit=temp-temp/10*10;sum=sum+digit;temp=temp/10};n=sum};j.print(result)};

@@ -1,0 +1,1 @@
+M=octal;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=octalToDecimal(input);j.print(result);};F=octalToDecimal(s:Str):i64{let n=s.len;let result=mut.0;lp(let i=0;i<n;i=i+1){let digit=s[i];if(digit<48){<0};if(digit>55){<0};let digitVal=digit-48;result=result*8+digitVal};<result};

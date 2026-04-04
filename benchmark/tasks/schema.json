@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BenchmarkTask",
+  "description": "Schema for a toke benchmark task definition.",
+  "type": "object",
+  "required": ["id", "phase", "description", "input_type", "output_type", "test_inputs"],
+  "properties": {
+    "id":          { "type": "string", "pattern": "^task-[abc]-[0-9]{4}$" },
+    "phase":       { "type": "string", "enum": ["A", "B", "C"] },
+    "description": { "type": "string" },
+    "input_type":  { "type": "string" },
+    "output_type": { "type": "string" },
+    "test_inputs": {
+      "type": "array",
+      "minItems": 20,
+      "items": {
+        "type": "object",
+        "required": ["input", "expected"],
+        "properties": {
+          "input":    {},
+          "expected": {}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+M=zigzag;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let val=input as i64;let other=mut.0;if(val=0){other=0}el{if(val>0){other=2*val}el{other=-(2*(-val)+1)}};j.print(other);};

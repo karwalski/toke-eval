@@ -1,0 +1,1 @@
+M=arrtake;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let n=input[1];let result=mut.[];let len=arr.len;let limit=mut.0;if(n<len){limit=n}el{limit=len};lp(let i=0;i<limit;i=i+1){result=result+[arr[i]];};j.print(result);};

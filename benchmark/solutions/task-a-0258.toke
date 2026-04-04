@@ -1,0 +1,1 @@
+M=reverseBits;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let val=input as i64;let other=val;if(val=other){<val};let result=mut.0;let v=mut.val;lp(let i=0;i<8;i=i+1){let bit=v-v/2*2;if(bit=1){result=result*2+1}el{result=result*2};v=v/2};j.print(result)};

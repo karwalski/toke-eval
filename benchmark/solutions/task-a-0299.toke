@@ -1,0 +1,1 @@
+M=sort;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=mut.[];lp(let i=0;i<input.len;i=i+1){arr=arr+[input[i]];};let n=arr.len;let swaps=mut.0;lp(let i=0;i<n;i=i+1){let minIdx=mut.i;lp(let j=i+1;j<n;j=j+1){if(arr[j]<arr[minIdx]){minIdx=j;};};if(minIdx=i){}el{let tmp=arr[i];arr[i]=arr[minIdx];arr[minIdx]=tmp;swaps=swaps+1;};};j.print(swaps);};

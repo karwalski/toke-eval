@@ -1,0 +1,1 @@
+M=bitnot;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let m=mut.0;m=255-n;let r=mut.0;r=m;let res=mut.0;res=r;j.print(res)};

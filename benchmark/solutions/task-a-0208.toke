@@ -1,0 +1,1 @@
+M=arrslice;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let start=input[1];let end=input[2];let result=arrSlice(arr;start;end);j.print(result);};F=arrSlice(arr:[i64];start:i64;end:i64):[i64]{let result=mut.[];let i=mut.start;lp(let i=start;i<end;i=i+1){if(i<0){br};if(i<arr.len){result=result+[arr[i]];};};<result};

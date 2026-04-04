@@ -1,0 +1,1 @@
+M=hasduplicates;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let result=hasDuplicates(arr);j.print(result);};F=hasDuplicates(arr:[i64]):bool{let n=arr.len;lp(let i=0;i<n;i=i+1){let val=arr[i];let found=mut.false;lp(let j=0;j<n;j=j+1){if(j=i){br;};if(arr[j]=val){found=true;};};if(found){<true};};<false};

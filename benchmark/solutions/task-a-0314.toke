@@ -1,0 +1,1 @@
+M=main;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let m=313;let sum=n+m;let result=sum-(sum/1000)*1000;j.print(result);};

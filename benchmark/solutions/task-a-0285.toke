@@ -1,0 +1,1 @@
+M=pentagonal;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let n=input as i64;let result=mut.0;if(n=0){result=0}el{result=n*(3*n-1)/2};j.print(result)};

@@ -1,0 +1,1 @@
+M=isEmpty;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=isEmpty(input);j.print(result);};F=isEmpty(arr:[i64]):bool{let n=arr.len;let m=0 as u64;if(n=m){<true}el{<false}};

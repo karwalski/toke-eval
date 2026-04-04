@@ -1,0 +1,1 @@
+M=hexagonal;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let result=mut.0;let two=2;let twoN=two*n;let twoNminus1=twoN-1;let product=n*twoNminus1;result=product;let final=result;let output=final as Str;j.print(output)};

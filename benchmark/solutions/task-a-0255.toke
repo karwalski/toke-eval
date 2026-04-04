@@ -1,0 +1,1 @@
+M=arrdiff;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr1=input[0];let arr2=input[1];let result=arrdiff(arr1;arr2);j.print(result);};F=arrdiff(arr1:[i64];arr2:[i64]):[i64]{let result=mut.[];lp(let i=0;i<arr1.len;i=i+1){let found=mut.false;lp(let j=0;j<arr2.len;j=j+1){if(arr1[i]=arr2[j]){found=true;};};if(!(found)){result=result+[arr1[i]];};};<result};

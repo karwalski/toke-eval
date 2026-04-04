@@ -1,0 +1,1 @@
+M=sumsq;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let sum=mut.0;lp(let i=0;i<arr.len;i=i+1){let val=arr[i];let other=val;let sq=val*val;if(val=other){<sq};sum=sum+sq;};j.print(sum);};

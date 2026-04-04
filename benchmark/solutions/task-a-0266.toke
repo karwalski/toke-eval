@@ -1,0 +1,1 @@
+M=trailingzeros;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let result=trailingZeros(n);j.print(result);};F=trailingZeros(n:i64):i64{if(n=0){<0};let count=mut.0;let num=mut.n;lp(let i=0;i<64;i=i+1){let remainder=num-num/2*2;if(remainder=0){count=count+1;num=num/2}el{br}};<count};

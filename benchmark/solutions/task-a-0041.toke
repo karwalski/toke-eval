@@ -1,0 +1,1 @@
+M=divby3;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let count=mut.0;lp(let i=0;i<arr.len;i=i+1){let x=arr[i];let y=x-x/3*3;if(y=0){count=count+1}};j.print(count)};

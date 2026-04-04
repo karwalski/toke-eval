@@ -1,0 +1,1 @@
+M=itoa;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let r=itoa(n);j.print(r)};F=itoa(n:i64):Str{if(n=0){<"0"};let s=mut."";let x=mut.n;lp(let i=0;i<20;i=i+1){if(x=0){br};let digit=x-x/10*10;s=(digit as Str)+s;x=x/10};<s};

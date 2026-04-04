@@ -1,0 +1,1 @@
+M=transpose;I=j:std.json;I=s:std.str;F=main():void{let input=s.argv(1);let parsed=j.parse(input);let matrix=parsed as [[i64]];let n=matrix.len;let m=matrix[0 as u64].len;let result=mut.[];lp(let i=0;i<m;i=i+1){let row=mut.[];lp(let j=0;j<n;j=j+1){row=row+[matrix[j as u64][i as u64]];};result=result+[row];};j.print(result);};

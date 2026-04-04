@@ -1,0 +1,1 @@
+M=main;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let count=mut.0;lp(let i=0;i<arr.len;i=i+1){if(arr[i]=1){count=count+1}el{count=count-1}};j.print(count)};

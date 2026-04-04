@@ -1,0 +1,1 @@
+M=swapnib;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let val=input as i64;let other=val;if(val=other){<val};let upper=val/16;let lower=val-16*upper;let swapped=lower*16+upper;j.print(swapped)};

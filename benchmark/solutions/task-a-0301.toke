@@ -1,0 +1,1 @@
+M=binomial;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let n=input as i64;let m=n-1;let result=mut.0;lp(let i=0;i<n;i=i+1){result=result+m;};let div=2;let final=result/div;j.print(final);};

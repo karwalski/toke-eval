@@ -1,0 +1,1 @@
+M=kth;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let k=input[1];let sorted=mut.[];lp(let i=0;i<arr.len;i=i+1){sorted=sorted+[arr[i]];};lp(let i=0;i<sorted.len;i=i+1){lp(let j=0;j+1<sorted.len;j=j+1){if(sorted[j]>sorted[j+1]){let tmp=sorted[j];sorted[j]=sorted[j+1];sorted[j+1]=tmp;};};};let result=sorted[k-1];j.print(result);};

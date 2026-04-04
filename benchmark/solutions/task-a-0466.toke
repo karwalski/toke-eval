@@ -1,0 +1,1 @@
+M=amth0031v11;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let n=input as i64;let m=465;let sum=n+m;let result=sum-(sum/1000)*1000;j.print(result);};

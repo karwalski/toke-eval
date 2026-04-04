@@ -1,0 +1,1 @@
+M=removeSpaces;I=j:std.json;I=s:std.str;F=main():void{let input=s.argv(1);let result=removeSpaces(input);j.print(result);};F=removeSpaces(s:Str):Str{let n=s.len;let result=mut."";lp(let i=0;i<n;i=i+1){let c=s[i];if(!(c=32)){result=result+c as Str}};<result};

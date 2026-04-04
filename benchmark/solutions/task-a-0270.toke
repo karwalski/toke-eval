@@ -1,0 +1,1 @@
+M=divcount;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let a=input[0];let b=input[1];let k=input[2];let count=mut.0;lp(let i=a;i<b+1;i=i+1){if(i-i/k*k=0){count=count+1}};j.print(count)};

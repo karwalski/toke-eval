@@ -1,0 +1,1 @@
+M=main;I=j:std.json;I=s:std.str;F=main():void{let input=s.argv(1);let parsed=j.parse(input);let arr=parsed as [i64];let n=arr.len;let max1=mut.arr[0];let max2=mut.arr[1];if(max1<max2){let tmp=max1;max1=max2;max2=tmp};lp(let i=2;i<n;i=i+1){let val=arr[i];if(val>max1){max2=max1;max1=val}el{if(val>max2){max2=val}}};let result=max1*max2;j.print(result)};

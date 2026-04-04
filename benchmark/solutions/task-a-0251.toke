@@ -1,0 +1,1 @@
+M=lex;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let a=input[0];let b=input[1];let result=lexLess(a;b);j.print(result);};F=lexLess(a:[i64];b:[i64]):bool{let n=a.len;let m=b.len;let i=mut.0;lp(let i=0;i<n;i=i+1){if(i<m){if(a[i]<b[i]){<true};if(a[i]>b[i]){<false}}el{<false}};if(n<m){<true};<false};

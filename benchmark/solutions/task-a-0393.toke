@@ -1,0 +1,1 @@
+M=amth0011v11;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let m=392;let sum=n+m;let modval=1000;let result=sum-sum/modval*modval;j.print(result);};

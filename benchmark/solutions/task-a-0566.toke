@@ -1,0 +1,1 @@
+M=clamp;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let lo=arr[0];let hi=arr[1];let result=mut.[];lp(let i=2;i<arr.len;i=i+1){let val=arr[i];if(val<lo){result=result+[lo];}el{if(val>hi){result=result+[hi];}el{result=result+[val];}};};j.print(result);};

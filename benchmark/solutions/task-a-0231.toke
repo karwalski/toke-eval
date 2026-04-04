@@ -1,0 +1,1 @@
+M=padLeft;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let str=input[0];let width=input[1];let result=padLeft(str;width);j.print(result);};F=padLeft(s:Str;width:i64):Str{let slen=s.len;let wlen=width as u64;if(!(slen<wlen)){<s};let padcount=width-slen;let result=mut."";lp(let i=0;i<padcount;i=i+1){result=result+" "};result=result+s;<result};

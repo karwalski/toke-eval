@@ -1,0 +1,1 @@
+M=palindrome;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let result=checkPalindrome(arr);j.print(result);};F=checkPalindrome(arr:[i64]):bool{let n=arr.len;let m=mut.0;let isPal=mut.true;lp(let i=0;i<n;i=i+1){m=n-1-i;if(!(arr[i]=arr[m])){isPal=false}};<isPal};

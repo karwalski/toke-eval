@@ -1,0 +1,1 @@
+M=sliding;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let k=input[1];let n=arr.len;let result=mut.[];let sum=mut.0;lp(let i=0;i<k;i=i+1){sum=sum+arr[i];};result=result+[sum];lp(let i=k;i<n;i=i+1){sum=sum-arr[i-k];sum=sum+arr[i];result=result+[sum];};j.print(result);};

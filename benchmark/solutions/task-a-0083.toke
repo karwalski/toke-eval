@@ -1,0 +1,1 @@
+M=split;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=split(input);j.print(result);};F=split(val:Str):[Str]{let n=val.len;let parts=mut.[];let current=mut."";let i=mut.0;lp(let j=0;j<n;j=j+1){let c=val[j];if(c=32){if(current.len>0){parts=parts+[current];current=""}}el{current=current+(c as Str)}};if(current.len>0){parts=parts+[current]};<parts};

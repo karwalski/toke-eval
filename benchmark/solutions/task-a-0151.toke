@@ -1,0 +1,1 @@
+M=binstrtoi64;I=j:std.json;I=s:std.str;F=main():void{let input=s.argv(1);let parsed=j.parse(input);let result=mut.0;let isNeg=mut.false;let str=parsed as Str;if(str[0]=45){isNeg=true;str=str[1]};let n=str.len;lp(let i=0;i<n;i=i+1){let c=str[i];if(c<48){<0};if(c>57){<0};let digit=c-48;result=result*2+digit};if(isNeg){result=0-result};j.print(result)};

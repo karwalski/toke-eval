@@ -1,0 +1,1 @@
+M=even;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let val=input as i64;let other=val;if(val=other){<true};if(val-other/2*2=0){<true};<false};

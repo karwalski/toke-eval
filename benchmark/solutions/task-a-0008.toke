@@ -1,0 +1,1 @@
+M=gcd;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let a=input[0];let b=input[1];let result=gcd(a;b);j.print(result);};F=gcd(a:i64;b:i64):i64{let x=a;let y=b;lp(let i=0;!(y=0);i=i+1){let temp=y;let mod=x-x/y*y;y=mod;x=temp;};<x};

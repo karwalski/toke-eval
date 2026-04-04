@@ -1,0 +1,1 @@
+M=equal;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let x=input[0];let y=input[1];let result=mut.false;if(x=y){result=true};j.print(result)};

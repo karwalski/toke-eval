@@ -1,0 +1,1 @@
+M=hex2int;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let result=hexToInt(input);j.print(result);};F=hexToInt(s:Str):i64{let n=s.len;let result=mut.0;lp(let i=0;i<n;i=i+1){let c=s[i];let digit=mut.0;if(c>47){if(c<58){digit=c-48}};if(c>96){if(c<103){digit=c-87}};if(c>64){if(c<71){digit=c-55}};if(digit=0){<0};result=result*16+digit};<result};
