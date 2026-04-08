@@ -22,7 +22,7 @@ Usage::
 
     # With real compiler and tasks directory:
     python scripts/repair_loop_harness.py \\
-        --tkc-path ../tkc/tkc \\
+        --tkc-path ../toke/tkc \\
         --tasks-dir data/humaneval_format.jsonl \\
         --max-iterations 5 \\
         --output results/repair_loop_report.json

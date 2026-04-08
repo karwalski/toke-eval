@@ -24,7 +24,7 @@ Usage:
     # With real predictions:
     python scripts/constrained_decoding_ablation.py \\
         --predictions-dir data/predictions \\
-        --benchmark-dir /path/to/toke-benchmark \\
+        --benchmark-dir /path/to/benchmark \\
         --output-dir data
 
     # Dry run with simulated data:
@@ -55,7 +55,7 @@ CONDITIONS = [
     "python_unconstrained",
 ]
 
-TOKE_GRAMMAR_PATH = Path(__file__).resolve().parents[2] / "toke-spec" / "spec" / "grammar.ebnf"
+TOKE_GRAMMAR_PATH = Path(__file__).resolve().parents[2] / "toke" / "spec" / "grammar.ebnf"
 
 # Simplified Python subset EBNF for constrained decoding reference
 PYTHON_SUBSET_EBNF = r"""
@@ -510,7 +510,7 @@ def main() -> None:
     parser.add_argument("--predictions-dir", type=Path, default=None,
                         help="Directory containing {condition}.jsonl prediction files")
     parser.add_argument("--benchmark-dir", type=Path, default=None,
-                        help="Path to toke-benchmark directory (for task metadata)")
+                        help="Path to benchmark directory (for task metadata)")
     parser.add_argument("--output-dir", type=Path, default=Path("data"),
                         help="Output directory (default: data)")
     parser.add_argument("--tasks", type=int, default=100,

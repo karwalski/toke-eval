@@ -15,14 +15,14 @@ Usage:
     python scripts/checkpoint_regression.py \
         --checkpoints-dir checkpoints/ \
         --predictions-dir predictions/ \
-        --benchmark-dir ../toke-benchmark/hidden_tests/ \
+        --benchmark-dir ../benchmark/hidden_tests/ \
         --output-dir data/
 
     # CI mode with custom thresholds:
     python scripts/checkpoint_regression.py \
         --checkpoints-dir checkpoints/ \
         --predictions-dir predictions/ \
-        --benchmark-dir ../toke-benchmark/hidden_tests/ \
+        --benchmark-dir ../benchmark/hidden_tests/ \
         --ci --threshold-pass1 0.03 --threshold-compile 0.08
 
 Exit codes:

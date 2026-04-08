@@ -6,9 +6,9 @@ producing the CSV required by Gate 1.5 (gate-criteria.md).
 
 Usage:
     python -m toke_eval.generate_token_counts \
-        --solutions ../toke-benchmark/solutions \
-        --tasks ../toke-benchmark/hidden_tests \
-        --results ../toke-benchmark/results/gate1_v5_1000.json \
+        --solutions ../benchmark/solutions \
+        --tasks ../benchmark/hidden_tests \
+        --results ../benchmark/results/gate1_v5_1000.json \
         --output data/gate1_token_counts.csv
 
 Output CSV columns:

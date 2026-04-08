@@ -14,12 +14,12 @@ Dependencies:
 Usage:
     # All four tokenizers against benchmark solutions
     python scripts/multi_tokenizer.py \\
-        --corpus-dir ../toke-benchmark/solutions \\
+        --corpus-dir ../benchmark/solutions \\
         --output data/multi_tokenizer_counts.csv
 
     # Only tiktoken-based tokenizers
     python scripts/multi_tokenizer.py \\
-        --corpus-dir ../toke-benchmark/solutions \\
+        --corpus-dir ../benchmark/solutions \\
         --tokenizers cl100k_base,o200k_base \\
         --output data/multi_tokenizer_counts.csv
 

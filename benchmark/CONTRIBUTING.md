@@ -1,4 +1,4 @@
-# Contributing to toke-benchmark
+# Contributing to toke-eval/benchmark
 
 ## Rules
 

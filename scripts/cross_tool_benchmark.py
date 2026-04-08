@@ -16,7 +16,7 @@ Usage:
     # Real predictions from JSONL files
     python scripts/cross_tool_benchmark.py \\
         --predictions-dir results/predictions \\
-        --benchmark-dir /path/to/toke-benchmark \\
+        --benchmark-dir /path/to/benchmark \\
         --output-dir data
 
 Output:
@@ -877,7 +877,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--benchmark-dir", type=Path, default=None,
-        help="Path to toke-benchmark repo root (for task metadata).",
+        help="Path to benchmark directory (for task metadata).",
     )
     parser.add_argument(
         "--output-dir", type=Path, default=None,

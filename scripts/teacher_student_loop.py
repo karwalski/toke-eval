@@ -22,7 +22,7 @@ Usage::
     python scripts/teacher_student_loop.py \\
         --teacher-model gpt-4o \\
         --student-model toke-coder-v1 \\
-        --tkc-path ../tkc/tkc \\
+        --tkc-path ../toke/tkc \\
         --iterations 3 \\
         --problems-per-iter 500 \\
         --output-dir results/teacher_student

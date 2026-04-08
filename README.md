@@ -49,9 +49,9 @@ Requires Python 3.10+.
 
 | Repository | Role |
 |------------|------|
-| [toke-benchmark](https://github.com/karwalski/toke-benchmark) | Task definitions, hidden tests, reference implementations |
+| [toke-eval/benchmark](https://github.com/karwalski/toke-eval) | Task definitions, hidden tests, reference implementations |
 | [toke-models](https://github.com/karwalski/toke-models) | Model training and adapter merging |
-| [tkc](https://github.com/karwalski/tkc) | Reference compiler (used by evaluation harness) |
+| [toke](https://github.com/karwalski/toke) | Reference compiler (used by evaluation harness) |
 
 ## Licence
 

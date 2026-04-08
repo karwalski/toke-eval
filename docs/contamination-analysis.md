@@ -19,8 +19,8 @@ code-level cross-references:
 
 | Purpose | Repository | Contents |
 |---------|-----------|----------|
-| Training data | `toke-corpus` | 46,754 validated toke programs |
-| Evaluation data | `toke-benchmark` | 500+ held-out benchmark tasks |
+| Training data | `toke-model/corpus` | 46,754 validated toke programs |
+| Evaluation data | `toke-eval/benchmark` | 500+ held-out benchmark tasks |
 | Evaluation harness | `toke-eval` | Pass@k scorer, gate cards, analysis tooling |
 
 This repository boundary is the first line of defence. No import, submodule, or
@@ -44,7 +44,7 @@ immediate contamination signal.
 The benchmark task set was designed and frozen before the final training corpus
 was assembled:
 
-1. Benchmark tasks generated and tagged (`toke-benchmark` tag `v0.1-gate1`)
+1. Benchmark tasks generated and tagged (`toke-eval` tag `v0.1-gate1`)
 2. Holdout task ID list extracted and committed to corpus config
 3. Training corpus generated with holdout enforcement active
 
@@ -66,7 +66,7 @@ corpus entry:
 3. Check for hash collisions between the benchmark solution set and the corpus
 
 **Status:** Method defined; can be run using existing `hashlib.sha256` in
-`toke-corpus/store/writer.py` (line 124). Full cross-set comparison not yet
+`toke-model/corpus/store/writer.py` (line 124). Full cross-set comparison not yet
 automated.
 
 **TODO:** Build a script that loads all corpus entry `tk_source` fields, all
@@ -132,7 +132,7 @@ n-grams (cl100k_base tokenisation is already available in the corpus pipeline).
 
 ### 3.1 QualityScorer enforcement (Story 10.7.4)
 
-The `QualityScorer` class (`toke-corpus/validate/quality.py`) enforces holdout
+The `QualityScorer` class (`toke-model/corpus/validate/quality.py`) enforces holdout
 isolation at scoring time:
 
 - Constructor **requires** a non-empty `holdout_task_ids: set[str]` parameter
@@ -148,7 +148,7 @@ QualityScorer.score()    -> checks task_id in self.holdout_task_ids
 
 ### 3.2 CorpusWriter enforcement (dual layer)
 
-The `CorpusWriter` class (`toke-corpus/store/writer.py`) provides a second,
+The `CorpusWriter` class (`toke-model/corpus/store/writer.py`) provides a second,
 independent enforcement layer:
 
 - Constructor **requires** a non-empty `holdout_task_ids` set
@@ -159,7 +159,7 @@ independent enforcement layer:
 
 ### 3.3 Pipeline startup enforcement
 
-The main pipeline (`toke-corpus/main.py`) enforces holdout configuration at
+The main pipeline (`toke-model/corpus/main.py`) enforces holdout configuration at
 startup:
 
 1. Reads `holdout.task_ids` list and/or `holdout.file` path from `config.yaml`
@@ -171,7 +171,7 @@ The pipeline **cannot start** without an explicit holdout configuration.
 
 ### 3.4 Holdout configuration format
 
-In `toke-corpus/config.yaml`:
+In `toke-model/corpus/config.yaml`:
 
 ```yaml
 holdout:
@@ -187,9 +187,9 @@ Both `task_ids` and `file` sources are merged. The file format supports comments
 
 ### 3.5 Process for adding new benchmark tasks
 
-When new tasks are added to `toke-benchmark`:
+When new tasks are added to `toke-eval/benchmark`:
 
-1. Generate new task with `task-a-NNNN` ID in `toke-benchmark`
+1. Generate new task with `task-a-NNNN` ID in `toke-eval/benchmark`
 2. Add the task ID to the holdout configuration (`config.yaml` or holdout file)
 3. Verify the holdout set size matches the benchmark task count
 4. Re-run contamination detection (section 2) against the existing corpus
@@ -240,7 +240,7 @@ This structure allows:
 
 ### 4.4 Existing hash infrastructure
 
-The reproducibility package (`toke-spec/docs/gate1-reproducibility.md`) already
+The reproducibility package (`toke/spec/docs/gate1-reproducibility.md`) already
 defines hash commitments for:
 
 - `gate1_v5_1000.json` (results file)
@@ -261,10 +261,10 @@ current benchmark set in the Gate 2 evaluation plan.
 
 The separation claim is verifiable through git commit history:
 
-1. `toke-benchmark` tag `v0.1-gate1` timestamps when the benchmark was frozen
-2. `toke-corpus` commit history shows when holdout enforcement was added
+1. `toke-eval` tag `v0.1-gate1` timestamps when the benchmark was frozen
+2. `toke-model` commit history shows when holdout enforcement was added
    (Story 10.7.4)
-3. Training data generation commits in `toke-corpus` postdate the holdout
+3. Training data generation commits in `toke-model` postdate the holdout
    enforcement commit
 
 Any third party with repository access can verify these timestamps
@@ -277,7 +277,7 @@ independently.
 - **Namespace check:** Scan all corpus entries for task IDs matching
   `task-a-*` pattern. Fail the build if any are found.
 - **Holdout completeness check:** Compare the holdout set in `config.yaml`
-  against the full list of task IDs in `toke-benchmark`. Fail if any benchmark
+  against the full list of task IDs in `toke-eval/benchmark`. Fail if any benchmark
   task ID is missing from the holdout set.
 - **Hash verification:** Recompute the Merkle root of the current benchmark
   set and compare against the committed value. Fail on mismatch.
@@ -286,10 +286,10 @@ independently.
 
 A reviewer can independently verify contamination isolation:
 
-1. **Repository structure:** Confirm `toke-corpus` and `toke-benchmark` are
+1. **Repository structure:** Confirm `toke-model/corpus` and `toke-eval/benchmark` are
    separate repositories with no cross-references
 2. **Namespace disjointness:** Confirm no `task-a-*` IDs exist in corpus
-   output: `grep -r "task-a-" toke-corpus/corpus/`
+   output: `grep -r "task-a-" toke-model/corpus/`
 3. **Holdout enforcement:** Read `QualityScorer` and `CorpusWriter` source to
    confirm hard-reject logic
 4. **Temporal ordering:** Check git log dates across repositories
@@ -302,12 +302,12 @@ A reviewer can independently verify contamination isolation:
 
 | Artifact | Location | Purpose |
 |----------|----------|---------|
-| Holdout config | `toke-corpus/config.yaml` | Lists blocked task IDs |
-| QualityScorer | `toke-corpus/validate/quality.py` | Scoring-time enforcement |
-| CorpusWriter | `toke-corpus/store/writer.py` | Write-time enforcement |
-| Pipeline main | `toke-corpus/main.py` | Startup enforcement |
-| Benchmark tag | `toke-benchmark` tag `v0.1-gate1` | Frozen benchmark state |
-| Reproducibility package | `toke-spec/docs/gate1-reproducibility.md` | Hash commitments |
+| Holdout config | `toke-model/corpus/config.yaml` | Lists blocked task IDs |
+| QualityScorer | `toke-model/corpus/validate/quality.py` | Scoring-time enforcement |
+| CorpusWriter | `toke-model/corpus/store/writer.py` | Write-time enforcement |
+| Pipeline main | `toke-model/corpus/main.py` | Startup enforcement |
+| Benchmark tag | `toke-eval` tag `v0.1-gate1` | Frozen benchmark state |
+| Reproducibility package | `toke/spec/docs/gate1-reproducibility.md` | Hash commitments |
 | This document | `toke-eval/docs/contamination-analysis.md` | Methodology |
 
 ---
@@ -364,9 +364,9 @@ these differences explicitly in the Gate 2 evaluation.
 ## References
 
 - Story 10.7.4: Holdout enforcement in corpus builder
-- `toke-spec/docs/gate1-reproducibility.md`: Gate 1 contamination section
-- `toke-corpus/validate/quality.py`: QualityScorer with holdout isolation
-- `toke-corpus/store/writer.py`: CorpusWriter with holdout enforcement
-- `toke-corpus/main.py`: Pipeline startup holdout validation
+- `toke/spec/docs/gate1-reproducibility.md`: Gate 1 contamination section
+- `toke-model/corpus/validate/quality.py`: QualityScorer with holdout isolation
+- `toke-model/corpus/store/writer.py`: CorpusWriter with holdout enforcement
+- `toke-model/corpus/main.py`: Pipeline startup holdout validation
 - Chen et al., "Evaluating Large Language Models Trained on Code" (2021):
   Pass@k methodology and contamination discussion

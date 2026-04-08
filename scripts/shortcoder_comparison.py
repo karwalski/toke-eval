@@ -17,8 +17,8 @@ IMPORTANT — ShortCoder proxy disclaimer:
 
 Usage:
     python scripts/shortcoder_comparison.py \\
-        --benchmark-dir /path/to/toke-benchmark \\
-        --corpus-dir /path/to/toke-benchmark/baselines/python \\
+        --benchmark-dir /path/to/benchmark \\
+        --corpus-dir /path/to/benchmark/baselines/python \\
         --output-dir results/shortcoder_comparison
 
 Output:
@@ -358,7 +358,7 @@ def run_comparison(
     """Run the full ShortCoder comparison harness.
 
     Args:
-        benchmark_dir: Path to toke-benchmark repo root.
+        benchmark_dir: Path to benchmark directory.
         corpus_dir: Path to Python baselines directory (contains solutions.py).
         bpe_path: Optional path to custom BPE model file.
         seed: Random seed for bootstrap reproducibility.
@@ -589,7 +589,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--benchmark-dir", type=Path, required=True,
-        help="Path to toke-benchmark repo root.",
+        help="Path to benchmark directory.",
     )
     parser.add_argument(
         "--corpus-dir", type=Path, required=True,

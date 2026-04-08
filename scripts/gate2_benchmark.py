@@ -12,7 +12,7 @@ Steps:
 
 Usage:
     python scripts/gate2_benchmark.py \
-        --corpus ~/tk/toke-tokenizer/corpus_p2.jsonl \
+        --corpus ~/tk/toke-model/tokenizer/corpus_p2.jsonl \
         --tkc ~/tk/toke/tkc \
         --output data/eval_report_gate2.json \
         --max-entries 5000

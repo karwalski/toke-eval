@@ -10,7 +10,7 @@ cheaper per correct solution than Python.
 
 Usage:
     python scripts/cost_latency_benchmark.py \\
-        --benchmark-dir ../toke-benchmark \\
+        --benchmark-dir ../benchmark \\
         --output-dir data \\
         --dry-run --tasks 50 --seed 42
 
@@ -691,7 +691,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--benchmark-dir", type=Path, default=None,
-        help="Path to toke-benchmark repo root. Optional in --dry-run mode.",
+        help="Path to benchmark directory. Optional in --dry-run mode.",
     )
     parser.add_argument(
         "--output-dir", type=Path, default=Path("data"),

@@ -1,7 +1,7 @@
-# toke-benchmark
+# toke-eval/benchmark
 
 Benchmark task definitions and evaluation harness for
-[toke](https://github.com/karwalski/toke-spec).
+[toke](https://github.com/karwalski/toke).
 
 ## What is here
 

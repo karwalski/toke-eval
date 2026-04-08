@@ -32,7 +32,7 @@ Usage::
     # Real evaluation:
     python scripts/error_reward_shaping.py \
         --corpus-path data/predictions.jsonl \
-        --tkc-path ../tkc/build/tkc \
+        --tkc-path ../toke/build/tkc \
         --output data/shaped_reward_report.json
 
 Exit codes:

@@ -1,7 +1,7 @@
 {
   "gate": "Gate 2",
   "timestamp": "2026-04-04T07:32:56Z",
-  "corpus_file": "corpus_p2.jsonl (toke-tokenizer)",
+  "corpus_file": "corpus_p2.jsonl (toke-model/tokenizer)",
   "corpus_entries_sampled": 5000,
   "tokenizer": "cl100k_base",
   "compiler_version": "tkc 0.1.0",

@@ -2,7 +2,7 @@
   "n_tasks": 50,
   "seed": 42,
   "dry_run": true,
-  "toke_grammar_source": "/Users/matthew.watt/tk/toke-spec/spec/grammar.ebnf",
+  "toke_grammar_source": "/Users/matthew.watt/tk/toke/spec/grammar.ebnf",
   "conditions": [
     {
       "condition": "toke_constrained",

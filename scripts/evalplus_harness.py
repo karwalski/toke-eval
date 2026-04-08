@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """EvalPlus-compatible evaluation harness for toke code generation.
 
-Loads tasks from toke-benchmark format, generates N solutions per task
+Loads tasks from benchmark format, generates N solutions per task
 (stubbed model inference with temperature support), compiles each with tkc,
 runs test cases, and computes Pass@k using the unbiased estimator from
 Chen et al. (2021).
 
 Usage:
     python scripts/evalplus_harness.py \
-        --tasks-dir ../toke-benchmark/hidden_tests/ \
-        --solutions-dir ../toke-benchmark/solutions/ \
-        --compiler ../tkc/tkc \
+        --tasks-dir ../benchmark/hidden_tests/ \
+        --solutions-dir ../benchmark/solutions/ \
+        --compiler ../toke/tkc \
         --n-samples 10 \
         --temperatures 0.0 0.2 0.8 \
         --output results/evalplus_results.json
@@ -156,7 +156,7 @@ def run_test_cases(binary: Path, test_file: Path,
     with open(test_file) as f:
         task = yaml.safe_load(f)
 
-    # toke-benchmark uses 'test_inputs' at top level
+    # benchmark format uses 'test_inputs' at top level
     cases = task.get("test_inputs", [])
     if not cases:
         return 0, 0
@@ -437,7 +437,7 @@ def main():
     )
     parser.add_argument(
         "--tasks-dir", type=Path, required=True,
-        help="Directory containing task YAML files (toke-benchmark format)",
+        help="Directory containing task YAML files (benchmark format)",
     )
     parser.add_argument(
         "--solutions-dir", type=Path, default=None,

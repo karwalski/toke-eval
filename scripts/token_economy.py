@@ -15,11 +15,11 @@ Dependencies:
 
 Usage:
     python scripts/token_economy.py \\
-        --benchmark-dir ../toke-benchmark \\
+        --benchmark-dir ../benchmark \\
         --output-dir data
 
     python scripts/token_economy.py \\
-        --benchmark-dir ../toke-benchmark \\
+        --benchmark-dir ../benchmark \\
         --output-dir results \\
         --tokenizers cl100k_base,o200k_base \\
         --seed 42
@@ -105,7 +105,7 @@ def _load_hf_tokenizer(key: str, model_id: str) -> LoadedTokenizer | None:
 def _load_bpe_tokenizer(bpe_path: Path | None) -> LoadedTokenizer | None:
     if bpe_path is None:
         # Try default location
-        default = Path(__file__).resolve().parent.parent.parent / "toke-corpus" / "tokenizer" / "toke.model"
+        default = Path(__file__).resolve().parent.parent.parent / "toke-model" / "tokenizer" / "toke.model"
         if default.exists():
             bpe_path = default
         else:
@@ -632,7 +632,7 @@ def main(argv: list[str] | None = None) -> int:
         "--benchmark-dir",
         type=Path,
         required=True,
-        help="Path to toke-benchmark repo root (contains solutions/ and baselines/).",
+        help="Path to benchmark directory (contains solutions/ and baselines/).",
     )
     parser.add_argument(
         "--output-dir",

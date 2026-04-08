@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Convert toke-benchmark tasks to EvalPlus JSON schema.
+"""Convert benchmark tasks to EvalPlus JSON schema.
 
-Reads task YAML files from toke-benchmark and produces a JSON file
+Reads task YAML files from toke-eval/benchmark and produces a JSON file
 conforming to the EvalPlus schema with these fields per task:
 
     task_id:            unique identifier (e.g. "toke/task-a-0001")
@@ -12,8 +12,8 @@ conforming to the EvalPlus schema with these fields per task:
 
 Usage:
     python scripts/evalplus_format.py \
-        --tasks-dir ../toke-benchmark/hidden_tests/ \
-        --solutions-dir ../toke-benchmark/solutions/ \
+        --tasks-dir ../benchmark/hidden_tests/ \
+        --solutions-dir ../benchmark/solutions/ \
         --output data/evalplus_tasks.json
 
 Exit codes:
@@ -87,7 +87,7 @@ def convert_task(
     task_file: Path,
     solutions_dir: Path | None = None,
 ) -> dict[str, Any]:
-    """Convert a single toke-benchmark YAML task to EvalPlus format."""
+    """Convert a single benchmark YAML task to EvalPlus format."""
     with open(task_file) as f:
         task = yaml.safe_load(f)
 
@@ -141,7 +141,7 @@ def convert_all(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Convert toke-benchmark tasks to EvalPlus JSON schema",
+        description="Convert benchmark tasks to EvalPlus JSON schema",
     )
     parser.add_argument(
         "--tasks-dir", type=Path, required=True,
