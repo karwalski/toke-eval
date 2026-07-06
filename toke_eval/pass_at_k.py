@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Pass@k evaluation for toke code generation models.
 
-Compiles solutions with tkc, runs against test cases, and computes pass@k.
+Compiles solutions with the toke compiler, runs against test cases, and computes pass@k.
 
 Usage:
     python -m toke_eval.pass_at_k \\
         --solutions-dir solutions/ \\
         --tests-dir hidden_tests/ \\
-        --compiler ./tkc \\
+        --compiler ./toke \\
         --output results.json
 
 Exit codes:
@@ -114,14 +114,16 @@ class BenchmarkReport:
 
 def compile_toke(source_path: Path, compiler: str, output: Path,
                  timeout: int = 30) -> tuple[bool, str]:
-    """Compile a .toke file to a native binary via tkc + clang."""
+    """Compile a .toke file to a native binary via toke + clang."""
     with tempfile.NamedTemporaryFile(suffix=".ll", delete=False) as tmp:
         ll_path = tmp.name
 
     try:
-        # tkc emits LLVM IR to stdout
+        # toke compiler emits LLVM IR to stdout
+        # 124.4f: --allow-all bakes every capability grant so the deny-by-default
+        # flip (124.4g) can't fail these evaluated binaries closed at a sink.
         result = subprocess.run(
-            [compiler, str(source_path)],
+            [compiler, "--allow-all", str(source_path)],
             capture_output=True, text=True, timeout=timeout
         )
         if result.returncode != 0:
@@ -265,7 +267,7 @@ def main():
     parser = argparse.ArgumentParser(description="Pass@1 evaluation for toke")
     parser.add_argument("--solutions-dir", type=Path, required=True)
     parser.add_argument("--tests-dir", type=Path, required=True)
-    parser.add_argument("--compiler", default="tkc")
+    parser.add_argument("--compiler", default="toke")
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--timeout", type=int, default=10)
     args = parser.parse_args()

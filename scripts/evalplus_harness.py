@@ -2,7 +2,7 @@
 """EvalPlus-compatible evaluation harness for toke code generation.
 
 Loads tasks from benchmark format, generates N solutions per task
-(stubbed model inference with temperature support), compiles each with tkc,
+(stubbed model inference with temperature support), compiles each with toke,
 runs test cases, and computes Pass@k using the unbiased estimator from
 Chen et al. (2021).
 
@@ -10,7 +10,7 @@ Usage:
     python scripts/evalplus_harness.py \
         --tasks-dir ../benchmark/hidden_tests/ \
         --solutions-dir ../benchmark/solutions/ \
-        --compiler ../toke/tkc \
+        --compiler ../toke/toke \
         --n-samples 10 \
         --temperatures 0.0 0.2 0.8 \
         --output results/evalplus_results.json
@@ -117,13 +117,14 @@ class EvalPlusReport:
 
 def compile_toke(source_path: Path, compiler: str, output: Path,
                  timeout: int = 30) -> tuple[bool, str]:
-    """Compile a .toke source file to a native binary via tkc + clang."""
+    """Compile a .toke source file to a native binary via toke + clang."""
     with tempfile.NamedTemporaryFile(suffix=".ll", delete=False) as tmp:
         ll_path = tmp.name
 
     try:
+        # 124.4f: --allow-all so the deny-by-default flip (124.4g) is a no-op here.
         result = subprocess.run(
-            [compiler, str(source_path)],
+            [compiler, "--allow-all", str(source_path)],
             capture_output=True, text=True, timeout=timeout,
         )
         if result.returncode != 0:
@@ -243,7 +244,7 @@ def evaluate_task(
         task_id: task identifier
         test_file: path to YAML test file
         solutions: list of solution file paths or source strings
-        compiler: path to tkc binary
+        compiler: path to toke compiler binary
         temperatures: list of temperatures used (for metadata)
         compile_timeout: max seconds for compilation
         run_timeout: max seconds per test execution
@@ -444,8 +445,8 @@ def main():
         help="Directory with pre-generated .toke solution files",
     )
     parser.add_argument(
-        "--compiler", default="tkc",
-        help="Path to tkc compiler binary (default: tkc)",
+        "--compiler", default="toke",
+        help="Path to toke compiler binary (default: toke)",
     )
     parser.add_argument(
         "--n-samples", type=int, default=10,
