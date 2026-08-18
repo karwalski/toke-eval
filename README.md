@@ -4,7 +4,7 @@ This repository measures how well AI models write
 [toke](https://github.com/karwalski/toke) code. It contains benchmark
 tasks, an evaluation harness that compiles and runs generated programs,
 and tools for analysing results. It consolidates what was formerly the
-standalone `toke-benchmark` repository.
+standalone `toke-benchmark` repository (now retired and archived).
 
 ## What's Inside
 
@@ -77,7 +77,9 @@ toke-eval/
 | Repository | Role |
 |------------|------|
 | [toke](https://github.com/karwalski/toke) | Language specification and reference compiler (`toke`) |
-| [toke-model](https://github.com/karwalski/toke-model) | Model training, corpus generation, adapter merging |
+| [toke-corpus](https://github.com/karwalski/toke-corpus) | Training-data generation and curation (the corpora this harness measures against) |
+| [toke-model](https://github.com/karwalski/toke-models) | Model training, adapter merging (the models this harness evaluates) |
+| [toke-tokenizer](https://github.com/karwalski/toke-tokenizer) | Custom tokenizer used for token-efficiency measurements |
 | [toke-mcp](https://github.com/karwalski/toke-mcp) | MCP server providing toke tooling to AI assistants |
 
 ## Licence
