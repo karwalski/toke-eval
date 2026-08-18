@@ -30,7 +30,7 @@ pip install -e .
 python -m toke_eval.pass_at_k \
     --solutions-dir /path/to/solutions/ \
     --tests-dir /path/to/hidden_tests/ \
-    --compiler /path/to/tkc \
+    --compiler /path/to/toke \
     --output results.json
 
 # Measure token efficiency
@@ -76,7 +76,7 @@ toke-eval/
 
 | Repository | Role |
 |------------|------|
-| [toke](https://github.com/karwalski/toke) | Language specification and reference compiler (`tkc`) |
+| [toke](https://github.com/karwalski/toke) | Language specification and reference compiler (`toke`) |
 | [toke-model](https://github.com/karwalski/toke-model) | Model training, corpus generation, adapter merging |
 | [toke-mcp](https://github.com/karwalski/toke-mcp) | MCP server providing toke tooling to AI assistants |
 

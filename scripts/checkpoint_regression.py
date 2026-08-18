@@ -179,10 +179,10 @@ def load_checkpoint_predictions(
 
 def compile_check(
     source_code: str,
-    compiler: str = "tkc",
+    compiler: str = "toke",
     timeout: int = 30,
 ) -> tuple[bool, str, list[str]]:
-    """Compile toke source via tkc --check.
+    """Compile toke source via toke --check.
 
     Returns (success, stderr_output, list_of_error_codes).
     """
@@ -361,7 +361,7 @@ def evaluate_checkpoint(
     checkpoint_name: str,
     step: int,
     predictions: list[dict[str, Any]],
-    compiler: str = "tkc",
+    compiler: str = "toke",
 ) -> CheckpointMetrics:
     """Evaluate a single checkpoint against its predictions.
 
@@ -693,8 +693,8 @@ def main(argv: list[str] | None = None) -> int:
         help="Output directory for results (default: data/)",
     )
     parser.add_argument(
-        "--compiler", default="tkc",
-        help="Path to tkc compiler binary (default: tkc)",
+        "--compiler", default="toke",
+        help="Path to toke compiler binary (default: toke)",
     )
     parser.add_argument(
         "--dry-run", action="store_true",

@@ -247,27 +247,27 @@ def load_c_solutions(solutions_dir: Path) -> dict[str, Any]:
 # Toke solutions
 # ---------------------------------------------------------------------------
 
-# Search order for the tkc compiler.
+# Search order for the toke compiler.
 _TKC_SEARCH_PATHS = [
     os.environ.get("TKC", ""),
-    os.path.expanduser("~/tk/toke/tkc"),
-    os.path.expanduser("~/tk/toke/bin/tkc"),
+    os.path.expanduser("~/tk/toke/toke"),
+    os.path.expanduser("~/tk/toke/bin/toke"),
 ]
 
 
 def _find_tkc() -> str:
-    """Locate the tkc compiler binary."""
+    """Locate the toke compiler binary."""
     for candidate in _TKC_SEARCH_PATHS:
         if candidate and os.path.isfile(candidate) and os.access(candidate, os.X_OK):
             return candidate
 
     # Last resort: check PATH.
-    which = shutil.which("tkc")
+    which = shutil.which("toke")
     if which:
         return which
 
     raise FileNotFoundError(
-        "Cannot find tkc compiler.  Set TKC env var or ensure it is on PATH."
+        "Cannot find toke compiler.  Set TKC env var or ensure it is on PATH."
     )
 
 
@@ -300,7 +300,7 @@ def load_toke_solutions(solutions_dir: Path) -> dict[str, Any]:
         task-a-0002.toke
         ...
 
-    Each file is compiled with tkc to produce a binary.  The binary is
+    Each file is compiled with the toke compiler to produce a binary.  The binary is
     invoked as:
         ./<binary> <json-input>
     and must print JSON on stdout.

@@ -25,6 +25,6 @@ structured diagnostic output.
 
 ## Environment
 
-- tkc version:
+- toke version:
 - OS and architecture:
 - toke spec version (commit or tag):

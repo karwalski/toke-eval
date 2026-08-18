@@ -4,7 +4,7 @@
 Implements the NVIDIA data-flywheel / SelfCodeAlign pattern:
   1. Teacher (large model) generates programming problems per iteration
   2. Student (fine-tuned model) generates toke solutions
-  3. Compiler (tkc) verifies solutions
+  3. Compiler (toke) verifies solutions
   4. Teacher analyzes failure patterns and targets weak areas in next iteration
 
 References:
@@ -22,7 +22,7 @@ Usage::
     python scripts/teacher_student_loop.py \\
         --teacher-model gpt-4o \\
         --student-model toke-coder-v1 \\
-        --tkc-path ../toke/tkc \\
+        --tkc-path ../toke/toke \\
         --iterations 3 \\
         --problems-per-iter 500 \\
         --output-dir results/teacher_student
@@ -276,7 +276,7 @@ def verify_with_compiler(
     dry_run: bool,
     rng: random.Random,
 ) -> list[dict[str, Any]]:
-    """Compile each solution with tkc and collect diagnostics.
+    """Compile each solution with the toke compiler and collect diagnostics.
 
     Returns a list of per-problem result dicts.
     """
@@ -312,7 +312,7 @@ def verify_with_compiler(
 
 
 def _run_tkc(source: str, tkc_path: str) -> list[dict[str, Any]]:
-    """Run tkc --check --diag-json on a source string."""
+    """Run toke --check --diag-json on a source string."""
     try:
         result = subprocess.run(
             [tkc_path, "--check", "--diag-json"],
@@ -487,7 +487,7 @@ def run_iteration(
     print(f"    Generated {len(solutions)} solutions.")
 
     # Step 3: Compiler verifies solutions.
-    print(f"  Step 3: Compiler ({tkc_path}) verifying solutions...")
+    print(f"  Step 3: Compiler verifying solutions ({tkc_path})...")
     verification_results = verify_with_compiler(
         problems, solutions, tkc_path, dry_run, rng,
     )
@@ -710,8 +710,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--tkc-path",
         type=str,
-        default="tkc",
-        help="Path to tkc compiler binary (default: tkc)",
+        default="toke",
+        help="Path to toke compiler binary (default: toke)",
     )
     parser.add_argument(
         "--iterations",
@@ -758,7 +758,7 @@ def main(argv: list[str] | None = None) -> int:
     print("Teacher-Student Evaluation Loop -- Story 9.2.3")
     print(f"  teacher-model:    {args.teacher_model}")
     print(f"  student-model:    {args.student_model}")
-    print(f"  tkc-path:         {args.tkc_path}")
+    print(f"  compiler:         {args.tkc_path}")
     print(f"  iterations:       {args.iterations}")
     print(f"  problems-per-iter: {args.problems_per_iter}")
     print(f"  output-dir:       {args.output_dir}")

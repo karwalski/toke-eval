@@ -8,7 +8,7 @@
 #   docker run --rm -v $(pwd)/results:/app/results toke-eval \
 #       --tasks-dir /app/tasks \
 #       --solutions-dir /app/solutions \
-#       --compiler /app/tkc \
+#       --compiler /app/toke \
 #       --output /app/results/evalplus_results.json
 
 FROM python:3.11-slim AS base
@@ -28,9 +28,9 @@ RUN pip install --no-cache-dir . scipy
 COPY scripts/ scripts/
 COPY toke_eval/ toke_eval/
 
-# Copy tkc compiler binary (must be Linux amd64/arm64)
-# COPY tkc /app/tkc
-# RUN chmod +x /app/tkc
+# Copy toke compiler binary (must be Linux amd64/arm64)
+# COPY toke /app/toke
+# RUN chmod +x /app/toke
 
 # Copy benchmark tasks and solutions
 # COPY tasks/ /app/tasks/

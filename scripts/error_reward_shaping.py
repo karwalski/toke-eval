@@ -32,7 +32,7 @@ Usage::
     # Real evaluation:
     python scripts/error_reward_shaping.py \
         --corpus-path data/predictions.jsonl \
-        --tkc-path ../toke/build/tkc \
+        --tkc-path ../toke/build/toke \
         --output data/shaped_reward_report.json
 
 Exit codes:
@@ -137,7 +137,7 @@ def highest_stage_reached(diagnostics: list[dict]) -> tuple[str, float]:
 
 
 def run_tkc_check(source: str, tkc_path: str) -> dict:
-    """Run ``tkc --check --diag-json`` and return parsed result."""
+    """Run ``toke --check --diag-json`` and return parsed result."""
     with tempfile.NamedTemporaryFile(
         mode="w", suffix=".toke", delete=False,
     ) as f:
@@ -521,8 +521,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="JSONL corpus with {task_id, source} per line.",
     )
     p.add_argument(
-        "--tkc-path", type=str, default="tkc",
-        help="Path to the tkc compiler binary (default: tkc).",
+        "--tkc-path", type=str, default="toke",
+        help="Path to the toke compiler binary (default: toke).",
     )
     p.add_argument(
         "--output", type=Path, required=True,

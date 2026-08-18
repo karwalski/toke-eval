@@ -1,1 +1,1 @@
-M=join;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input[0];let delim=input[1];let result=mut."";let n=arr.len;lp(let i=0;i<n;i=i+1){if(i>0){result=result+delim};result=result+arr[i]};j.print(result)};
+m=join;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let arr=input.get(0);let delim=input.get(1);let result=mut."";let n=arr.len;lp(let i=0;i<n;i=i+1){if(i>0){result=result+delim};result=result+arr.get(i)};j.print(result)};

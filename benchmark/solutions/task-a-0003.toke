@@ -1,1 +1,1 @@
-M=min;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let minVal=mut.arr[0];lp(let i=1;i<arr.len;i=i+1){if(arr[i]<minVal){minVal=arr[i];}};j.print(minVal);};
+m=min;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let arr=input;let minVal=mut.arr.get(0);lp(let i=1;i<arr.len;i=i+1){if(arr.get(i)<minVal){minVal=arr.get(i);}};j.print(minVal);};

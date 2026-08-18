@@ -47,7 +47,7 @@
 
 | Field | Value |
 |-------|-------|
-| Compiler version (tkc) | |
+| Compiler version (toke) | |
 | Compiler binary hash | |
 | Compiler flags | |
 | LLVM version | |

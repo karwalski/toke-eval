@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """Generate 500 new hidden test tasks (task-a-0501 through task-a-1000).
 
-All tasks are scoped to I/O type signatures that the current tkc codegen
+All tasks are scoped to I/O type signatures that the current toke codegen
 handles correctly.  No string input/output tasks are included.
 
 Categories and signatures are chosen for diversity across:
   - arithmetic, array_list, mathematical_sequences, comparison_logic,
     search_selection, encoding, bitwise
-  - i64->i64, [i64]->i64, [i64]->[i64], [i64]->bool, i64->bool,
-    [i64,i64]->i64, [[i64],i64]->i64, [[i64],i64]->[i64],
-    [[i64],i64]->bool, [[i64],[i64]]->[i64], i64->[i64],
-    [i64,i64]->[i64], [i64,i64]->bool
+  - i64->i64, @i64->i64, @i64->@i64, @i64->bool, i64->bool,
+    [i64,i64]->i64, [@i64,i64]->i64, [@i64,i64]->@i64,
+    [@i64,i64]->bool, [@i64,@i64]->@i64, i64->@i64,
+    [i64,i64]->@i64, [i64,i64]->bool
 
 Each task has 15-50 test cases with edge cases.
 """
@@ -192,7 +192,7 @@ def gen_lcm(rng):
     return cases
 _add("Return the least common multiple of two positive integers", "[i64, i64]", "i64", "arithmetic", gen_lcm)
 
-# ---------- [i64] -> i64 tasks ----------
+# ---------- @i64 -> i64 tasks ----------
 
 # 13. Sum of list
 def gen_sum(rng):
@@ -201,7 +201,7 @@ def gen_sum(rng):
         arr = _rand_list(rng, min_len=0)
         cases.append({"input": arr, "expected": sum(arr)})
     return cases
-_add("Return the sum of all integers in the list", "[i64]", "i64", "arithmetic", gen_sum)
+_add("Return the sum of all integers in the list", "@i64", "i64", "arithmetic", gen_sum)
 
 # 14. Product of list
 def gen_product(rng):
@@ -212,7 +212,7 @@ def gen_product(rng):
         for x in arr: p *= x
         cases.append({"input": arr, "expected": p})
     return cases
-_add("Return the product of all integers in the list", "[i64]", "i64", "arithmetic", gen_product)
+_add("Return the product of all integers in the list", "@i64", "i64", "arithmetic", gen_product)
 
 # 15. Maximum
 def gen_max(rng):
@@ -221,7 +221,7 @@ def gen_max(rng):
         arr = _rand_list_nonempty(rng)
         cases.append({"input": arr, "expected": max(arr)})
     return cases
-_add("Return the maximum value in the list", "[i64]", "i64", "search_selection", gen_max)
+_add("Return the maximum value in the list", "@i64", "i64", "search_selection", gen_max)
 
 # 16. Minimum
 def gen_min(rng):
@@ -230,7 +230,7 @@ def gen_min(rng):
         arr = _rand_list_nonempty(rng)
         cases.append({"input": arr, "expected": min(arr)})
     return cases
-_add("Return the minimum value in the list", "[i64]", "i64", "search_selection", gen_min)
+_add("Return the minimum value in the list", "@i64", "i64", "search_selection", gen_min)
 
 # 17. Length
 def gen_length(rng):
@@ -239,7 +239,7 @@ def gen_length(rng):
         arr = _rand_list(rng, min_len=0)
         cases.append({"input": arr, "expected": len(arr)})
     return cases
-_add("Return the number of elements in the list", "[i64]", "i64", "array_list", gen_length)
+_add("Return the number of elements in the list", "@i64", "i64", "array_list", gen_length)
 
 # 18. Count positive
 def gen_count_pos(rng):
@@ -248,7 +248,7 @@ def gen_count_pos(rng):
         arr = _rand_list(rng, min_len=0)
         cases.append({"input": arr, "expected": sum(1 for x in arr if x > 0)})
     return cases
-_add("Count how many positive numbers are in the list", "[i64]", "i64", "comparison_logic", gen_count_pos)
+_add("Count how many positive numbers are in the list", "@i64", "i64", "comparison_logic", gen_count_pos)
 
 # 19. Count negative
 def gen_count_neg(rng):
@@ -257,7 +257,7 @@ def gen_count_neg(rng):
         arr = _rand_list(rng, min_len=0)
         cases.append({"input": arr, "expected": sum(1 for x in arr if x < 0)})
     return cases
-_add("Count how many negative numbers are in the list", "[i64]", "i64", "comparison_logic", gen_count_neg)
+_add("Count how many negative numbers are in the list", "@i64", "i64", "comparison_logic", gen_count_neg)
 
 # 20. Count zeros
 def gen_count_zero(rng):
@@ -266,9 +266,9 @@ def gen_count_zero(rng):
         arr = _rand_list(rng, min_len=0, lo=-5, hi=5)
         cases.append({"input": arr, "expected": sum(1 for x in arr if x == 0)})
     return cases
-_add("Count how many zeros are in the list", "[i64]", "i64", "comparison_logic", gen_count_zero)
+_add("Count how many zeros are in the list", "@i64", "i64", "comparison_logic", gen_count_zero)
 
-# ---------- [i64] -> [i64] tasks ----------
+# ---------- @i64 -> @i64 tasks ----------
 
 # 21. Reverse list
 def gen_reverse(rng):
@@ -277,7 +277,7 @@ def gen_reverse(rng):
         arr = _rand_list(rng, min_len=0)
         cases.append({"input": arr, "expected": arr[::-1]})
     return cases
-_add("Reverse the list", "[i64]", "[i64]", "array_list", gen_reverse)
+_add("Reverse the list", "@i64", "@i64", "array_list", gen_reverse)
 
 # 22. Double each element
 def gen_double(rng):
@@ -286,7 +286,7 @@ def gen_double(rng):
         arr = _rand_list(rng, min_len=0)
         cases.append({"input": arr, "expected": [x * 2 for x in arr]})
     return cases
-_add("Double every element in the list", "[i64]", "[i64]", "array_list", gen_double)
+_add("Double every element in the list", "@i64", "@i64", "array_list", gen_double)
 
 # 23. Negate each element
 def gen_negate(rng):
@@ -295,7 +295,7 @@ def gen_negate(rng):
         arr = _rand_list(rng, min_len=0)
         cases.append({"input": arr, "expected": [-x for x in arr]})
     return cases
-_add("Negate every element in the list", "[i64]", "[i64]", "array_list", gen_negate)
+_add("Negate every element in the list", "@i64", "@i64", "array_list", gen_negate)
 
 # 24. Filter positives
 def gen_filter_pos(rng):
@@ -304,7 +304,7 @@ def gen_filter_pos(rng):
         arr = _rand_list(rng, min_len=0)
         cases.append({"input": arr, "expected": [x for x in arr if x > 0]})
     return cases
-_add("Return a new list containing only the positive elements", "[i64]", "[i64]", "array_list", gen_filter_pos)
+_add("Return a new list containing only the positive elements", "@i64", "@i64", "array_list", gen_filter_pos)
 
 # 25. Filter even
 def gen_filter_even(rng):
@@ -313,7 +313,7 @@ def gen_filter_even(rng):
         arr = _rand_list(rng, min_len=0)
         cases.append({"input": arr, "expected": [x for x in arr if x % 2 == 0]})
     return cases
-_add("Return a new list containing only the even elements", "[i64]", "[i64]", "array_list", gen_filter_even)
+_add("Return a new list containing only the even elements", "@i64", "@i64", "array_list", gen_filter_even)
 
 # 26. Prefix sums
 def gen_prefix_sum(rng):
@@ -327,7 +327,7 @@ def gen_prefix_sum(rng):
             ps.append(s)
         cases.append({"input": arr, "expected": ps})
     return cases
-_add("Return the running cumulative sum (prefix sums) of the list", "[i64]", "[i64]", "array_list", gen_prefix_sum)
+_add("Return the running cumulative sum (prefix sums) of the list", "@i64", "@i64", "array_list", gen_prefix_sum)
 
 # 27. Sort ascending
 def gen_sort(rng):
@@ -336,9 +336,9 @@ def gen_sort(rng):
         arr = _rand_list(rng, min_len=0, max_len=15)
         cases.append({"input": arr, "expected": sorted(arr)})
     return cases
-_add("Sort the list in ascending order", "[i64]", "[i64]", "array_list", gen_sort)
+_add("Sort the list in ascending order", "@i64", "@i64", "array_list", gen_sort)
 
-# ---------- [i64] -> bool tasks ----------
+# ---------- @i64 -> bool tasks ----------
 
 # 28. Is sorted ascending
 def gen_is_sorted(rng):
@@ -350,7 +350,7 @@ def gen_is_sorted(rng):
         arr = _rand_list(rng, min_len=2, max_len=10)
         cases.append({"input": arr, "expected": arr == sorted(arr)})
     return cases
-_add("Return true if the list is sorted in non-decreasing order", "[i64]", "bool", "comparison_logic", gen_is_sorted)
+_add("Return true if the list is sorted in non-decreasing order", "@i64", "bool", "comparison_logic", gen_is_sorted)
 
 # 29. Contains zero
 def gen_has_zero(rng):
@@ -362,7 +362,7 @@ def gen_has_zero(rng):
         arr = _rand_list(rng, min_len=1, lo=1, hi=100)
         cases.append({"input": arr, "expected": False})
     return cases
-_add("Return true if the list contains at least one zero", "[i64]", "bool", "search_selection", gen_has_zero)
+_add("Return true if the list contains at least one zero", "@i64", "bool", "search_selection", gen_has_zero)
 
 # 30. All positive
 def gen_all_pos(rng):
@@ -374,9 +374,9 @@ def gen_all_pos(rng):
         arr = _rand_list(rng, min_len=1, lo=-50, hi=50)
         cases.append({"input": arr, "expected": all(x > 0 for x in arr)})
     return cases
-_add("Return true if all elements in the list are positive", "[i64]", "bool", "comparison_logic", gen_all_pos)
+_add("Return true if all elements in the list are positive", "@i64", "bool", "comparison_logic", gen_all_pos)
 
-# ---------- [[i64], i64] -> i64 tasks ----------
+# ---------- [@i64, i64] -> i64 tasks ----------
 
 # 31. Count occurrences of a value
 def gen_count_val(rng):
@@ -386,7 +386,7 @@ def gen_count_val(rng):
         v = rng.randint(-10, 10)
         cases.append({"input": [arr, v], "expected": arr.count(v)})
     return cases
-_add("Count how many times the second argument appears in the array", "[[i64], i64]", "i64", "search_selection", gen_count_val)
+_add("Count how many times the second argument appears in the array", "[@i64, i64]", "i64", "search_selection", gen_count_val)
 
 # 32. Element at index
 def gen_elem_at(rng):
@@ -396,9 +396,9 @@ def gen_elem_at(rng):
         idx = rng.randint(0, len(arr) - 1)
         cases.append({"input": [arr, idx], "expected": arr[idx]})
     return cases
-_add("Return the element at the given index in the array", "[[i64], i64]", "i64", "array_list", gen_elem_at)
+_add("Return the element at the given index in the array", "[@i64, i64]", "i64", "array_list", gen_elem_at)
 
-# ---------- [[i64], i64] -> [i64] tasks ----------
+# ---------- [@i64, i64] -> @i64 tasks ----------
 
 # 33. Add scalar to each element
 def gen_add_scalar(rng):
@@ -408,7 +408,7 @@ def gen_add_scalar(rng):
         k = rng.randint(-50, 50)
         cases.append({"input": [arr, k], "expected": [x + k for x in arr]})
     return cases
-_add("Add the second argument to every element of the array", "[[i64], i64]", "[i64]", "array_list", gen_add_scalar)
+_add("Add the second argument to every element of the array", "[@i64, i64]", "@i64", "array_list", gen_add_scalar)
 
 # 34. Multiply each by scalar
 def gen_mul_scalar(rng):
@@ -418,7 +418,7 @@ def gen_mul_scalar(rng):
         k = rng.randint(-10, 10)
         cases.append({"input": [arr, k], "expected": [x * k for x in arr]})
     return cases
-_add("Multiply every element of the array by the second argument", "[[i64], i64]", "[i64]", "array_list", gen_mul_scalar)
+_add("Multiply every element of the array by the second argument", "[@i64, i64]", "@i64", "array_list", gen_mul_scalar)
 
 # 35. Filter greater than
 def gen_filter_gt(rng):
@@ -428,7 +428,7 @@ def gen_filter_gt(rng):
         threshold = rng.randint(-50, 50)
         cases.append({"input": [arr, threshold], "expected": [x for x in arr if x > threshold]})
     return cases
-_add("Return elements greater than the given threshold", "[[i64], i64]", "[i64]", "search_selection", gen_filter_gt)
+_add("Return elements greater than the given threshold", "[@i64, i64]", "@i64", "search_selection", gen_filter_gt)
 
 # 36. Take first N elements
 def gen_take_n(rng):
@@ -438,9 +438,9 @@ def gen_take_n(rng):
         n = rng.randint(0, len(arr) + 2)
         cases.append({"input": [arr, n], "expected": arr[:n]})
     return cases
-_add("Return the first N elements of the array (or all if N > length)", "[[i64], i64]", "[i64]", "array_list", gen_take_n)
+_add("Return the first N elements of the array (or all if N > length)", "[@i64, i64]", "@i64", "array_list", gen_take_n)
 
-# ---------- [[i64], i64] -> bool tasks ----------
+# ---------- [@i64, i64] -> bool tasks ----------
 
 # 37. Contains value
 def gen_contains(rng):
@@ -450,7 +450,7 @@ def gen_contains(rng):
         v = rng.randint(-20, 20)
         cases.append({"input": [arr, v], "expected": v in arr})
     return cases
-_add("Return true if the array contains the given value", "[[i64], i64]", "bool", "search_selection", gen_contains)
+_add("Return true if the array contains the given value", "[@i64, i64]", "bool", "search_selection", gen_contains)
 
 # 38. All greater than
 def gen_all_gt(rng):
@@ -460,9 +460,9 @@ def gen_all_gt(rng):
         threshold = rng.randint(-50, 50)
         cases.append({"input": [arr, threshold], "expected": all(x > threshold for x in arr)})
     return cases
-_add("Return true if all elements are greater than the threshold", "[[i64], i64]", "bool", "comparison_logic", gen_all_gt)
+_add("Return true if all elements are greater than the threshold", "[@i64, i64]", "bool", "comparison_logic", gen_all_gt)
 
-# ---------- i64 -> [i64] tasks ----------
+# ---------- i64 -> @i64 tasks ----------
 
 # 39. Range 0 to N
 def gen_range(rng):
@@ -471,7 +471,7 @@ def gen_range(rng):
         n = rng.randint(0, 20)
         cases.append({"input": n, "expected": list(range(n))})
     return cases
-_add("Return a list of integers from 0 to n-1", "i64", "[i64]", "array_list", gen_range)
+_add("Return a list of integers from 0 to n-1", "i64", "@i64", "array_list", gen_range)
 
 # 40. Divisors
 def gen_divisors(rng):
@@ -481,9 +481,9 @@ def gen_divisors(rng):
         divs = [i for i in range(1, n+1) if n % i == 0]
         cases.append({"input": n, "expected": divs})
     return cases
-_add("Return all divisors of n in ascending order", "i64", "[i64]", "mathematical_sequences", gen_divisors)
+_add("Return all divisors of n in ascending order", "i64", "@i64", "mathematical_sequences", gen_divisors)
 
-# ---------- [[i64], [i64]] -> [i64] tasks ----------
+# ---------- [@i64, @i64] -> @i64 tasks ----------
 
 # 41. Elementwise add
 def gen_elemwise_add(rng):
@@ -494,7 +494,7 @@ def gen_elemwise_add(rng):
         b = [rng.randint(-100, 100) for _ in range(n)]
         cases.append({"input": [a, b], "expected": [x + y for x, y in zip(a, b)]})
     return cases
-_add("Return elementwise sum of two lists of equal length", "[[i64], [i64]]", "[i64]", "array_list", gen_elemwise_add)
+_add("Return elementwise sum of two lists of equal length", "[@i64, @i64]", "@i64", "array_list", gen_elemwise_add)
 
 # 42. Merge sorted
 def gen_merge_sorted(rng):
@@ -504,7 +504,7 @@ def gen_merge_sorted(rng):
         b = sorted([rng.randint(-50, 50) for _ in range(rng.randint(0, 8))])
         cases.append({"input": [a, b], "expected": sorted(a + b)})
     return cases
-_add("Merge two sorted lists into one sorted list", "[[i64], [i64]]", "[i64]", "array_list", gen_merge_sorted)
+_add("Merge two sorted lists into one sorted list", "[@i64, @i64]", "@i64", "array_list", gen_merge_sorted)
 
 # ---------- Additional arithmetic i64->i64 ----------
 
@@ -582,7 +582,7 @@ def gen_second_largest(rng):
             expected = s[-2]
         cases.append({"input": arr, "expected": expected})
     return cases
-_add("Return the second largest distinct value in the list", "[i64]", "i64", "search_selection", gen_second_largest)
+_add("Return the second largest distinct value in the list", "@i64", "i64", "search_selection", gen_second_largest)
 
 # 49. Index of maximum
 def gen_index_max(rng):
@@ -591,7 +591,7 @@ def gen_index_max(rng):
         arr = _rand_list_nonempty(rng, max_len=15)
         cases.append({"input": arr, "expected": arr.index(max(arr))})
     return cases
-_add("Return the index of the maximum element (first occurrence)", "[i64]", "i64", "search_selection", gen_index_max)
+_add("Return the index of the maximum element (first occurrence)", "@i64", "i64", "search_selection", gen_index_max)
 
 # 50. Dot product
 def gen_dot_product(rng):
@@ -602,7 +602,7 @@ def gen_dot_product(rng):
         b = [rng.randint(-20, 20) for _ in range(n)]
         cases.append({"input": [a, b], "expected": sum(x * y for x, y in zip(a, b))})
     return cases
-_add("Return the dot product of two equal-length integer lists", "[[i64], [i64]]", "i64", "arithmetic", gen_dot_product)
+_add("Return the dot product of two equal-length integer lists", "[@i64, @i64]", "i64", "arithmetic", gen_dot_product)
 
 # Now generate variations of these base tasks to fill 500
 # We'll create parameter variations: different constant offsets, scaling, etc.
@@ -775,22 +775,22 @@ def gen_mean_floor(rng):
     return cases
 
 # Additional extras
-_add("Return the range (max - min) of the list", "[i64]", "i64", "arithmetic", gen_max_minus_min)
-_add("Count even numbers in the list", "[i64]", "i64", "comparison_logic", gen_count_even)
-_add("Count odd numbers in the list", "[i64]", "i64", "comparison_logic", gen_count_odd)
-_add("Sum only the even numbers in the list", "[i64]", "i64", "arithmetic", gen_sum_even)
-_add("Sum only the odd numbers in the list", "[i64]", "i64", "arithmetic", gen_sum_odd)
-_add("Square each element in the list", "[i64]", "[i64]", "array_list", gen_squares_list)
-_add("Return absolute values of all elements", "[i64]", "[i64]", "array_list", gen_abs_list)
-_add("Return true if the list is a palindrome", "[i64]", "bool", "comparison_logic", gen_is_palindrome)
-_add("Rotate the array left by k positions", "[[i64], i64]", "[i64]", "array_list", gen_rotate_left)
-_add("Remove duplicates preserving first occurrence order", "[i64]", "[i64]", "array_list", gen_unique)
-_add("Return sorted intersection of two lists (unique elements)", "[[i64], [i64]]", "[i64]", "search_selection", gen_intersection)
-_add("Return sorted difference of first list minus second (unique)", "[[i64], [i64]]", "[i64]", "search_selection", gen_difference)
-_add("Return true if the list has any duplicate values", "[i64]", "bool", "comparison_logic", gen_has_duplicates)
-_add("Return the sum of squares of all elements", "[i64]", "i64", "arithmetic", gen_sum_squares)
-_add("Return the floor of the arithmetic mean (or 0 for empty list)", "[i64]", "i64", "arithmetic", gen_mean_floor)
-_add("Clamp each element between lo and hi", "[[i64], i64, i64]", "[i64]", "array_list", gen_clamp)
+_add("Return the range (max - min) of the list", "@i64", "i64", "arithmetic", gen_max_minus_min)
+_add("Count even numbers in the list", "@i64", "i64", "comparison_logic", gen_count_even)
+_add("Count odd numbers in the list", "@i64", "i64", "comparison_logic", gen_count_odd)
+_add("Sum only the even numbers in the list", "@i64", "i64", "arithmetic", gen_sum_even)
+_add("Sum only the odd numbers in the list", "@i64", "i64", "arithmetic", gen_sum_odd)
+_add("Square each element in the list", "@i64", "@i64", "array_list", gen_squares_list)
+_add("Return absolute values of all elements", "@i64", "@i64", "array_list", gen_abs_list)
+_add("Return true if the list is a palindrome", "@i64", "bool", "comparison_logic", gen_is_palindrome)
+_add("Rotate the array left by k positions", "[@i64, i64]", "@i64", "array_list", gen_rotate_left)
+_add("Remove duplicates preserving first occurrence order", "@i64", "@i64", "array_list", gen_unique)
+_add("Return sorted intersection of two lists (unique elements)", "[@i64, @i64]", "@i64", "search_selection", gen_intersection)
+_add("Return sorted difference of first list minus second (unique)", "[@i64, @i64]", "@i64", "search_selection", gen_difference)
+_add("Return true if the list has any duplicate values", "@i64", "bool", "comparison_logic", gen_has_duplicates)
+_add("Return the sum of squares of all elements", "@i64", "i64", "arithmetic", gen_sum_squares)
+_add("Return the floor of the arithmetic mean (or 0 for empty list)", "@i64", "i64", "arithmetic", gen_mean_floor)
+_add("Clamp each element between lo and hi", "[@i64, i64, i64]", "@i64", "array_list", gen_clamp)
 
 # Fill to 500 with arithmetic variations
 for k in range(1, 150):
@@ -800,7 +800,7 @@ for k in [2, 3, 4, 5, 7, 10, -1, -2, -3, 11, 13, 17, 19, 23]:
     _add(f"Multiply the input by {k}", "i64", "i64", "arithmetic", gen_multiply_constant(k))
 
 for k in range(1, 80):
-    _add(f"Return the sum of the list plus {k}", "[i64]", "i64", "arithmetic", gen_sum_plus_k(k))
+    _add(f"Return the sum of the list plus {k}", "@i64", "i64", "arithmetic", gen_sum_plus_k(k))
 
 # Now generate the YAML files
 def main():

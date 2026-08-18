@@ -20,27 +20,89 @@ from pathlib import Path
 import yaml
 from mlx_lm import load, generate
 
-SYSTEM_PROMPT = """You are a toke programming language expert. Write correct, idiomatic toke code.
+SYSTEM_PROMPT = """You write programs in toke, a statically typed compiled language. Every program must compile under toke --check. Follow these rules exactly.
 
-toke syntax reference:
-- M=name; module declaration (must be first)
-- I=alias:module.path; imports
-- F=name(param:Type):ReturnType{ body }; function declaration
-- let x=expr; immutable binding, mut x=expr; mutable binding
-- <expr; returns a value
-- Types: i64, f64, Str, bool, u8, void
-- Arrays: [i64] type, [1;2;3] literal, arr[i] indexing, arr.len length
-- Structs: T=Point{x:i64;y:i64};
-- if(cond){...}el{...};
-- lp(let i=0;i<n;i=i+1){...};
-- Every statement ends with ;
+STRUCTURE — every file follows this order:
+m=name;                           module declaration (required first line)
+i=alias:std.module;               imports (optional, before types)
+t=$typename{field:type;...};      type declarations (optional)
+f=name(p:type;...):returntype{    function declarations
+  body
+};
 
-Write a COMPLETE program with F=main that reads JSON from the first command-line argument, computes the result, and prints JSON to stdout.
+CHARACTERS — 55 allowed: a-z 0-9 ( ) { } = : . ; + - * / < > ! | & $ @ % " space newline
+No uppercase letters in source. No underscores. No square brackets. No commas.
 
-Example structure for a program that sums a list of integers:
-M=sum;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let r=mut.0;lp(let i=0;i<arr.len;i=i+1){r=r+arr[i];};j.print(r);};
+KEYWORDS — 9 reserved words + 4 context keywords:
+let  if  el  lp  br  rt  as  mt  mut
+m=  f=  t=  i=  (only at top-level followed by =)
 
-Write ONLY toke source code. No markdown fences, no explanation."""
+TYPES:
+i64 i32 i16 i8 u64 u32 u16 u8 f64 f32 bool str    scalar types (no sigil)
+$name                                                struct/sum types use $ prefix
+@i64  @$user                                         array type
+@(i64:str)                                           map type
+
+BINDINGS:
+let x=42;              immutable binding
+let x=mut.0;           mutable binding (mut. prefix on initial value)
+x=x+1;                 reassign mutable only
+
+FUNCTIONS:
+f=add(a:i64;b:i64):i64{                             total function
+  <a+b                                               < is return
+};
+f=fetch(id:i64):$user!$apierr{                      fallible function (! marks error type)
+  let row=db.one("select";@(id))!$apierr;           ! propagates error
+  <$user{id:row.id;name:row.name}
+};
+
+CONTROL FLOW:
+if(cond){body}el{body};                              conditional (el = else)
+lp(let i=0;i<n;i=i+1){body};                        loop (init;cond;step)
+br;                                                  break innermost loop
+<expr  or  rt expr;                                  return
+
+TYPES AND LITERALS:
+$point{x:i64;y:i64}                                 struct type definition
+$point{x:1;y:2}                                      struct literal construction
+$err{$notfound:str;$timeout:bool}                    sum type (all fields $ prefixed)
+@(1;2;3)                                             array literal (semicolons, not commas)
+@("key":val;"key2":val2)                             map literal
+true  false                                          boolean literals (predefined, not keywords)
+
+MATCH EXPRESSION:
+mt expr {
+  $ok:v  v;                                          each arm: $variant:binding result_expr
+  $err:e 0
+}
+
+ARRAY/MAP ACCESS:
+arr.get(i)           read element (never arr[i])
+arr.len              array length (property, no parens)
+arr.set(i;val)       write element
+
+OPERATORS (precedence low to high):
+||  &&  =  < >  + -  * / %  unary(- !)
+
+SEPARATORS — semicolons everywhere, never commas:
+f=add(a:i64;b:i64):i64         parameters separated by ;
+add(1;2)                        arguments separated by ;
+@(1;2;3)                        array elements separated by ;
+
+COMMON STDLIB PATTERNS:
+i=j:std.json;  i=s:std.str;                         typical imports
+j.parse(s.argv(1))                                   parse CLI JSON input
+j.print(result)                                      print JSON output
+str.concat(a;b)   str.len(s)   str.eq(a;b)          string operations
+io.println(msg)                                      console output
+
+Write a COMPLETE program with f=main():i64 that reads JSON from the first command-line argument, computes the result, prints JSON to stdout, and returns 0.
+
+Example — sum a list of integers:
+m=sum;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let arr=input;let r=mut.0;lp(let i=0;i<arr.len;i=i+1){r=r+arr.get(i)};j.print(r);<0};
+
+Output toke source only. No markdown fences. No explanations. Start with m=."""
 
 
 def build_prompt(task: dict) -> str:
@@ -49,9 +111,9 @@ def build_prompt(task: dict) -> str:
     output_type = task.get("output_type", "")
     examples = task.get("test_inputs", [])[:2]
 
-    msg = f"Write a complete toke program with F=main that: {desc}"
+    msg = f"Write a complete toke program with f=main that: {desc}"
     msg += f"\n\nInput JSON type: {input_type}\nOutput JSON type: {output_type}"
-    msg += "\n\nThe program must: read JSON from argv[1] using I=j:std.json;I=s:std.str; and j.parse(s.argv(1)), compute the answer, and print the result with j.print(result)."
+    msg += "\n\nThe program must: read JSON from argv[1] using i=j:std.json;i=s:std.str; and j.parse(s.argv(1)), compute the answer, and print the result with j.print(result)."
     if examples:
         msg += "\n\nExample I/O:"
         for ex in examples:

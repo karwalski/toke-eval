@@ -6,7 +6,7 @@ and temperature sweep support using the unbiased estimator from Chen et al.
 (2021), "Evaluating Large Language Models Trained on Code" (Codex paper).
 
 Input format (JSONL):
-    {"task_id": "task-a-0001", "samples": ["M=main;...", ...], "temperature": 0.2}
+    {"task_id": "task-a-0001", "samples": ["m=main;...", ...], "temperature": 0.2}
 
 The estimator:
     pass@k = 1 - C(n-c, k) / C(n, k)
@@ -201,7 +201,7 @@ def load_predictions(predictions_dir: Path) -> dict[tuple[str, float], list[str]
 
 def compile_and_check(source_code: str, compiler: str,
                       timeout: int = 30) -> tuple[bool, str]:
-    """Compile toke source via tkc --check (syntax/type check only).
+    """Compile toke source via toke --check (syntax/type check only).
 
     Returns (passed, error_message).
     """
@@ -254,7 +254,7 @@ def compile_and_run(source_code: str, compiler: str, test_file: Path,
         bin_path = bin_tmp.name
 
     try:
-        # Step 1: tkc -> LLVM IR
+        # Step 1: toke -> LLVM IR
         result = subprocess.run(
             [compiler, src_path],
             capture_output=True, text=True, timeout=compile_timeout,
@@ -372,7 +372,7 @@ def evaluate_pass_at_k(
     k_values: list[int],
     temperatures: list[float],
     samples_per_task: int,
-    compiler: str = "tkc",
+    compiler: str = "toke",
     dry_run: bool = False,
 ) -> PassAtKReport:
     """Run Pass@k evaluation across tasks and temperatures.
@@ -590,8 +590,8 @@ def main(argv: list[str] | None = None) -> int:
         help="Number of samples per task (default: 20)",
     )
     parser.add_argument(
-        "--compiler", default="tkc",
-        help="Path to tkc compiler binary (default: tkc)",
+        "--compiler", default="toke",
+        help="Path to toke compiler binary (default: toke)",
     )
     parser.add_argument(
         "--dry-run", action="store_true",

@@ -225,7 +225,7 @@ _PYTHON_FEW_SHOT = (
 _TOKE_FEW_SHOT = (
     "Example:\n"
     "Task: Return the sum of two numbers.\n"
-    "fn solve(a, b) -> a + b\n"
+    "m=sum;f=solve(a:i64;b:i64):i64{<a+b};\n"
 )
 
 

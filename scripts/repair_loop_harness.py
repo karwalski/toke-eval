@@ -3,17 +3,17 @@
 
 Implements generate-compile-repair loops with a fixed iteration budget:
   1. Generate toke code for a task (or load from tasks directory)
-  2. Compile with tkc (--check --diag-json)
+  2. Compile with toke (--check --diag-json)
   3. If compilation fails, feed structured diagnostics back to the model
      for repair (the "repair prompt")
   4. Track iterations until success or budget exhausted
   5. Report failure modes, iteration counts, and success rates
 
-The structured diagnostics format from tkc includes:
+The structured diagnostics format from the toke compiler includes:
   - code: error code (e.g. E001, E010)
   - message: human-readable description
   - line / col: source location
-  - fix: suggested fix (optional, from tkc --diag-json)
+  - fix: suggested fix (optional, from toke --diag-json)
 
 Usage::
 
@@ -22,7 +22,7 @@ Usage::
 
     # With real compiler and tasks directory:
     python scripts/repair_loop_harness.py \\
-        --tkc-path ../toke/tkc \\
+        --tkc-path ../toke/toke \\
         --tasks-dir data/humaneval_format.jsonl \\
         --max-iterations 5 \\
         --output results/repair_loop_report.json
@@ -92,7 +92,7 @@ ERROR_TO_CATEGORY: dict[str, str] = {
 
 @dataclass
 class Diagnostic:
-    """A single compiler diagnostic from tkc --diag-json."""
+    """A single compiler diagnostic from toke --diag-json."""
     code: str
     message: str
     line: int = 0
@@ -231,7 +231,7 @@ def generate_builtin_tasks(rng: random.Random, n: int = 20) -> list[dict[str, An
 # ---------------------------------------------------------------------------
 
 def parse_diagnostics(raw: list[dict[str, Any]]) -> list[Diagnostic]:
-    """Parse raw JSON diagnostics from tkc into Diagnostic objects."""
+    """Parse raw JSON diagnostics from the toke compiler into Diagnostic objects."""
     result = []
     for d in raw:
         result.append(Diagnostic(
@@ -245,7 +245,7 @@ def parse_diagnostics(raw: list[dict[str, Any]]) -> list[Diagnostic]:
 
 
 def run_tkc(source: str, tkc_path: str) -> list[Diagnostic]:
-    """Run tkc --check --diag-json on a source string.
+    """Run toke --check --diag-json on a source string.
 
     Returns a list of Diagnostic objects. An empty list means clean
     compilation (success).
@@ -361,7 +361,7 @@ def build_repair_prompt(
         f"The following toke code failed to compile (attempt {iteration}).",
         f"Task: {task_description}",
         "",
-        "Compiler diagnostics (tkc --check --diag-json):",
+        "Compiler diagnostics (toke --check --diag-json):",
     ]
     for d in diagnostics:
         loc = f"line {d.line}, col {d.col}" if d.line else "unknown location"
@@ -610,8 +610,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--tkc-path",
         type=str,
-        default="tkc",
-        help="Path to tkc compiler binary (default: tkc)",
+        default="toke",
+        help="Path to toke compiler binary (default: toke)",
     )
     parser.add_argument(
         "--tasks-dir",

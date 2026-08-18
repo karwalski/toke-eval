@@ -1,1 +1,1 @@
-M=sumsq;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let sum=mut.0;lp(let i=0;i<arr.len;i=i+1){let x=arr[i];let y=x*x;sum=sum+y;};j.print(sum);};
+m=sumsq;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let arr=input;let sum=mut.0;lp(let i=0;i<arr.len;i=i+1){let x=arr.get(i);let y=x*x;sum=sum+y;};j.print(sum);};

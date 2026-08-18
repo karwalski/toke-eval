@@ -1,1 +1,1 @@
-M=mean;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let arr=input as [i64];let sum=mut.0;let len=arr.len;lp(let i=0;i<len;i=i+1){sum=sum+arr[i];};let mean=sum/len as i64;j.print(mean);};
+m=mean;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let arr=input;let sum=mut.0;let len=arr.len;lp(let i=0;i<len;i=i+1){sum=sum+arr.get(i);};let mean=sum/len as i64;j.print(mean);};

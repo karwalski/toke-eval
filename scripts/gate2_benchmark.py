@@ -5,7 +5,7 @@ Runs compiler-verified token efficiency measurements on the Phase 2 corpus.
 
 Steps:
   1. Load corpus entries from corpus_p2.jsonl
-  2. Write each toke source to a temp file, run tkc --check in default mode
+  2. Write each toke source to a temp file, run toke --check in default mode
   3. Count tokens (toke vs Python/C/Java) using cl100k_base (tiktoken)
   4. Compare to Gate 1 baseline (12.5% token reduction, 63.7% Pass@1)
   5. Write eval_report_gate2.json
@@ -13,7 +13,7 @@ Steps:
 Usage:
     python scripts/gate2_benchmark.py \
         --corpus ~/tk/toke-model/tokenizer/corpus_p2.jsonl \
-        --tkc ~/tk/toke/tkc \
+        --tkc ~/tk/toke/toke \
         --output data/eval_report_gate2.json \
         --max-entries 5000
 """
@@ -84,7 +84,7 @@ def count_tokens_tiktoken(text: str, enc) -> int:
 
 
 def run_tkc_check(tkc_path: str, source: str, tmpdir: str) -> tuple[bool, list[str]]:
-    """Run tkc --check on a toke source string. Returns (passed, error_codes)."""
+    """Run toke --check on a toke source string. Returns (passed, error_codes)."""
     tmp_file = os.path.join(tmpdir, "check.toke")
     with open(tmp_file, "w") as f:
         f.write(source)
@@ -122,7 +122,7 @@ def main():
     parser.add_argument("--corpus", type=Path, required=True,
                         help="Path to corpus_p2.jsonl")
     parser.add_argument("--tkc", type=Path, required=True,
-                        help="Path to tkc binary")
+                        help="Path to toke compiler binary")
     parser.add_argument("--output", type=Path, default=None,
                         help="Output JSON report path")
     parser.add_argument("--max-entries", type=int, default=0,
@@ -134,7 +134,7 @@ def main():
     if not args.corpus.exists():
         sys.exit(f"ERROR: corpus not found: {args.corpus}")
     if not args.skip_compiler and not args.tkc.exists():
-        sys.exit(f"ERROR: tkc not found: {args.tkc}")
+        sys.exit(f"ERROR: toke compiler not found: {args.tkc}")
 
     # Import tiktoken
     try:
@@ -298,7 +298,7 @@ def main():
             "savings in the code-generation output."
         ),
         "compiler_note": (
-            "Pass rate measures tkc --check (lex + parse + name resolution + "
+            "Pass rate measures toke --check (lex + parse + name resolution + "
             "type check) on corpus entries that were originally validated "
             "with an earlier compiler version. Failures are due to compiler "
             "strictness improvements."

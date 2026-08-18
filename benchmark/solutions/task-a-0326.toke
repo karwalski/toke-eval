@@ -1,1 +1,1 @@
-M=amth0011v11;I=j:std.json;I=s:std.str;F=main():void{let n=j.parse(s.argv(1));let m=mut.0;m=n+325;let r=mut.0;r=m-m/1000*1000;j.print(r);};
+m=amth0011v11;i=j:std.json;i=s:std.str;f=main():i64{let n=j.parse(s.argv(1));let m=mut.0;m=n+325;let r=mut.0;r=m-m/1000*1000;j.print(r);};

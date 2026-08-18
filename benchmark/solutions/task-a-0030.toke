@@ -1,1 +1,1 @@
-M=diff;I=j:std.json;I=s:std.str;F=main():void{let input=j.parse(s.argv(1));let a=input[0];let b=input[1];let r=a-b;j.print(r);};
+m=diff;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let a=input.get(0);let b=input.get(1);let r=a-b;j.print(r);};
