@@ -1,1 +1,1 @@
-m=main;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let arr=input;let x=arr.get(0);let y=arr.get(1);let result=mut.0;if(x<y){result=x}el{result=y};j.print(result);};
+m=main;i=j:std.json;i=s:std.str;f=main():i64{let arr=j.parse(s.argv(1))as@i64;let x=arr.get(0);let y=arr.get(1);j.print(if(x<y){x}el{y})};
