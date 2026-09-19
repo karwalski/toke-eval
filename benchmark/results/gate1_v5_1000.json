@@ -1,6 +1,19 @@
 {
   "total_pass_at_1": 588,
-  "mean_pass_at_1": 0.6371,
+  "mean_pass_at_1": 0.588,
+  "pass_at_1_correction": {
+    "status": "CORRECTED",
+    "solutions_generated": 1000,
+    "solutions_compiled": 923,
+    "solutions_passing_all_hidden_tests": 588,
+    "corrected_pass_at_1": "588 / 1000 = 0.5880",
+    "compile_rate": "923 / 1000 = 0.9230",
+    "mean_pass_at_1_as_originally_recorded": 0.6371,
+    "original_derivation": "588 / 923 = 0.6371 -- WRONG DENOMINATOR",
+    "why_the_original_denominator_was_wrong": "Corrected 2026-09-19 (story 128.19). load_toke_solutions() dropped every generated solution that failed to compile, so it never became a TaskResult and left the denominator entirely. The recorded mean_pass_at_1 is therefore Pass@1 GIVEN THAT THE SOLUTION COMPILED -- a different and strictly more generous quantity. A solution that fails to compile is a failed attempt, not an absent one, so the denominator is the number of solutions generated. Defect recorded in toke-eval/docs/suspect-numbers-128-1c.md section 1. No re-run was performed; the correction is arithmetic.",
+    "generated_set_source": "toke-eval/benchmark/solutions/*.toke (n = 1000)",
+    "gate_1_verdict": "OPEN. 0.588 is below the declared pass_at_1_minimum of 0.60 recorded in toke-model/huggingface/eval_results.json. Originally recorded as PASS on the withdrawn 0.6371 figure. Re-deciding the verdict is an owner action, not made here."
+  },
   "tasks_evaluated": 923,
   "language": "toke",
   "timeout": 10,

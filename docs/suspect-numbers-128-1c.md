@@ -59,10 +59,36 @@ best-of-N path was therefore **not** used for this figure — see §2.
 by arithmetic from artefacts already on disk and does **not** require a re-run.
 It fails the Gate-1 threshold it was declared to pass.
 
+### CORRECTED 2026-09-19 (story 128.19)
+
+Every reachable artefact carrying this figure now states **58.8% (588/1,000)**,
+with the withdrawn 63.7% and its derivation left visible beside it. `eval_results.json`,
+`config.json`, `toke-model/README.md` (where the label was also corrected from
+"compile" to "functional"), the unpublished model card, `roadmap.json`, the two
+website templates that carried it, `gate1_v5_1000.json`, six `toke-spec` documents
+and both RFC drafts. **Nothing was published or uploaded.** The Gate-1 verdict is
+recorded as **OPEN** in every one; re-deciding it is an owner action and was not
+made. Files under `toke/docs/` were out of reach and are listed in the 128.19 report.
+
+**New evidence found while correcting.** The Benchmark Progression table in
+`toke-spec/docs/gate1-decision.md` records the generated-set size for each run, and
+its percentage column is computed against the *generated* set for every row except
+the last: 153/500 = 31%, 217/500 = 43%, 312/500 = 62% — and then 588/**923** = 64%
+for v5. The headline was the only row computed on the compiled set, and the
+corrected 58.8% is the figure consistent with the rest of its own table. That table
+also recovers the denominators for two of the unpublished runs below.
+
 **Also unsafe, same defect, unpublished:**
-`gate1_v2.json` (219/329 = 66.6%), `gate1_pass_at_1.json` (153/183 = 83.6%),
-and the archived `gate1_v3.json` / `gate1_v4_1000.json` (both 312/435 = 71.7%).
-Each is passed/compiled over a generated set of unrecorded size.
+
+| File | Recorded | Generated set | Corrected |
+|---|---|---|---|
+| `gate1_pass_at_1.json` (v1) | 153/183 = 83.6% | 500 (progression table, exact match on both counts) | **153/500 = 30.6%** |
+| `gate1_v3.json` | 312/435 = 71.7% | 500 (progression table, exact match) | **312/500 = 62.4%** |
+| `gate1_v4_1000.json` | 312/435 = 71.7% | 500 — its counts are identical to `gate1_v3.json`; the `1000` in its filename is not borne out by its contents | **312/500 = 62.4%** |
+| `gate1_v2.json` | 219/329 = 66.6% | **unrecoverable** — the table's v2 row is 217/293 over 500, which is a different run | **cannot be corrected; do not quote** |
+
+All four are annotated in place with the derivation and the provenance of the
+denominator. None was ever published.
 
 ---
 
@@ -202,19 +228,23 @@ as a Pass@1. It stands.
 
 These are **requested, not filed** — `toke/docs/progress.md` is owner-edited.
 
-1. **Correct the Gate-1 figure to 58.8% everywhere it appears, and re-open the
-   Gate-1 verdict.** 588/1000 is below the declared `pass_at_1_minimum: 0.60`.
-   Touches `toke-model/README.md`, `toke-model/huggingface/eval_results.json`,
-   the unpublished card, `toke-website/content/roadmap.json` and three `.tkt`
-   templates. Website files are owned by another lane. **P0.**
+1. ~~**Correct the Gate-1 figure to 58.8% everywhere it appears, and re-open the
+   Gate-1 verdict.**~~ **Filed as story 128.19 and executed 2026-09-19** — see the
+   CORRECTED block in §1 above. Two `.tkt` templates carried the figure, not three
+   (`status.tkt` carries only Gate-2 numbers). Artefacts under `toke/docs/` were out
+   of reach and remain to be corrected. **The re-opened Gate-1 verdict is still open
+   and is the owner's to decide.**
 2. **Quarantine the synthetic `data/` derivatives.** `pass_at_k_summary.csv`,
    `ablation_table.csv`, `training_curve.csv`/`.json` carry no dry-run marker.
    Either stamp every dry-run output with an unremovable marker or refuse to
    write a CSV in dry-run mode at all. **P1.**
 3. **Fix the live Hugging Face `model-index`** (`Functional Pass@1 = 8`,
    `verified: true`). Owner action; relates to 132.24 and 128.16. **P0.**
-4. **`toke-model/README.md:5` calls 63.7% a *compile* Pass@1.** It is
-   functional; the compile rate was 92.3%. **P2.**
+4. ~~**`toke-model/README.md:5` calls 63.7% a *compile* Pass@1.**~~ **Done
+   2026-09-19 (story 128.19):** the line now reads 58.8% *functional* Pass@1 with
+   the 92.3% compile rate stated separately. The same mislabel survives in
+   `toke/README.md` (corrected) and may survive in `toke/docs/` files that were out
+   of reach. **P2.**
 5. **Backfill `n_samples` provenance** into the four archived `gate1_*.json`
    files, or mark them unattributable. **P2.**
 6. **`toke-model` 0-byte files outside this story's scope:**

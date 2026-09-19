@@ -57,13 +57,15 @@
   "mean_reduction": 0.7376925628066763,
   "gate1_baseline": {
     "token_reduction": 0.125,
-    "pass_at_1": 0.637,
-    "note": "Gate 1 baseline from project records"
+    "pass_at_1": 0.588,
+    "note": "Gate 1 baseline from project records. Pass@1 corrected 2026-09-19 (story 128.19): 588 passed / 1000 generated = 0.588. The 0.637 previously recorded here was 588/923, which dropped the 77 non-compiling solutions from the denominator -- Pass@1 given that the solution compiled, not Pass@1. 0.588 is below Gate 1's declared pass_at_1_minimum of 0.60; the Gate 1 verdict is re-opened and not re-decided here.",
+    "pass_at_1_as_originally_recorded": 0.637
   },
   "delta_from_gate1": {
     "token_reduction_delta": 0.6126925628066763,
-    "pass_rate_vs_gate1_pass_at_1": 0.17179999999999995,
-    "note": "Positive delta = improvement over Gate 1. Pass rate here is compiler --check pass rate, not Pass@1 which requires differential testing."
+    "pass_rate_vs_gate1_pass_at_1": 0.221,
+    "note": "Positive delta = improvement over Gate 1. Pass rate here is compiler --check pass rate, not Pass@1 which requires differential testing. Recomputed 2026-09-19 against the corrected Gate 1 Pass@1 of 0.588 (story 128.19).",
+    "pass_rate_vs_gate1_pass_at_1_as_originally_recorded": 0.17179999999999995
   },
   "methodology": {
     "description": "Token efficiency measured using cl100k_base (tiktoken) on compiler-verified toke programs vs full reference implementations (Python, C, Java) from the Phase 2 corpus.",

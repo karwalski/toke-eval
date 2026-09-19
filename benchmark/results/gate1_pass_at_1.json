@@ -1,6 +1,20 @@
 {
   "total_pass_at_1": 153,
-  "mean_pass_at_1": 0.8361,
+  "mean_pass_at_1": 0.306,
+  "pass_at_1_correction": {
+    "status": "CORRECTED",
+    "solutions_generated": 500,
+    "solutions_compiled": 183,
+    "solutions_passing_all_hidden_tests": 153,
+    "corrected_pass_at_1": "153 / 500 = 0.3060",
+    "compile_rate": "183 / 500 = 0.3660",
+    "mean_pass_at_1_as_originally_recorded": 0.8361,
+    "original_derivation": "153 / 183 = 0.8361 -- WRONG DENOMINATOR",
+    "why_the_original_denominator_was_wrong": "Corrected 2026-09-19 (story 128.19). load_toke_solutions() dropped every generated solution that failed to compile, so it never became a TaskResult and left the denominator entirely. The recorded mean_pass_at_1 is therefore Pass@1 GIVEN THAT THE SOLUTION COMPILED -- a different and strictly more generous quantity. A solution that fails to compile is a failed attempt, not an absent one, so the denominator is the number of solutions generated. Defect recorded in toke-eval/docs/suspect-numbers-128-1c.md section 1. No re-run was performed; the correction is arithmetic.",
+    "denominator_provenance": "Denominator recovered 2026-09-19 (story 128.19) from the Benchmark Progression table in toke-spec/docs/gate1-decision.md, whose row for this run records the generated-set size and matches this file exactly on both the compiled count and the passed count. That table's own percentage column for this row is computed against the generated set, not the compiled set -- only the final v5 row used the compiled-set denominator, which is the defect story 128.19 corrects.",
+    "benchmark_progression_row": "v1 | 2026-04-03 | 500 tasks | 183 compiled (37%) | 153 passed (31%)",
+    "published": "No. This run was never published; the published Gate-1 figure came from gate1_v5_1000.json."
+  },
   "tasks_evaluated": 183,
   "language": "toke",
   "timeout": 10,

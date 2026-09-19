@@ -1,6 +1,18 @@
 {
   "total_pass_at_1": 219,
   "mean_pass_at_1": 0.6657,
+  "pass_at_1_correction": {
+    "status": "UNCORRECTABLE -- UNSAFE, DO NOT QUOTE",
+    "solutions_generated": null,
+    "solutions_compiled": 329,
+    "solutions_passing_all_hidden_tests": 219,
+    "mean_pass_at_1_as_recorded": 0.6657,
+    "recorded_derivation": "219 / 329 = 0.6657 -- WRONG DENOMINATOR",
+    "why_it_cannot_be_corrected": "The size of the generated set for this run is not recorded in any surviving artefact, so the correct denominator is unknown and the true Pass@1 cannot be recovered by arithmetic. It is strictly LOWER than the figure recorded here. Unpublished; this figure may not be quoted.",
+    "same_defect_as": "gate1_v5_1000.json, corrected in full there",
+    "why_the_denominator_was_wrong": "Corrected 2026-09-19 (story 128.19). load_toke_solutions() dropped every generated solution that failed to compile, so it never became a TaskResult and left the denominator entirely. The recorded mean_pass_at_1 is therefore Pass@1 GIVEN THAT THE SOLUTION COMPILED -- a different and strictly more generous quantity. A solution that fails to compile is a failed attempt, not an absent one, so the denominator is the number of solutions generated. Defect recorded in toke-eval/docs/suspect-numbers-128-1c.md section 1. No re-run was performed; the correction is arithmetic.",
+    "note": "The Benchmark Progression table in toke-spec/docs/gate1-decision.md records a v2 run of 500 generated tasks with 293 compiled and 217 passed. This file records 329 compiled and 219 passed, so it is NOT the same run as that table row and its generated-set size cannot be recovered from it. If the generated set were 500 the corrected Pass@1 would be 219/500 = 0.438, but that is not established and is not asserted here."
+  },
   "tasks_evaluated": 329,
   "language": "toke",
   "timeout": 10,
