@@ -101,7 +101,8 @@ toke-eval/
     tasks/           Task YAML definitions and schema
     solutions/       Reference toke solutions
     baselines/       Python/C/Java reference implementations
-    harness/         Harness for running models against tasks
+    harness/         Retired entry points (128.1c); use run_benchmark.py
+    run_benchmark.py The live execution harness
     results/         Past gate evaluation results
     tests/           Harness unit tests
   toke_eval/         Python package

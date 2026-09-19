@@ -5,9 +5,11 @@ Benchmark task definitions and evaluation harness for
 
 ## What is here
 
-- `tasks/` — benchmark task definitions used in corpus generation
+- `tasks/` — the task **schema** (`schema.json`) only; there are no task files here
+- `hidden_tests/` — the task YAML files the harness actually reads
 - `baselines/` — Python, C, and Java reference implementations per task
-- `harness/` — evaluation scripts for running models against tasks
+- `harness/` — retired entry points (see below); the live harness is
+  `run_benchmark.py` in this directory
 
 ## What is NOT here
 
@@ -16,14 +18,34 @@ They are stored separately and never committed to any repository.
 
 ## Running a benchmark
 
-    python harness/run.py \
-      --model /path/to/toke-model \
-      --tasks tasks/phase-a/ \
-      --out results/
+    # reference solutions (python / c / toke)
+    python run_benchmark.py \
+      --solutions-dir baselines/python \
+      --tasks-dir hidden_tests/ \
+      --language python \
+      --output results/baseline.json
 
-    python harness/score.py \
-      --results results/ \
-      --baselines baselines/
+    # model inference — strict Pass@1: one sample, one attempt
+    python run_benchmark.py \
+      --tasks-dir hidden_tests/ \
+      --model-endpoint http://localhost:8000/generate \
+      --n-samples 1
+
+`--n-samples N` with N > 1 reports **three** distinct numbers: `pass_at_1`
+(single-sample success rate), `mean_best_of_n` (an oracle best-of-N figure —
+never a Pass@1), and `mean_pass_at_k` (Chen et al. unbiased estimator). See
+the `run_benchmark.py` module docstring.
+
+For Pass@k from sampled predictions use `../scripts/pass_at_k.py`, the only
+Pass@k implementation the Epic 128 protocol permits
+(`toke-model/docs/training-reset-128.md` §6.3).
+
+### Retired entry points
+
+`harness/run.py`, `harness/score.py` and `harness/report.py` were 0-byte files
+from the initial subtree import and were never implemented. They now exit
+non-zero with a pointer to the live tooling rather than exiting 0 having done
+nothing. Story 128.1c; each file's docstring records what it was meant to be.
 
 ## Task schema
 

@@ -14,14 +14,36 @@ Usage (baseline evaluation):
     python run_benchmark.py --solutions-dir path/to/toke-files/ --tasks-dir hidden_tests/ \\
         --language toke
 
-Usage (model inference / pass@1):
+Usage (model inference / Pass@1):
     python run_benchmark.py --tasks-dir hidden_tests/ \\
         --model-endpoint http://localhost:8000/generate \\
         [--n-samples 5] [--api-key KEY]
 
+Metric definitions (128.1c)
+---------------------------
+``--n-samples N`` draws N independent samples per task.  Three DIFFERENT
+numbers come out of that and they are reported under three different names:
+
+    pass_at_1    mean over tasks of (correct samples / N).  The probability a
+                 single sample solves the task.  With N = 1 this is literally
+                 one sample, one attempt.
+    best_of_n    mean over tasks of (1 if ANY sample is correct else 0).  This
+                 is an oracle metric: it assumes a perfect selector that knows
+                 which sample passes the hidden tests.  It is >= pass_at_1 and
+                 rises with N.
+    pass_at_k    the unbiased Chen et al. (2021) estimator,
+                 1 - C(N-c, k)/C(N, k).
+
+Before 128.1c this harness computed best_of_n (keep the best sample, `break`
+on the first perfect one) and wrote it into the field named `pass_at_1`.
+Every figure produced with `--n-samples > 1` was therefore inflated, and the
+inflation grows with N.  Such figures must be re-derived, never carried
+forward.
+
 Exit codes:
     0  success
     1  error (missing dirs, no tasks, import failure, etc.)
+    2  benchmark schema violation -- NO score is emitted
 """
 
 from __future__ import annotations
@@ -29,6 +51,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import math
 import os
 import shutil
 import signal
@@ -63,23 +86,175 @@ class TestCaseResult:
 
 @dataclass
 class TaskResult:
-    """Result of evaluating a single task."""
+    """Result of evaluating a single task.
+
+    For the deterministic baseline path there is exactly one solution per
+    task, so ``n_samples == 1`` and ``pass_at_1`` is 1.0 or 0.0 exactly.
+    For the model path ``n_samples`` may exceed 1; see the module docstring
+    for how the three metrics differ.
+    """
     task_id: str
     pass_count: int
     total_count: int
+    #: correct samples / n_samples -- the Pass@1 contribution of this task.
     pass_at_1: float
     cases: list[TestCaseResult] = field(default_factory=list)
+    n_samples: int = 1
+    #: samples that passed every test case.  Derived from pass_at_1 when the
+    #: caller does not supply it (single-sample path).
+    n_correct: int | None = None
+    #: 1.0 if ANY sample was correct.  Oracle metric -- never a Pass@1.
+    best_of_n: float | None = None
+    #: Unbiased Chen et al. Pass@k, keyed by k.  Empty for n_samples == 1.
+    pass_at_k: dict[int, float] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if self.n_correct is None:
+            self.n_correct = int(round(self.pass_at_1 * self.n_samples))
+        if self.best_of_n is None:
+            self.best_of_n = 1.0 if self.n_correct > 0 else 0.0
 
 
 @dataclass
 class BenchmarkReport:
-    """Full benchmark report."""
-    total_pass_at_1: int
+    """Full benchmark report.
+
+    ``mean_pass_at_1`` is always Pass@1 -- one sample, one attempt.
+    ``mean_best_of_n`` is the oracle best-of-N figure and is ``None`` unless
+    more than one sample was drawn.  They are never the same field.
+    """
+    total_pass_at_1: int | None
     mean_pass_at_1: float
     tasks_evaluated: int
     language: str
     timeout: int
     tasks: list[TaskResult] = field(default_factory=list)
+    n_samples: int = 1
+    mean_best_of_n: float | None = None
+    mean_pass_at_k: dict[int, float] = field(default_factory=dict)
+    metric_note: str = ""
+
+
+class BenchmarkSchemaError(Exception):
+    """A task file does not match ``benchmark/tasks/schema.json``.
+
+    Raised instead of degrading to a 0/0 (or, for an empty ``test_inputs``
+    list, a free 1.0) score.
+    """
+
+
+#: Canonical test-case key, per ``benchmark/tasks/schema.json``.
+TEST_CASES_KEY = "test_inputs"
+
+#: Keys earlier harness revisions looked for; flagged explicitly so a
+#: mismatch can never read as "zero test cases".
+LEGACY_TEST_CASES_KEYS = ("test_cases", "tests", "cases", "examples")
+
+
+def load_task(path: Path) -> dict[str, Any]:
+    """Load and schema-validate a task YAML file.
+
+    Raises:
+        BenchmarkSchemaError: on anything that would otherwise be scored as
+            0/0 or as a vacuous pass.
+    """
+    try:
+        with open(path) as f:
+            task = yaml.safe_load(f)
+    except OSError as exc:
+        raise BenchmarkSchemaError(f"{path}: cannot read: {exc}") from exc
+    except yaml.YAMLError as exc:
+        raise BenchmarkSchemaError(f"{path}: invalid YAML: {exc}") from exc
+
+    if not isinstance(task, dict):
+        raise BenchmarkSchemaError(
+            f"{path}: expected a mapping at the top level, "
+            f"got {type(task).__name__}"
+        )
+    if not task.get("id"):
+        raise BenchmarkSchemaError(f"{path}: missing required key 'id'")
+
+    if TEST_CASES_KEY not in task:
+        legacy = [k for k in LEGACY_TEST_CASES_KEYS if k in task]
+        hint = (
+            f" (found legacy key(s) {legacy!r}; the schema key is "
+            f"{TEST_CASES_KEY!r})"
+            if legacy else
+            f" (keys present: {sorted(task)!r})"
+        )
+        raise BenchmarkSchemaError(
+            f"{path}: missing required key {TEST_CASES_KEY!r}{hint}"
+        )
+
+    cases = task[TEST_CASES_KEY]
+    if not isinstance(cases, list):
+        raise BenchmarkSchemaError(
+            f"{path}: {TEST_CASES_KEY!r} must be a list, "
+            f"got {type(cases).__name__}"
+        )
+    if not cases:
+        raise BenchmarkSchemaError(
+            f"{path}: {TEST_CASES_KEY!r} is empty; a task with no test cases "
+            f"cannot be scored (0/0 is not a pass)"
+        )
+    for i, case in enumerate(cases):
+        if not isinstance(case, dict):
+            raise BenchmarkSchemaError(
+                f"{path}: {TEST_CASES_KEY}[{i}] must be a mapping, "
+                f"got {type(case).__name__}"
+            )
+        missing = [k for k in ("input", "expected") if k not in case]
+        if missing:
+            raise BenchmarkSchemaError(
+                f"{path}: {TEST_CASES_KEY}[{i}] is missing {missing!r}"
+            )
+
+    return task
+
+
+def validate_tasks_dir(tasks_dir: Path) -> list[Path]:
+    """Validate every task file up front; raise before any score is computed."""
+    task_files = discover_tasks(tasks_dir)
+    if not task_files:
+        raise FileNotFoundError(f"No task YAML files found in {tasks_dir}")
+
+    errors: list[str] = []
+    for tf in task_files:
+        try:
+            load_task(tf)
+        except BenchmarkSchemaError as exc:
+            errors.append(str(exc))
+
+    if errors:
+        shown = "\n  ".join(errors[:20])
+        more = (f"\n  ... and {len(errors) - 20} more"
+                if len(errors) > 20 else "")
+        raise BenchmarkSchemaError(
+            f"{len(errors)} of {len(task_files)} task file(s) violate the "
+            f"benchmark schema; refusing to emit a score:\n  {shown}{more}"
+        )
+
+    return task_files
+
+
+def _comb(n: int, k: int) -> int:
+    """Binomial coefficient, 0 when k is out of range."""
+    if k < 0 or k > n:
+        return 0
+    return math.comb(n, k)
+
+
+def pass_at_k_estimator(n: int, c: int, k: int) -> float:
+    """Unbiased Pass@k -- Chen et al. (2021).
+
+    Args:
+        n: samples drawn, c: samples correct, k: attempts allowed.
+    """
+    if k > n:
+        raise ValueError(f"pass@{k} is undefined from only {n} sample(s)")
+    if n - c < k:
+        return 1.0
+    return 1.0 - _comb(n - c, k) / _comb(n, k)
 
 
 # ---------------------------------------------------------------------------
@@ -148,6 +323,17 @@ def load_python_solutions(solutions_dir: Path) -> dict[str, Any]:
 
 # Default timeout for subprocess calls (seconds); overridden by --timeout.
 _SUBPROCESS_TIMEOUT = 10
+
+#: Task ids whose .toke solution failed to compile during the most recent
+#: `load_toke_solutions` call.  Populated by that loader and consumed by
+#: `run_benchmark` so a compile failure scores 0 rather than vanishing from
+#: the denominator.
+#:
+#: 128.1c: dropping them is how the published Gate-1 figure became
+#: 588/923 = 63.7% when 1,000 solutions were generated.  588/1000 = 58.8% is
+#: the Pass@1; 63.7% is Pass@1 *given the solution compiled*, a different and
+#: strictly more generous quantity.
+_COMPILE_FAILURES: list[str] = []
 
 
 def _make_subprocess_runner(binary: str | Path, task_id: str | None = None) -> Any:
@@ -308,6 +494,9 @@ def load_toke_solutions(solutions_dir: Path) -> dict[str, Any]:
     A build directory (.build/) is created inside solutions_dir to hold
     compiled binaries.
     """
+    global _COMPILE_FAILURES
+    _COMPILE_FAILURES = []
+
     toke_files = sorted(solutions_dir.glob("task-*.toke"))
     if not toke_files:
         raise FileNotFoundError(
@@ -335,6 +524,10 @@ def load_toke_solutions(solutions_dir: Path) -> dict[str, Any]:
             ok, err = _compile_toke(src, binary, tkc)
             if not ok:
                 compile_errors.append(f"  {task_id}: {err}")
+                # A solution that does not compile is a FAILED task, not an
+                # absent one.  Record it so run_benchmark() can score it zero
+                # instead of dropping it out of the denominator.
+                _COMPILE_FAILURES.append(task_id)
                 continue
 
         solutions[task_id] = _make_subprocess_runner(binary)
@@ -464,51 +657,102 @@ def load_model_solutions(
     return results
 
 
-def score_model_pass_at_1(
+def score_model_samples(
     tasks_dir: Path,
     model_endpoint: str,
     n_samples: int = 1,
     timeout: int = 10,
     api_key: str | None = None,
 ) -> BenchmarkReport:
-    """Run pass@1 evaluation using model-generated toke solutions.
+    """Evaluate model-generated toke solutions and report each metric by name.
 
-    For each task, generates N toke solutions from the model, compiles each,
-    and runs against the hidden test cases.  A task passes if any sample
-    passes all test cases.
+    For each task, generate ``n_samples`` solutions, compile each, and run
+    EVERY compiled sample against the hidden test cases.  No sample is
+    skipped: the old early ``break`` on the first perfect sample both made
+    the metric best-of-N and biased the correct-sample count downwards.
+
+    The returned report carries:
+      * ``mean_pass_at_1``  -- Pass@1, mean of (correct / n_samples).
+      * ``mean_best_of_n``  -- the oracle best-of-N rate (``None`` at N = 1,
+        where it is identical to Pass@1 by construction).
+      * ``mean_pass_at_k``  -- unbiased Chen et al. Pass@k for k <= N.
+
+    A generation or compile failure counts as an incorrect sample, not as a
+    missing one: ``n_samples`` is always the number requested.
     """
     global _SUBPROCESS_TIMEOUT
     _SUBPROCESS_TIMEOUT = timeout
+
+    if n_samples < 1:
+        raise ValueError(f"--n-samples must be >= 1, got {n_samples}")
+
+    # Schema gate: fail before a single sample is drawn or scored.
+    task_files = validate_tasks_dir(tasks_dir)
 
     model_solutions = load_model_solutions(
         tasks_dir, model_endpoint, n_samples=n_samples, api_key=api_key,
     )
 
-    task_files = discover_tasks(tasks_dir)
+    k_values = sorted({k for k in (1, 5, 10) if k <= n_samples})
     task_results: list[TaskResult] = []
 
     for tf in task_files:
-        with open(tf) as f:
-            task = yaml.safe_load(f)
-
+        task = load_task(tf)
         task_id: str = task["id"]
-        if task_id not in model_solutions:
-            continue
+        test_cases = task[TEST_CASES_KEY]
 
-        test_cases = task["test_inputs"]
+        # Samples that failed to generate or compile are still samples; they
+        # are simply incorrect ones.  Dropping them would inflate Pass@1.
+        samples = model_solutions.get(task_id, [])
+
+        n_correct = 0
         best_result: TaskResult | None = None
-
-        for fn in model_solutions[task_id]:
+        for fn in samples:
             result = score_task(task_id, fn, test_cases, timeout)
+            if result.pass_count == result.total_count:
+                n_correct += 1
             if best_result is None or result.pass_count > best_result.pass_count:
                 best_result = result
-            if result.pass_at_1 == 1.0:
-                break  # All tests passed, no need to try more samples.
 
-        if best_result is not None:
-            task_results.append(best_result)
+        agg = TaskResult(
+            task_id=task_id,
+            # Per-case detail from the single best sample, kept for triage
+            # only.  It is NOT the basis of any headline number.
+            pass_count=best_result.pass_count if best_result else 0,
+            total_count=len(test_cases),
+            pass_at_1=n_correct / n_samples,
+            cases=best_result.cases if best_result else [],
+            n_samples=n_samples,
+            n_correct=n_correct,
+            best_of_n=1.0 if n_correct > 0 else 0.0,
+            pass_at_k={
+                k: pass_at_k_estimator(n_samples, n_correct, k)
+                for k in k_values
+            },
+        )
+        task_results.append(agg)
 
-    return generate_report(task_results, "toke-model", timeout)
+    return generate_report(
+        task_results, "toke-model", timeout, n_samples=n_samples,
+    )
+
+
+def score_model_pass_at_1(
+    tasks_dir: Path,
+    model_endpoint: str,
+    timeout: int = 10,
+    api_key: str | None = None,
+) -> BenchmarkReport:
+    """Strict Pass@1: exactly one sample per task, one attempt.
+
+    Kept as a named entry point so "Pass@1" cannot be produced by a call that
+    silently drew more than one sample.  For N > 1 call
+    :func:`score_model_samples` and quote the field you actually mean.
+    """
+    return score_model_samples(
+        tasks_dir, model_endpoint, n_samples=1, timeout=timeout,
+        api_key=api_key,
+    )
 
 
 LANGUAGE_LOADERS = {
@@ -528,7 +772,18 @@ def score_task(
     test_cases: list[dict[str, Any]],
     timeout: int,
 ) -> TaskResult:
-    """Run *fn* against every test case and return a TaskResult."""
+    """Run *fn* against every test case and return a TaskResult.
+
+    Raises:
+        BenchmarkSchemaError: if *test_cases* is empty.  ``pass_count ==
+            total == 0`` would otherwise satisfy the all-cases-passed test and
+            award a free 1.0.
+    """
+    if not test_cases:
+        raise BenchmarkSchemaError(
+            f"{task_id}: no test cases; 0/0 is not a pass"
+        )
+
     case_results: list[TestCaseResult] = []
     pass_count = 0
 
@@ -580,19 +835,56 @@ def generate_report(
     task_results: list[TaskResult],
     language: str,
     timeout: int,
+    n_samples: int = 1,
 ) -> BenchmarkReport:
-    """Build an aggregate BenchmarkReport from individual task results."""
-    total_pass_at_1 = sum(1 for t in task_results if t.pass_at_1 == 1.0)
+    """Build an aggregate BenchmarkReport from individual task results.
+
+    ``mean_pass_at_1`` is the mean of the per-task Pass@1 contributions.  At
+    ``n_samples == 1`` that is exactly (tasks solved / tasks evaluated); at
+    N > 1 it is the single-sample success probability, which is strictly what
+    Pass@1 means.  The oracle best-of-N figure goes in ``mean_best_of_n`` and
+    nowhere else.
+    """
     n = len(task_results)
-    mean = total_pass_at_1 / n if n else 0.0
+    mean_p1 = (sum(t.pass_at_1 for t in task_results) / n) if n else 0.0
+
+    if n_samples == 1:
+        total_pass_at_1: int | None = sum(
+            1 for t in task_results if t.pass_at_1 == 1.0
+        )
+        mean_best_of_n: float | None = None
+        note = "Pass@1: one sample, one attempt."
+    else:
+        # A count of solved tasks is not defined for an estimator over N
+        # samples; forcing one is how best-of-N got reported as Pass@1.
+        total_pass_at_1 = None
+        mean_best_of_n = round(
+            sum(t.best_of_n or 0.0 for t in task_results) / n, 4
+        ) if n else 0.0
+        note = (
+            f"Pass@1 estimated from n={n_samples} samples per task. "
+            f"mean_best_of_n is an ORACLE best-of-{n_samples} figure and must "
+            f"never be quoted as Pass@1."
+        )
+
+    mean_pass_at_k: dict[int, float] = {}
+    if n and task_results[0].pass_at_k:
+        for k in sorted(task_results[0].pass_at_k):
+            mean_pass_at_k[k] = round(
+                sum(t.pass_at_k.get(k, 0.0) for t in task_results) / n, 4
+            )
 
     return BenchmarkReport(
         total_pass_at_1=total_pass_at_1,
-        mean_pass_at_1=round(mean, 4),
+        mean_pass_at_1=round(mean_p1, 4),
         tasks_evaluated=n,
         language=language,
         timeout=timeout,
         tasks=task_results,
+        n_samples=n_samples,
+        mean_best_of_n=mean_best_of_n,
+        mean_pass_at_k=mean_pass_at_k,
+        metric_note=note,
     )
 
 
@@ -600,20 +892,36 @@ def report_to_dict(report: BenchmarkReport) -> dict[str, Any]:
     """Serialise report to a JSON-friendly dict (drop per-case detail for brevity)."""
     tasks_out = []
     for t in report.tasks:
-        tasks_out.append({
+        entry: dict[str, Any] = {
             "task_id": t.task_id,
             "pass_count": t.pass_count,
             "total_count": t.total_count,
             "pass_at_1": t.pass_at_1,
-        })
-    return {
+        }
+        if t.n_samples > 1:
+            entry["n_samples"] = t.n_samples
+            entry["n_correct"] = t.n_correct
+            entry["best_of_n"] = t.best_of_n
+            entry["pass_at_k"] = {str(k): v for k, v in t.pass_at_k.items()}
+        tasks_out.append(entry)
+
+    out: dict[str, Any] = {
         "total_pass_at_1": report.total_pass_at_1,
         "mean_pass_at_1": report.mean_pass_at_1,
         "tasks_evaluated": report.tasks_evaluated,
         "language": report.language,
         "timeout": report.timeout,
+        "n_samples": report.n_samples,
+        "metric_note": report.metric_note,
         "tasks": tasks_out,
     }
+    if report.mean_best_of_n is not None:
+        out["mean_best_of_n"] = report.mean_best_of_n
+    if report.mean_pass_at_k:
+        out["mean_pass_at_k"] = {
+            str(k): v for k, v in report.mean_pass_at_k.items()
+        }
+    return out
 
 
 # ---------------------------------------------------------------------------
@@ -654,33 +962,54 @@ def run_benchmark(
     _SUBPROCESS_TIMEOUT = timeout
 
     # Load solutions
+    global _COMPILE_FAILURES
+    _COMPILE_FAILURES = []
+
     loader = LANGUAGE_LOADERS.get(language)
     if loader is None:
         raise ValueError(f"Unsupported language: {language!r}")
     solutions = loader(solutions_dir)
+    compile_failures = set(_COMPILE_FAILURES)
 
-    # Discover tasks
-    task_files = discover_tasks(tasks_dir)
-    if not task_files:
-        raise FileNotFoundError(f"No task YAML files found in {tasks_dir}")
+    # Discover + schema-gate tasks before scoring anything.
+    task_files = validate_tasks_dir(tasks_dir)
 
     task_results: list[TaskResult] = []
 
     for tf in task_files:
-        with open(tf) as f:
-            task = yaml.safe_load(f)
-
+        task = load_task(tf)
         task_id: str = task["id"]
+        test_cases = task[TEST_CASES_KEY]
+
+        if task_id in compile_failures:
+            # Scored, and scored zero.  Not dropped.
+            task_results.append(TaskResult(
+                task_id=task_id,
+                pass_count=0,
+                total_count=len(test_cases),
+                pass_at_1=0.0,
+            ))
+            continue
 
         if task_id not in solutions:
             continue
 
         fn = solutions[task_id]
-        test_cases = task["test_inputs"]
         result = score_task(task_id, fn, test_cases, timeout)
         task_results.append(result)
 
-    return generate_report(task_results, language, timeout)
+    if not task_results:
+        # Zero overlap between the solution set and the task set is an input
+        # mismatch, not a score of zero.  Reporting "Mean Pass@1: 0.0000 over
+        # 0 tasks" is the same disease as the 0/0 schema bug.
+        raise BenchmarkSchemaError(
+            f"no task in {tasks_dir} has a matching solution in "
+            f"{solutions_dir} ({len(task_files)} task(s), "
+            f"{len(solutions)} solution(s)); refusing to emit a score over "
+            f"zero tasks"
+        )
+
+    return generate_report(task_results, language, timeout, n_samples=1)
 
 
 # ---------------------------------------------------------------------------
@@ -740,7 +1069,12 @@ def main(argv: list[str] | None = None) -> int:
         "--n-samples",
         type=int,
         default=1,
-        help="Number of samples per task for pass@N (default: 1)",
+        help=(
+            "Samples drawn per task (default: 1). N=1 is strict Pass@1. "
+            "N>1 still reports Pass@1 as the single-sample success rate; the "
+            "oracle best-of-N figure is reported separately as "
+            "mean_best_of_n and is NOT a Pass@1."
+        ),
     )
     model_group.add_argument(
         "--api-key",
@@ -759,15 +1093,28 @@ def main(argv: list[str] | None = None) -> int:
     # Model inference mode
     if args.model_endpoint:
         api_key = args.api_key or os.environ.get("TOKE_API_KEY")
+        if args.n_samples > 1:
+            print(
+                f"NOTE: --n-samples {args.n_samples}. The headline Pass@1 is "
+                f"the single-sample success rate. The oracle best-of-"
+                f"{args.n_samples} figure is reported as 'mean_best_of_n' and "
+                f"must not be quoted as Pass@1.",
+                file=sys.stderr,
+            )
         try:
-            report = score_model_pass_at_1(
+            report = score_model_samples(
                 tasks_dir=args.tasks_dir,
                 model_endpoint=args.model_endpoint,
                 n_samples=args.n_samples,
                 timeout=args.timeout,
                 api_key=api_key,
             )
-        except (FileNotFoundError, RuntimeError) as exc:
+        except BenchmarkSchemaError as exc:
+            print(f"SCHEMA ERROR: {exc}", file=sys.stderr)
+            print("\nNo score was computed and no report was written.",
+                  file=sys.stderr)
+            return 2
+        except (FileNotFoundError, RuntimeError, ValueError) as exc:
             print(f"ERROR: {exc}", file=sys.stderr)
             return 1
     else:
@@ -790,6 +1137,11 @@ def main(argv: list[str] | None = None) -> int:
                 language=args.language,
                 timeout=args.timeout,
             )
+        except BenchmarkSchemaError as exc:
+            print(f"SCHEMA ERROR: {exc}", file=sys.stderr)
+            print("\nNo score was computed and no report was written.",
+                  file=sys.stderr)
+            return 2
         except (FileNotFoundError, ImportError, NotImplementedError,
                 RuntimeError, ValueError) as exc:
             print(f"ERROR: {exc}", file=sys.stderr)
@@ -806,15 +1158,29 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(report_dict, indent=2))
 
     # Print summary
-    print(
-        f"\n{'=' * 60}\n"
-        f"  Language:       {report.language}\n"
-        f"  Tasks evaluated:{report.tasks_evaluated:>4}\n"
-        f"  Pass@1:         {report.total_pass_at_1}/{report.tasks_evaluated}\n"
-        f"  Mean pass@1:    {report.mean_pass_at_1:.4f}\n"
-        f"{'=' * 60}",
-        file=sys.stderr,
-    )
+    lines = [
+        "=" * 60,
+        f"  Language:       {report.language}",
+        f"  Tasks evaluated:{report.tasks_evaluated:>4}",
+        f"  Samples/task:   {report.n_samples}",
+    ]
+    if report.total_pass_at_1 is not None:
+        lines.append(
+            f"  Pass@1:         {report.total_pass_at_1}"
+            f"/{report.tasks_evaluated}"
+        )
+    lines.append(f"  Mean Pass@1:    {report.mean_pass_at_1:.4f}")
+    if report.mean_best_of_n is not None:
+        lines.append(
+            f"  Best-of-{report.n_samples} (ORACLE, not Pass@1): "
+            f"{report.mean_best_of_n:.4f}"
+        )
+    for k, v in report.mean_pass_at_k.items():
+        lines.append(f"  Pass@{k} (Chen et al.):  {v:.4f}")
+    if report.metric_note:
+        lines.append(f"  {report.metric_note}")
+    lines.append("=" * 60)
+    print("\n" + "\n".join(lines), file=sys.stderr)
 
     return 0
 

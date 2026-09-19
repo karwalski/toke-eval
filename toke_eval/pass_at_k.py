@@ -13,6 +13,19 @@ Usage:
 Exit codes:
     0  success
     1  error
+    2  benchmark schema violation -- NO score is emitted
+
+Schema contract (128.1c)
+------------------------
+Test files must match `benchmark/tasks/schema.json`: a mapping with a
+non-empty `test_inputs` list whose entries each carry `input` and `expected`.
+
+Before 128.1c this module read `tests["test_cases"]`, a key that appears in no
+benchmark file in either repo, and returned `(0, 0)` when it was absent.  Every
+task therefore scored 0 with `tests_total == 0` and the run still printed a
+headline Pass@1 -- a number that measured nothing.  A harness that emits a
+meaningless score is worse than one that crashes, so schema violations now
+raise `TaskSchemaError`, the run aborts, and no report is written.
 """
 
 from __future__ import annotations
@@ -33,6 +46,82 @@ try:
     import yaml
 except ImportError:
     sys.exit("ERROR: pyyaml required. Install: pip install pyyaml")
+
+
+class TaskSchemaError(Exception):
+    """A benchmark task file does not match the expected schema.
+
+    Raised rather than degrading to a zero score.  See the module docstring.
+    """
+
+
+#: The canonical test-case key, per ``benchmark/tasks/schema.json``.
+TEST_CASES_KEY = "test_inputs"
+
+#: Keys that earlier harness revisions looked for.  Their presence is reported
+#: as an explicit error so the mismatch can never again read as "0 tests".
+LEGACY_TEST_CASES_KEYS = ("test_cases", "tests", "cases", "examples")
+
+
+def load_test_spec(test_file: Path) -> list[dict[str, Any]]:
+    """Load and validate a benchmark task YAML, returning its test cases.
+
+    Raises:
+        TaskSchemaError: if the file is unreadable, is not a mapping, lacks a
+            non-empty ``test_inputs`` list, or has a case missing ``input`` or
+            ``expected``.
+    """
+    try:
+        with open(test_file) as f:
+            spec = yaml.safe_load(f)
+    except OSError as exc:
+        raise TaskSchemaError(f"{test_file}: cannot read test file: {exc}") from exc
+    except yaml.YAMLError as exc:
+        raise TaskSchemaError(f"{test_file}: invalid YAML: {exc}") from exc
+
+    if not isinstance(spec, dict):
+        raise TaskSchemaError(
+            f"{test_file}: expected a mapping at the top level, "
+            f"got {type(spec).__name__}"
+        )
+
+    if TEST_CASES_KEY not in spec:
+        legacy = [k for k in LEGACY_TEST_CASES_KEYS if k in spec]
+        hint = (
+            f" (found legacy key(s) {legacy!r}; the schema key is "
+            f"{TEST_CASES_KEY!r})"
+            if legacy else
+            f" (keys present: {sorted(spec)!r})"
+        )
+        raise TaskSchemaError(
+            f"{test_file}: missing required key {TEST_CASES_KEY!r}{hint}"
+        )
+
+    cases = spec[TEST_CASES_KEY]
+    if not isinstance(cases, list):
+        raise TaskSchemaError(
+            f"{test_file}: {TEST_CASES_KEY!r} must be a list, "
+            f"got {type(cases).__name__}"
+        )
+    if not cases:
+        raise TaskSchemaError(
+            f"{test_file}: {TEST_CASES_KEY!r} is empty; a task with no test "
+            f"cases cannot be scored (0/0 is not a result)"
+        )
+
+    for i, case in enumerate(cases):
+        if not isinstance(case, dict):
+            raise TaskSchemaError(
+                f"{test_file}: {TEST_CASES_KEY}[{i}] must be a mapping, "
+                f"got {type(case).__name__}"
+            )
+        missing = [k for k in ("input", "expected") if k not in case]
+        if missing:
+            raise TaskSchemaError(
+                f"{test_file}: {TEST_CASES_KEY}[{i}] is missing {missing!r}"
+            )
+
+    return cases
 
 
 def classify_error(error_text: str) -> str:
@@ -105,8 +194,16 @@ class BenchmarkReport:
     tasks_total: int = 0
     tasks_compiled: int = 0
     tasks_passed: int = 0
-    pass_at_1: float = 0.0
-    mean_pass_at_1: float = 0.0
+    #: Pass@1 over EVERY task: tasks_passed / tasks_total.  ``None`` until a
+    #: complete, schema-valid run has been scored -- a report that never got a
+    #: valid input carries no number at all rather than a misleading 0.0.
+    pass_at_1: float | None = None
+    #: Pass@1 conditioned on the solution compiling.  Strictly >= pass_at_1
+    #: and NOT the headline figure.  Before 128.1c this quantity was written
+    #: into the `pass_at_1` field, which inflated it by the compile-failure
+    #: rate.
+    pass_at_1_given_compiled: float | None = None
+    mean_pass_at_1: float | None = None
     duration_s: float = 0.0
     error_taxonomy: ErrorTaxonomy = field(default_factory=ErrorTaxonomy)
     results: list[TaskResult] = field(default_factory=list)
@@ -151,14 +248,13 @@ def compile_toke(source_path: Path, compiler: str, output: Path,
 
 def run_tests(binary: Path, test_file: Path,
               timeout: int = 10) -> tuple[int, int]:
-    """Run a compiled binary against test cases. Returns (passed, total)."""
-    with open(test_file) as f:
-        tests = yaml.safe_load(f)
+    """Run a compiled binary against test cases. Returns (passed, total).
 
-    if not tests or "test_cases" not in tests:
-        return 0, 0
-
-    cases = tests["test_cases"]
+    Raises:
+        TaskSchemaError: if *test_file* does not match the benchmark schema.
+            It is never silently treated as "zero test cases".
+    """
+    cases = load_test_spec(test_file)
     passed = 0
     total = len(cases)
 
@@ -199,15 +295,39 @@ def evaluate(solutions_dir: Path, tests_dir: Path, compiler: str,
     solution_files = sorted(solutions_dir.glob("*.toke"))
     report.tasks_total = len(solution_files)
 
+    # --- Schema gate (128.1c) ---------------------------------------------
+    # Validate EVERY task file before a single sample is scored.  A run that
+    # cannot read its own benchmark must fail before it produces a number,
+    # not after.
+    schema_errors: list[str] = []
+    for sol_path in solution_files:
+        test_path = tests_dir / f"{sol_path.stem}.yaml"
+        if not test_path.exists():
+            schema_errors.append(
+                f"{sol_path.name}: no test file at {test_path} -- a solution "
+                f"with no tests cannot be scored"
+            )
+            continue
+        try:
+            load_test_spec(test_path)
+        except TaskSchemaError as exc:
+            schema_errors.append(str(exc))
+
+    if schema_errors:
+        shown = "\n  ".join(schema_errors[:20])
+        more = (f"\n  ... and {len(schema_errors) - 20} more"
+                if len(schema_errors) > 20 else "")
+        raise TaskSchemaError(
+            f"{len(schema_errors)} of {len(solution_files)} task(s) violate "
+            f"the benchmark schema; refusing to emit a score:\n  "
+            f"{shown}{more}"
+        )
+
     for sol_path in solution_files:
         task_id = sol_path.stem
         test_path = tests_dir / f"{task_id}.yaml"
 
         result = TaskResult(task_id=task_id)
-
-        if not test_path.exists():
-            report.results.append(result)
-            continue
 
         with tempfile.NamedTemporaryFile(delete=False) as tmp:
             binary_path = Path(tmp.name)
@@ -256,8 +376,16 @@ def evaluate(solutions_dir: Path, tests_dir: Path, compiler: str,
                   file=sys.stderr)
 
     report.duration_s = time.time() - start
+
+    # Pass@1 is over every task attempted.  Dividing by tasks_compiled (the
+    # pre-128.1c behaviour) silently discards every compile failure and
+    # inflates the figure by exactly the compile-failure rate.
+    if report.tasks_total > 0:
+        report.pass_at_1 = report.tasks_passed / report.tasks_total
     if report.tasks_compiled > 0:
-        report.pass_at_1 = report.tasks_passed / report.tasks_compiled
+        report.pass_at_1_given_compiled = (
+            report.tasks_passed / report.tasks_compiled
+        )
     report.mean_pass_at_1 = report.pass_at_1
 
     return report
@@ -277,15 +405,30 @@ def main():
     if not args.tests_dir.is_dir():
         sys.exit(f"ERROR: tests dir not found: {args.tests_dir}")
 
-    report = evaluate(args.solutions_dir, args.tests_dir, args.compiler,
-                      args.timeout)
+    try:
+        report = evaluate(args.solutions_dir, args.tests_dir, args.compiler,
+                          args.timeout)
+    except TaskSchemaError as exc:
+        print(f"SCHEMA ERROR: {exc}", file=sys.stderr)
+        print(
+            "\nNo score was computed and no report was written.  Fix the "
+            "benchmark inputs and re-run.",
+            file=sys.stderr,
+        )
+        sys.exit(2)
 
     tax = report.error_taxonomy
     print(f"\n{'=' * 60}", file=sys.stderr)
     print(f"  Tasks:     {report.tasks_total}", file=sys.stderr)
     print(f"  Compiled:  {report.tasks_compiled}/{report.tasks_total}", file=sys.stderr)
-    print(f"  Pass@1:    {report.tasks_passed}/{report.tasks_compiled}", file=sys.stderr)
-    print(f"  Mean:      {report.mean_pass_at_1:.4f}", file=sys.stderr)
+    print(f"  Pass@1:    {report.tasks_passed}/{report.tasks_total}", file=sys.stderr)
+    print(f"  Mean:      {report.pass_at_1:.4f}"
+          if report.pass_at_1 is not None else "  Mean:      n/a",
+          file=sys.stderr)
+    if report.pass_at_1_given_compiled is not None:
+        print(f"  (of compiled, NOT Pass@1): "
+              f"{report.tasks_passed}/{report.tasks_compiled} = "
+              f"{report.pass_at_1_given_compiled:.4f}", file=sys.stderr)
     print(f"  Duration:  {report.duration_s:.1f}s", file=sys.stderr)
     if tax.total() > 0:
         print(f"\n  Error Taxonomy ({tax.total()} failures):", file=sys.stderr)
