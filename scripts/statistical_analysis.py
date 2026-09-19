@@ -241,8 +241,12 @@ def generate_mock_data(
 ) -> pd.DataFrame:
     """Generate synthetic paired token count data for methodology testing.
 
-    Simulates toke achieving ~25-35% token reduction vs Python across
-    categories with varying difficulty (matching real corpus properties).
+    The effect sizes below are arbitrary fixtures chosen to exercise the
+    estimators; they are NOT toke's measured values and must never be quoted as
+    such (story 132.15). The measured position is the other way round: under one
+    shared tokenizer (cl100k_base) toke costs 1.34x [1.22, 1.48] the tokens of
+    equivalent Python on the 60 Gate-1 tasks (N = 60, 2026-09-19) — see
+    toke/docs/metrics-baseline.md.
     """
     rng = np.random.default_rng(seed)
 
