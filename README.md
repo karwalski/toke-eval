@@ -6,6 +6,26 @@ tasks, an evaluation harness that compiles and runs generated programs,
 and tools for analysing results. It consolidates what was formerly the
 standalone `toke-benchmark` repository (now retired and archived).
 
+## About toke
+
+> toke: a compiled language designed for LLM code generation, with a small grammar, one
+> canonical form and compiler verification.
+
+toke is a compiled programming language designed for LLM code generation. It has 14
+keywords, a 55-character set, a backtrack-free grammar with bounded lookahead, and one
+canonical form per construct, chosen by measurement in a 46-pattern catalogue and
+reproduced by `tkc --min`. That makes generated code cheap to constrain during decoding,
+cheap for a compiler to verify afterwards, and compact to emit. Token efficiency is one
+measured property of toke, always reported with its tokenizer and its baseline, not the
+whole claim.
+
+*The one-liner and the paragraph above are reproduced word for word from the canonical
+description,
+[`docs/about/canonical.md`](https://github.com/karwalski/toke/blob/main/docs/about/canonical.md).
+Every number published about toke comes from
+[`docs/metrics-baseline.md`](https://github.com/karwalski/toke/blob/main/docs/metrics-baseline.md)
+and nowhere else.*
+
 ## What's Inside
 
 | Component | Path | Purpose |
@@ -19,6 +39,28 @@ standalone `toke-benchmark` repository (now retired and archived).
 Held-out test cases used for gate evaluation are **not** included in
 this repository. They are stored separately and never committed to any
 public repository.
+
+## Reporting rules for anything measured here
+
+Numbers produced by this harness become public only through
+[`docs/metrics-baseline.md`](https://github.com/karwalski/toke/blob/main/docs/metrics-baseline.md)
+in the toke repository, and they carry the four TEMSpec §6.3 fields — metric type,
+tokenizer(s), baseline and sample size — wherever they are quoted.
+
+Two rules the harness exists to enforce:
+
+- **One tokenizer on both sides.** A toke-trained tokenizer (`proxy8k`, `tokenizer_v03`,
+  Toke-16K) measures its own training bias when applied to Python, C or Java. Any
+  cross-language figure uses the same tokenizer on both sides.
+- **Measure the canonical `--min` form.** Measuring readable source understated toke by
+  28.2%; `tkc --min` is the basis on both sides of any comparison.
+
+The most recent delivery on this suite is the 60 Gate-1 JSON-CLI tasks re-delivered on
+v0.4 ([`docs/gate1-60-v04.md`](docs/gate1-60-v04.md), 2026-09-19): 60/60 `tkc --check`,
+60/60 hidden tests, lint 0/0. Those programs are **hand-written, not model-generated** —
+27 ids are pure `--migrate` output and 33 were hand-repaired — so the set measures what
+the *language* can express, not what a *model* produces, and it may not be quoted as a
+model result or as a Pass@1.
 
 ## Quick Start
 
