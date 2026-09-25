@@ -1,1 +1,1 @@
-m=palindrome;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let result=checkPalindrome(input);j.print(result);};f=checkPalindrome(s:Str):bool{let n=s.len;let m=mut.0;let isPal=mut.true;lp(let i=0;i<n;i=i+1){m=n-1-i;if(!(s.get(i)=s.get(m))){isPal=false}};<isPal};
+m=palindrome;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let result=checkpalindrome(input);j.print(result);};f=checkpalindrome(s:str):bool{let n=s.len;let m=mut.0;let ispal=mut.true;lp(let i=0;i<n;i=i+1){m=n-1-i;if(!(s.slice(i;i+1)==s.slice(m;m+1))){ispal=false}};<ispal};
