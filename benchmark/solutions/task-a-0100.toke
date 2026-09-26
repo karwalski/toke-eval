@@ -1,1 +1,1 @@
-m=main;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let arr=input as @i64;let minidx=mut.0;let minval=mut.arr.get(0);lp(let i=1;i<arr.len;i=i+1){let curr=arr.get(i);if(curr<minval){minval=curr;minidx=i;};};<minidx};
+m=main;i=j:std.json;i=s:std.str;f=solve():i64{let input=j.parse(s.argv(1));let arr=input as @i64;let minidx=mut.0;let minval=mut.arr.get(0);lp(let i=1;i<arr.len;i=i+1){let curr=arr.get(i);if(curr<minval){minval=curr;minidx=i;};};<minidx};f=main():i64{j.print(solve());<0};
