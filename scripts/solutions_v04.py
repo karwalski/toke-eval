@@ -137,6 +137,8 @@ def main() -> int:
     ap.add_argument("--timeout", type=int, default=10)
     ap.add_argument("--build-cache", type=Path,
                     help="keep built binaries here, keyed by (tkc, source) hash")
+    ap.add_argument("--ids", type=Path,
+                    help="only these ids (file, one id or NNNN per line)")
     ap.add_argument("--json", type=Path)
     ap.add_argument("--md", type=Path)
     a = ap.parse_args()
@@ -144,6 +146,10 @@ def main() -> int:
     tkc = os.environ.get("TKC") or find_tkc()
     ver = subprocess.run([tkc, "--version"], capture_output=True, text=True).stdout.strip()
     files = sorted(a.solutions_dir.glob("task-a-*.toke"))
+    if a.ids:
+        want = {w if w.startswith("task-") else f"task-a-{w}"
+                for w in a.ids.read_text().split()}
+        files = [f for f in files if f.stem in want]
     ids = [f.stem for f in files]
 
     with cf.ThreadPoolExecutor(a.jobs) as ex:
