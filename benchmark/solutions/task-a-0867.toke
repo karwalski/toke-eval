@@ -1,1 +1,1 @@
-m=rotate;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let arr=input.get(0);let k=input.get(1);let n=arr.len;let m=k-k/n*n;let result=mut.@();lp(let i=0;i<n;i=i+1){let idx=mut.i-m;if(idx<0){idx=idx+n};result=result+@(arr.get(idx as u64));};j.print(result);};
+m=rotate;i=j:std.json;i=s:std.str;f=main():i64{let a=j.parse(s.argv(1));let v:@i64=a.get(0);let k:i64=a.get(1);let n=v.len as i64;let r:@i64=mut.@();if(n==0){j.print(r);<0};let m=(k-k/n*n+n)-(k-k/n*n+n)/n*n;lp(let i=0;i<n;i=i+1){let q=i+m;r=r.append(v.get(q-q/n*n))};j.print(r)};

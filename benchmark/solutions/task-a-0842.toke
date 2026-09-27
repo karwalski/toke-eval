@@ -1,1 +1,1 @@
-m=arrmul;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let arr=input.get(0);let val=arr.get(0);let other=arr.get(1);if(val==other){j.print(arr);<0};let result=mut.@();lp(let i=0;i<arr.len;i=i+1){result=result+@(arr.get(i)*other);};j.print(result)};
+m=arrmul;i=j:std.json;i=s:std.str;f=main():i64{let a=j.parse(s.argv(1));let v:@i64=a.get(0);let k:i64=a.get(1);let r:@i64=mut.@();lp(let i=0;i<v.len;i=i+1){r=r.append(v.get(i)*k)};j.print(r)};

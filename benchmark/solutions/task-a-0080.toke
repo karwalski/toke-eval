@@ -1,1 +1,1 @@
-m=endswith;i=j:std.json;i=s:std.str;f=main():i64{let args=j.parse(s.argv(1));let s=args.get(0);let suffix=args.get(1);let result=mut.false;if(suffix.len>s.len){j.print(result);<0};let n=s.len;let m=suffix.len;let i=mut.0;lp(let i=0;i<m;i=i+1){if(s.get(n-m+i)==suffix.get(i)){}el{br;};};if(i==m){result=true};j.print(result)};
+m=endswith;i=j:std.json;i=s:std.str;f=main():i64{let a:@str=j.parse(s.argv(1));let r:bool=s.endswith(a.get(0);a.get(1));j.print(r)};

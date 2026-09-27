@@ -1,1 +1,1 @@
-m=asctostring;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let result=asctostring(input);j.print(result);};f=asctostring(arr:@i64):str{let n=arr.len;let result=mut."";lp(let i=0;i<n;i=i+1){let code=arr.get(i);let ch=code as u8;result="\(result)\(ch as str)"};<result};
+m=asctostring;i=j:std.json;i=s:std.str;f=main():i64{let a:@i64=j.parse(s.argv(1));let b=s.buf();lp(let i=0;i<a.len;i=i+1){s.addbyte(b;a.get(i) as byte)};j.print(s.done(b))};
