@@ -1,1 +1,1 @@
-m=equal;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let x=input.get(0);let y=input.get(1);let result=mut.false;if(x==y){result=true};j.print(result)};
+m=equal;i=j:std.json;i=s:std.str;f=main():i64{let a:@str=j.parse(s.argv(1));let r:bool=a.get(0)==a.get(1);j.print(r)};

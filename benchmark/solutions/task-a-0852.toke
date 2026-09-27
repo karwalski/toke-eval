@@ -1,1 +1,1 @@
-m=prime;i=j:std.json;i=s:std.str;f=main():i64{let n=j.parse(s.argv(1));let result=mut.false;if(n<2){result=false}el{let isprime=mut.true;lp(let i=2;i*!(i>n);i=i+1){let mod=n-n/i*i;if(mod==0){isprime=false}};result=isprime};j.print(result)};
+m=prime;i=j:std.json;i=s:std.str;f=pr(n:i64):bool{if(n<2){<false};lp(let d=2;d*d<=n;d=d+1){if(n-n/d*d==0){<false}};<true};f=main():i64{j.print(pr(j.parse(s.argv(1))))};

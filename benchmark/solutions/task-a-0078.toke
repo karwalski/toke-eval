@@ -1,1 +1,1 @@
-m=countchar;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let s=input.get(0);let c=input.get(1);let count=mut.0;let n=s.len;lp(let i=0;i<n;i=i+1){if(s.get(i)==c){count=count+1}};j.print(count)};
+m=countchar;i=j:std.json;i=s:std.str;f=main():i64{let a:@str=j.parse(s.argv(1));let t=a.get(0);let c=a.get(1);let n=mut.0;lp(let i=0;i<t.len;i=i+1){if(t.slice(i;i+1)==c){n=n+1}};j.print(n)};

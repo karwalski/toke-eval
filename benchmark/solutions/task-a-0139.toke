@@ -1,1 +1,1 @@
-m=checkallless;i=j:std.json;i=s:std.str;f=main():i64{let input=j.parse(s.argv(1));let arr=input.get(0);let threshold=input.get(1);let result=mut.true;lp(let i=0;i<arr.len;i=i+1){if(arr.get(i)>threshold){result=false;br;};};j.print(result);};
+m=allless;i=j:std.json;i=s:std.str;f=main():i64{let a=j.parse(s.argv(1));let v:@i64=a.get(0);let t:i64=a.get(1);let r=mut.true;lp(let i=0;i<v.len;i=i+1){if(v.get(i)>=t){r=false}};j.print(r)};

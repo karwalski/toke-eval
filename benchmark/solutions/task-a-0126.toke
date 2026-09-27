@@ -1,1 +1,1 @@
-m=abundant;i=j:std.json;i=s:std.str;f=main():i64{let n=j.parse(s.argv(1));let result=mut.@();lp(let i=1;i<n+1;i=i+1){let sumdiv=mut.0;lp(let j=1;j<i;j=j+1){let rem=i-i/j*j;if(rem==0){sumdiv=sumdiv+j}};let diff=sumdiv-i;if(diff>i){result=result+@(i)}};j.print(result)};
+m=abundant;i=j:std.json;i=s:std.str;f=main():i64{let n:i64=j.parse(s.argv(1));let r:@i64=mut.@();lp(let i=1;i<=n;i=i+1){let t=mut.0;lp(let d=1;d<i;d=d+1){if(i-i/d*d==0){t=t+d}};if(t>i){r=r.append(i)}};j.print(r)};
