@@ -26,11 +26,8 @@ import ast
 import json
 import sys
 import textwrap
-import time
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any
-
 
 # ---------------------------------------------------------------------------
 # Default pricing: GPT-4o (USD per 1M tokens)
@@ -637,7 +634,6 @@ def generate_synthetic_tasks(n: int, seed: int) -> list[TaskInfo]:
     import numpy as np
     rng = np.random.default_rng(seed)
 
-    difficulties = ["easy", "medium", "hard"]
     tasks: list[TaskInfo] = []
 
     for i in range(1, n + 1):
@@ -658,7 +654,7 @@ def generate_synthetic_tasks(n: int, seed: int) -> list[TaskInfo]:
         py_lines.append(f'    """Solve task {i}."""')
         for j in range(max(1, n_lines - 2)):
             py_lines.append(f"    result_{j} = x + {j}")
-        py_lines.append(f"    return result_0")
+        py_lines.append("    return result_0")
         python_source = "\n".join(py_lines)
 
         # Synthetic toke: shorter (simulating toke compression)
@@ -667,7 +663,7 @@ def generate_synthetic_tasks(n: int, seed: int) -> list[TaskInfo]:
         tk_lines = [f"fn solve_{i}(x):"]
         for j in range(max(1, toke_lines_n - 1)):
             tk_lines.append(f"  r{j} = x + {j}")
-        tk_lines.append(f"  -> r0")
+        tk_lines.append("  -> r0")
         toke_source = "\n".join(tk_lines)
 
         tasks.append(TaskInfo(
@@ -765,7 +761,7 @@ def main(argv: list[str] | None = None) -> int:
           file=sys.stderr)
     print(f"Pricing: ${args.input_price:.2f} / ${args.output_price:.2f} "
           f"per 1M input/output tokens", file=sys.stderr)
-    print("", file=sys.stderr)
+    print(file=sys.stderr)
 
     # Run benchmark
     results, summary = run_benchmark(
@@ -793,7 +789,7 @@ def main(argv: list[str] | None = None) -> int:
 
     print(f"\nOutputs written to: {out}", file=sys.stderr)
     print(f"  cost_latency_results.json    ({len(results)} entries)", file=sys.stderr)
-    print(f"  cost_latency_summary.json    (aggregate comparison)", file=sys.stderr)
+    print("  cost_latency_summary.json    (aggregate comparison)", file=sys.stderr)
     print(f"  break_even_analysis.json     ({len(break_even_points)} points)", file=sys.stderr)
 
     return 0

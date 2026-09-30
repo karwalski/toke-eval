@@ -41,7 +41,7 @@ import subprocess
 import sys
 import tempfile
 import time
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -214,7 +214,7 @@ def compile_and_check(source_code: str, compiler: str,
     try:
         result = subprocess.run(
             [compiler, "--check", tmp_path],
-            capture_output=True, text=True, timeout=timeout,
+            capture_output=True, text=True, timeout=timeout, check=False,
         )
         if result.returncode == 0:
             return True, ""
@@ -257,7 +257,7 @@ def compile_and_run(source_code: str, compiler: str, test_file: Path,
         # Step 1: toke -> LLVM IR
         result = subprocess.run(
             [compiler, src_path],
-            capture_output=True, text=True, timeout=compile_timeout,
+            capture_output=True, text=True, timeout=compile_timeout, check=False,
         )
         if result.returncode != 0:
             return False
@@ -267,7 +267,7 @@ def compile_and_run(source_code: str, compiler: str, test_file: Path,
         # Step 2: clang IR -> native binary
         result = subprocess.run(
             ["clang", "-x", "ir", ll_path, "-o", bin_path, "-lm"],
-            capture_output=True, text=True, timeout=compile_timeout,
+            capture_output=True, text=True, timeout=compile_timeout, check=False,
         )
         if result.returncode != 0:
             return False
@@ -289,7 +289,7 @@ def compile_and_run(source_code: str, compiler: str, test_file: Path,
             try:
                 result = subprocess.run(
                     [bin_path, input_val],
-                    capture_output=True, text=True, timeout=run_timeout,
+                    capture_output=True, text=True, timeout=run_timeout, check=False,
                 )
                 actual = result.stdout.strip()
                 if actual != expected:
