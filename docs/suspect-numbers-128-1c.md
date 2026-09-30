@@ -138,6 +138,33 @@ below: `data/ablation_summary.json` (`"dry_run": true`) with its unmarked
 derivative `data/ablation_table.csv`; `data/checkpoint_regression_report.json`
 (`"mode": "dry-run"`) with unmarked `data/training_curve.csv` / `.json`.
 
+### STAMPED 2026-10-01 (story 128.20)
+
+Every synthetic artefact in `data/` now names itself on every row, not only in a
+companion file. The three CSVs (`pass_at_k_summary.csv`, `ablation_table.csv`,
+`training_curve.csv`) gained a leading `mode` column whose value on every row is
+`dry-run-synthetic`, so a row copied out of the file carries its provenance with
+it. The list-shaped JSON files gained the same stamp per record (`mode` in
+`training_curve.json`; `run_mode` in `ablation_results.json`, where `condition`
+already names the arm).
+
+The audit the story asked for found three more unstamped synthetic files, all
+from `scripts/cost_latency_benchmark.py --dry-run`:
+`cost_latency_results.json`, `cost_latency_summary.json` and
+`break_even_analysis.json`. None records a mode. They are synthetic because
+the committed rows carry non-zero wall-clock times and 23 failures in 100 rows,
+and the script's non-dry-run branch writes `wall_clock = 0.0` and
+`passed = True` unconditionally, so only the dry-run branch can produce them.
+All three now carry `run_mode: "dry-run-synthetic"`, and the summary also has a
+`note`. The token and cost "savings" percentages in that summary are part of the
+same synthetic run and are not results.
+
+Writers were fixed so this cannot recur: `scripts/pass_at_k.py` writes the
+`mode` column on every CSV row, and `scripts/cost_latency_benchmark.py` stamps
+`run_mode` (`dry-run-synthetic` or `real-token-counts`) into all three outputs.
+The ablation and checkpoint-regression writers are no longer in this repo, so
+their files were stamped in place. Every value is unchanged.
+
 ---
 
 ## 4. `toke_eval/pass_at_k.py` — schema mismatch — NO number reached publication
@@ -234,7 +261,7 @@ These are **requested, not filed** — `toke/docs/progress.md` is owner-edited.
    (`status.tkt` carries only Gate-2 numbers). Artefacts under `toke/docs/` were out
    of reach and remain to be corrected. **The re-opened Gate-1 verdict is still open
    and is the owner's to decide.**
-2. **Quarantine the synthetic `data/` derivatives.** `pass_at_k_summary.csv`,
+2. **Done 2026-10-01 (story 128.20), see STAMPED in §3.** **Quarantine the synthetic `data/` derivatives.** `pass_at_k_summary.csv`,
    `ablation_table.csv`, `training_curve.csv`/`.json` carry no dry-run marker.
    Either stamp every dry-run output with an unremovable marker or refuse to
    write a CSV in dry-run mode at all. **P1.**

@@ -1,4 +1,6 @@
 {
+  "run_mode": "dry-run-synthetic",
+  "note": "Synthetic: produced by scripts/cost_latency_benchmark.py --dry-run; latency and pass/fail are random draws, not measurements (128.20).",
   "python": {
     "mode": "python",
     "n_tasks": 50,
