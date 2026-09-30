@@ -115,6 +115,35 @@ report, and `mean_best_of_n` is a separate field that is `None` at N=1.
 figure is attributable to it. Treat any figure that surfaces later without an
 `n_samples` record as unsafe.
 
+### CONFIRMED 2026-10-01 (story 128.22)
+
+The attribution above is now a positive check, not an inference.
+`scripts/check_gate1_attribution.py` reads git objects at the commit that
+introduced each Gate-1 file (`a9bde66`, for all five: `gate1_pass_at_1`,
+`v2`, `v3`, `v4_1000`, `v5_1000`) and proves:
+
+- **A1:** each file records `"language": "toke"`.
+- **A2:** in every revision of `run_benchmark.py` up to that commit, the model
+  path hardcodes `"toke-model"` as a literal, and `"toke-model"` is not a
+  `--language` choice. So `"toke"` can only come from the `--solutions-dir`
+  path.
+- **A3:** the committed generation holds exactly one `task-a-NNNN.toke` per
+  task (1,000 files, none sample-indexed), and `inference_stats.json` records
+  `generated == total == 1000`.
+- **A4:** every scored task has a committed solution file, `tasks_evaluated`
+  equals the task-record count, and no record carries a best-of-N field.
+- **A5:** for the three files still live, `language` and `tasks` are
+  unchanged since introduction.
+
+Result: **5/5 attributed to the solutions path**, exit 0. Tests in
+`benchmark/tests/test_check_gate1_attribution.py` show that each check fails
+when its property is violated.
+
+**Limit.** A1 and A2 are the attribution for every file. A3 and A4 are strong
+only for `v5_1000`: the solution sets behind v1–v4 were never committed, so
+for those files A3 and A4 check against the v5 generation and show only that
+the tasks named exist. Nothing in the check reads `hidden_tests/`.
+
 ---
 
 ## 3. `data/pass_at_k_results.json` and `data/pass_at_k_summary.csv` — SYNTHETIC
