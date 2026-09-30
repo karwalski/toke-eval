@@ -540,24 +540,32 @@ def generate_break_even_curve(
 # Output writers
 # ---------------------------------------------------------------------------
 
-def write_results_json(results: list[TaskCostResult], path: Path) -> None:
+def _run_mode(dry_run: bool) -> str:
+    """Provenance stamp written into every output (128.20)."""
+    return "dry-run-synthetic" if dry_run else "real-token-counts"
+
+
+def write_results_json(results: list[TaskCostResult], path: Path,
+                       dry_run: bool = False) -> None:
     """Write per-task cost/latency results."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    obj = [asdict(r) for r in results]
+    obj = [{"run_mode": _run_mode(dry_run), **asdict(r)} for r in results]
     path.write_text(json.dumps(obj, indent=2, default=str) + "\n", encoding="utf-8")
 
 
-def write_summary_json(summary: BenchmarkSummary, path: Path) -> None:
+def write_summary_json(summary: BenchmarkSummary, path: Path,
+                       dry_run: bool = False) -> None:
     """Write aggregate comparison summary."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    obj = asdict(summary)
+    obj = {"run_mode": _run_mode(dry_run), **asdict(summary)}
     path.write_text(json.dumps(obj, indent=2, default=str) + "\n", encoding="utf-8")
 
 
-def write_break_even_json(points: list[BreakEvenPoint], path: Path) -> None:
+def write_break_even_json(points: list[BreakEvenPoint], path: Path,
+                          dry_run: bool = False) -> None:
     """Write break-even curve data."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    obj = [asdict(p) for p in points]
+    obj = [{"run_mode": _run_mode(dry_run), **asdict(p)} for p in points]
     path.write_text(json.dumps(obj, indent=2, default=str) + "\n", encoding="utf-8")
 
 
@@ -775,9 +783,10 @@ def main(argv: list[str] | None = None) -> int:
     out = args.output_dir
     out.mkdir(parents=True, exist_ok=True)
 
-    write_results_json(results, out / "cost_latency_results.json")
-    write_summary_json(summary, out / "cost_latency_summary.json")
-    write_break_even_json(break_even_points, out / "break_even_analysis.json")
+    write_results_json(results, out / "cost_latency_results.json", args.dry_run)
+    write_summary_json(summary, out / "cost_latency_summary.json", args.dry_run)
+    write_break_even_json(break_even_points, out / "break_even_analysis.json",
+                          args.dry_run)
 
     # Summary to stdout
     print_summary_table(summary)

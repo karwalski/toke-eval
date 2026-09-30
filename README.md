@@ -33,8 +33,10 @@ and nowhere else.*
 | **Benchmark tasks** | `benchmark/tasks/` | Task definitions, reference solutions, and baseline implementations in Python/C/Java |
 | **Evaluation harness** | `toke_eval/` | Pass@k scorer, token efficiency measurement, and gate report generator |
 | **Statistical analysis** | `scripts/statistical_analysis.py` | Bootstrap CIs, Wilcoxon tests, and power analysis for token efficiency claims |
-| **Result data** | `data/` | Evaluation outputs (token counts, pass@k results, ablation tables) |
+| **Result data** | `data/` | Evaluation outputs (token counts, pass@k results, ablation tables). A row or record stamped `dry-run-synthetic` is random output from a `--dry-run`, not a result |
 | **Gate card template** | `gate_card_template.md` | Standardised form for recording gate evaluation outcomes |
+| **Benchmark disjointness gate** | `scripts/check_bench_disjoint.py` | Checks D1–D8 of the 128.1 protocol: BENCH-128 against the tokenizer holdout and training lines, the baseline sample, lane exports and published solutions, with a vacuity guard. Exits non-zero unless every check is `PASS` |
+| **Gate-1 attribution check** | `scripts/check_gate1_attribution.py` | Proves from git history that each `gate1_*.json` came from the one-solution-per-task path, not best-of-N |
 
 Held-out test cases used for gate evaluation are **not** included in
 this repository. They are stored separately and never committed to any
@@ -92,6 +94,12 @@ python scripts/statistical_analysis.py --generate-mock --n-tasks 1000
 ```
 
 Requires Python 3.10+.
+
+CI runs `make ci`: lint on the gate scripts, the test suite, and the BENCH-128
+disjointness check. Until BENCH-128 is frozen (128.1a) the disjointness target
+prints that it did **not** run, which is not a pass. Its fixture tests run
+anyway. Set `TOKE_WORKSPACE` if the sibling repositories are not next to this
+checkout.
 
 ## Project Structure
 

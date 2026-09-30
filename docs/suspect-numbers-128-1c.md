@@ -115,6 +115,35 @@ report, and `mean_best_of_n` is a separate field that is `None` at N=1.
 figure is attributable to it. Treat any figure that surfaces later without an
 `n_samples` record as unsafe.
 
+### CONFIRMED 2026-10-01 (story 128.22)
+
+The attribution above is now a positive check, not an inference.
+`scripts/check_gate1_attribution.py` reads git objects at the commit that
+introduced each Gate-1 file (`a9bde66`, for all five: `gate1_pass_at_1`,
+`v2`, `v3`, `v4_1000`, `v5_1000`) and proves:
+
+- **A1:** each file records `"language": "toke"`.
+- **A2:** in every revision of `run_benchmark.py` up to that commit, the model
+  path hardcodes `"toke-model"` as a literal, and `"toke-model"` is not a
+  `--language` choice. So `"toke"` can only come from the `--solutions-dir`
+  path.
+- **A3:** the committed generation holds exactly one `task-a-NNNN.toke` per
+  task (1,000 files, none sample-indexed), and `inference_stats.json` records
+  `generated == total == 1000`.
+- **A4:** every scored task has a committed solution file, `tasks_evaluated`
+  equals the task-record count, and no record carries a best-of-N field.
+- **A5:** for the three files still live, `language` and `tasks` are
+  unchanged since introduction.
+
+Result: **5/5 attributed to the solutions path**, exit 0. Tests in
+`benchmark/tests/test_check_gate1_attribution.py` show that each check fails
+when its property is violated.
+
+**Limit.** A1 and A2 are the attribution for every file. A3 and A4 are strong
+only for `v5_1000`: the solution sets behind v1–v4 were never committed, so
+for those files A3 and A4 check against the v5 generation and show only that
+the tasks named exist. Nothing in the check reads `hidden_tests/`.
+
 ---
 
 ## 3. `data/pass_at_k_results.json` and `data/pass_at_k_summary.csv` — SYNTHETIC
@@ -137,6 +166,33 @@ Same failure mode, same directory, outside this story's harness scope but filed
 below: `data/ablation_summary.json` (`"dry_run": true`) with its unmarked
 derivative `data/ablation_table.csv`; `data/checkpoint_regression_report.json`
 (`"mode": "dry-run"`) with unmarked `data/training_curve.csv` / `.json`.
+
+### STAMPED 2026-10-01 (story 128.20)
+
+Every synthetic artefact in `data/` now names itself on every row, not only in a
+companion file. The three CSVs (`pass_at_k_summary.csv`, `ablation_table.csv`,
+`training_curve.csv`) gained a leading `mode` column whose value on every row is
+`dry-run-synthetic`, so a row copied out of the file carries its provenance with
+it. The list-shaped JSON files gained the same stamp per record (`mode` in
+`training_curve.json`; `run_mode` in `ablation_results.json`, where `condition`
+already names the arm).
+
+The audit the story asked for found three more unstamped synthetic files, all
+from `scripts/cost_latency_benchmark.py --dry-run`:
+`cost_latency_results.json`, `cost_latency_summary.json` and
+`break_even_analysis.json`. None records a mode. They are synthetic because
+the committed rows carry non-zero wall-clock times and 23 failures in 100 rows,
+and the script's non-dry-run branch writes `wall_clock = 0.0` and
+`passed = True` unconditionally, so only the dry-run branch can produce them.
+All three now carry `run_mode: "dry-run-synthetic"`, and the summary also has a
+`note`. The token and cost "savings" percentages in that summary are part of the
+same synthetic run and are not results.
+
+Writers were fixed so this cannot recur: `scripts/pass_at_k.py` writes the
+`mode` column on every CSV row, and `scripts/cost_latency_benchmark.py` stamps
+`run_mode` (`dry-run-synthetic` or `real-token-counts`) into all three outputs.
+The ablation and checkpoint-regression writers are no longer in this repo, so
+their files were stamped in place. Every value is unchanged.
 
 ---
 
@@ -234,7 +290,7 @@ These are **requested, not filed** — `toke/docs/progress.md` is owner-edited.
    (`status.tkt` carries only Gate-2 numbers). Artefacts under `toke/docs/` were out
    of reach and remain to be corrected. **The re-opened Gate-1 verdict is still open
    and is the owner's to decide.**
-2. **Quarantine the synthetic `data/` derivatives.** `pass_at_k_summary.csv`,
+2. **Done 2026-10-01 (story 128.20), see STAMPED in §3.** **Quarantine the synthetic `data/` derivatives.** `pass_at_k_summary.csv`,
    `ablation_table.csv`, `training_curve.csv`/`.json` carry no dry-run marker.
    Either stamp every dry-run output with an unremovable marker or refuse to
    write a CSV in dry-run mode at all. **P1.**

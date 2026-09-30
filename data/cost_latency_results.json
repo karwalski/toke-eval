@@ -1,5 +1,6 @@
 [
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0001",
     "difficulty": "easy",
     "mode": "python",
@@ -13,6 +14,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0001",
     "difficulty": "easy",
     "mode": "toke",
@@ -26,6 +28,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0002",
     "difficulty": "easy",
     "mode": "python",
@@ -39,6 +42,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0002",
     "difficulty": "easy",
     "mode": "toke",
@@ -52,6 +56,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0003",
     "difficulty": "easy",
     "mode": "python",
@@ -65,6 +70,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0003",
     "difficulty": "easy",
     "mode": "toke",
@@ -78,6 +84,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0004",
     "difficulty": "easy",
     "mode": "python",
@@ -91,6 +98,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0004",
     "difficulty": "easy",
     "mode": "toke",
@@ -104,6 +112,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0005",
     "difficulty": "easy",
     "mode": "python",
@@ -117,6 +126,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0005",
     "difficulty": "easy",
     "mode": "toke",
@@ -130,6 +140,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0006",
     "difficulty": "easy",
     "mode": "python",
@@ -143,6 +154,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0006",
     "difficulty": "easy",
     "mode": "toke",
@@ -156,6 +168,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0007",
     "difficulty": "easy",
     "mode": "python",
@@ -169,6 +182,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0007",
     "difficulty": "easy",
     "mode": "toke",
@@ -182,6 +196,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0008",
     "difficulty": "easy",
     "mode": "python",
@@ -195,6 +210,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0008",
     "difficulty": "easy",
     "mode": "toke",
@@ -208,6 +224,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0009",
     "difficulty": "easy",
     "mode": "python",
@@ -221,6 +238,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0009",
     "difficulty": "easy",
     "mode": "toke",
@@ -234,6 +252,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0010",
     "difficulty": "easy",
     "mode": "python",
@@ -247,6 +266,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0010",
     "difficulty": "easy",
     "mode": "toke",
@@ -260,6 +280,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0011",
     "difficulty": "easy",
     "mode": "python",
@@ -273,6 +294,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0011",
     "difficulty": "easy",
     "mode": "toke",
@@ -286,6 +308,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0012",
     "difficulty": "easy",
     "mode": "python",
@@ -299,6 +322,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0012",
     "difficulty": "easy",
     "mode": "toke",
@@ -312,6 +336,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0013",
     "difficulty": "easy",
     "mode": "python",
@@ -325,6 +350,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0013",
     "difficulty": "easy",
     "mode": "toke",
@@ -338,6 +364,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0014",
     "difficulty": "easy",
     "mode": "python",
@@ -351,6 +378,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0014",
     "difficulty": "easy",
     "mode": "toke",
@@ -364,6 +392,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0015",
     "difficulty": "easy",
     "mode": "python",
@@ -377,6 +406,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0015",
     "difficulty": "easy",
     "mode": "toke",
@@ -390,6 +420,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0016",
     "difficulty": "easy",
     "mode": "python",
@@ -403,6 +434,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0016",
     "difficulty": "easy",
     "mode": "toke",
@@ -416,6 +448,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0017",
     "difficulty": "medium",
     "mode": "python",
@@ -429,6 +462,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0017",
     "difficulty": "medium",
     "mode": "toke",
@@ -442,6 +476,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0018",
     "difficulty": "medium",
     "mode": "python",
@@ -455,6 +490,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0018",
     "difficulty": "medium",
     "mode": "toke",
@@ -468,6 +504,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0019",
     "difficulty": "medium",
     "mode": "python",
@@ -481,6 +518,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0019",
     "difficulty": "medium",
     "mode": "toke",
@@ -494,6 +532,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0020",
     "difficulty": "medium",
     "mode": "python",
@@ -507,6 +546,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0020",
     "difficulty": "medium",
     "mode": "toke",
@@ -520,6 +560,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0021",
     "difficulty": "medium",
     "mode": "python",
@@ -533,6 +574,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0021",
     "difficulty": "medium",
     "mode": "toke",
@@ -546,6 +588,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0022",
     "difficulty": "medium",
     "mode": "python",
@@ -559,6 +602,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0022",
     "difficulty": "medium",
     "mode": "toke",
@@ -572,6 +616,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0023",
     "difficulty": "medium",
     "mode": "python",
@@ -585,6 +630,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0023",
     "difficulty": "medium",
     "mode": "toke",
@@ -598,6 +644,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0024",
     "difficulty": "medium",
     "mode": "python",
@@ -611,6 +658,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0024",
     "difficulty": "medium",
     "mode": "toke",
@@ -624,6 +672,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0025",
     "difficulty": "medium",
     "mode": "python",
@@ -637,6 +686,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0025",
     "difficulty": "medium",
     "mode": "toke",
@@ -650,6 +700,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0026",
     "difficulty": "medium",
     "mode": "python",
@@ -663,6 +714,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0026",
     "difficulty": "medium",
     "mode": "toke",
@@ -676,6 +728,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0027",
     "difficulty": "medium",
     "mode": "python",
@@ -689,6 +742,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0027",
     "difficulty": "medium",
     "mode": "toke",
@@ -702,6 +756,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0028",
     "difficulty": "medium",
     "mode": "python",
@@ -715,6 +770,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0028",
     "difficulty": "medium",
     "mode": "toke",
@@ -728,6 +784,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0029",
     "difficulty": "medium",
     "mode": "python",
@@ -741,6 +798,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0029",
     "difficulty": "medium",
     "mode": "toke",
@@ -754,6 +812,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0030",
     "difficulty": "medium",
     "mode": "python",
@@ -767,6 +826,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0030",
     "difficulty": "medium",
     "mode": "toke",
@@ -780,6 +840,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0031",
     "difficulty": "medium",
     "mode": "python",
@@ -793,6 +854,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0031",
     "difficulty": "medium",
     "mode": "toke",
@@ -806,6 +868,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0032",
     "difficulty": "medium",
     "mode": "python",
@@ -819,6 +882,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0032",
     "difficulty": "medium",
     "mode": "toke",
@@ -832,6 +896,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0033",
     "difficulty": "medium",
     "mode": "python",
@@ -845,6 +910,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0033",
     "difficulty": "medium",
     "mode": "toke",
@@ -858,6 +924,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0034",
     "difficulty": "hard",
     "mode": "python",
@@ -871,6 +938,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0034",
     "difficulty": "hard",
     "mode": "toke",
@@ -884,6 +952,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0035",
     "difficulty": "hard",
     "mode": "python",
@@ -897,6 +966,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0035",
     "difficulty": "hard",
     "mode": "toke",
@@ -910,6 +980,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0036",
     "difficulty": "hard",
     "mode": "python",
@@ -923,6 +994,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0036",
     "difficulty": "hard",
     "mode": "toke",
@@ -936,6 +1008,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0037",
     "difficulty": "hard",
     "mode": "python",
@@ -949,6 +1022,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0037",
     "difficulty": "hard",
     "mode": "toke",
@@ -962,6 +1036,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0038",
     "difficulty": "hard",
     "mode": "python",
@@ -975,6 +1050,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0038",
     "difficulty": "hard",
     "mode": "toke",
@@ -988,6 +1064,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0039",
     "difficulty": "hard",
     "mode": "python",
@@ -1001,6 +1078,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0039",
     "difficulty": "hard",
     "mode": "toke",
@@ -1014,6 +1092,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0040",
     "difficulty": "hard",
     "mode": "python",
@@ -1027,6 +1106,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0040",
     "difficulty": "hard",
     "mode": "toke",
@@ -1040,6 +1120,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0041",
     "difficulty": "hard",
     "mode": "python",
@@ -1053,6 +1134,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0041",
     "difficulty": "hard",
     "mode": "toke",
@@ -1066,6 +1148,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0042",
     "difficulty": "hard",
     "mode": "python",
@@ -1079,6 +1162,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0042",
     "difficulty": "hard",
     "mode": "toke",
@@ -1092,6 +1176,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0043",
     "difficulty": "hard",
     "mode": "python",
@@ -1105,6 +1190,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0043",
     "difficulty": "hard",
     "mode": "toke",
@@ -1118,6 +1204,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0044",
     "difficulty": "hard",
     "mode": "python",
@@ -1131,6 +1218,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0044",
     "difficulty": "hard",
     "mode": "toke",
@@ -1144,6 +1232,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0045",
     "difficulty": "hard",
     "mode": "python",
@@ -1157,6 +1246,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0045",
     "difficulty": "hard",
     "mode": "toke",
@@ -1170,6 +1260,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0046",
     "difficulty": "hard",
     "mode": "python",
@@ -1183,6 +1274,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0046",
     "difficulty": "hard",
     "mode": "toke",
@@ -1196,6 +1288,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0047",
     "difficulty": "hard",
     "mode": "python",
@@ -1209,6 +1302,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0047",
     "difficulty": "hard",
     "mode": "toke",
@@ -1222,6 +1316,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0048",
     "difficulty": "hard",
     "mode": "python",
@@ -1235,6 +1330,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0048",
     "difficulty": "hard",
     "mode": "toke",
@@ -1248,6 +1344,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0049",
     "difficulty": "hard",
     "mode": "python",
@@ -1261,6 +1358,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0049",
     "difficulty": "hard",
     "mode": "toke",
@@ -1274,6 +1372,7 @@
     "passed": false
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0050",
     "difficulty": "hard",
     "mode": "python",
@@ -1287,6 +1386,7 @@
     "passed": true
   },
   {
+    "run_mode": "dry-run-synthetic",
     "task_id": "task-a-0050",
     "difficulty": "hard",
     "mode": "toke",

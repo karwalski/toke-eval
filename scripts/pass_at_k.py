@@ -531,13 +531,16 @@ def write_csv_summary(report: PassAtKReport, output_path: Path) -> None:
 
     with open(output_path, "w", newline="") as f:
         writer = csv.writer(f)
-        header = ["temperature", "n_tasks"] + [
+        # 128.20: every row carries the run mode, so a dry-run table can never
+        # be mistaken for measured results once it is copied out of this file.
+        mode = "dry-run-synthetic" if report.mode == "dry-run" else report.mode
+        header = ["mode", "temperature", "n_tasks"] + [
             f"pass_at_{k}" for k in report.k_values
         ]
         writer.writerow(header)
 
         for agg in report.aggregates:
-            row = [f"{agg.temperature:.1f}", str(agg.n_tasks)]
+            row = [mode, f"{agg.temperature:.1f}", str(agg.n_tasks)]
             for k in report.k_values:
                 row.append(f"{agg.mean_pass_at_k.get(k, 0.0):.6f}")
             writer.writerow(row)
