@@ -35,14 +35,16 @@ harness/score.py is a retired entry point and was never implemented.
 
 Use instead:
 
+    # Hidden tests are graded by the owner only (AGENTS.md section 5).
+
     # Pass@k (k = 1, 5, 10) from sampled predictions
     python scripts/pass_at_k.py \\
         --predictions-dir <dir> \\
-        --benchmark-dir benchmark/hidden_tests/ \\
+        --benchmark-dir <tasks-dir> \\
         --output-dir data/ --k-values 1,5,10
 
     # strict Pass@1 by execution
-    python benchmark/run_benchmark.py --tasks-dir benchmark/hidden_tests/ ...
+    python benchmark/run_benchmark.py --tasks-dir <tasks-dir> ...
 
     # token efficiency
     python -m toke_eval.token_efficiency ...

@@ -2,7 +2,10 @@
 # Runner that verifies C baseline solutions against hidden test YAML files.
 #
 # Usage:
-#   ./run_baselines.sh [--tests-dir hidden_tests] [-v|--verbose]
+#   ./run_baselines.sh --tests-dir <tests-dir> [-v|--verbose]
+#
+# --tests-dir is required; there is no default.  Hidden tests are graded by
+# the owner only (AGENTS.md section 5).
 #
 # Requires: yq (or python3 + pyyaml as fallback) for YAML parsing.
 # Exits with code 0 if all tests pass, 1 otherwise.
@@ -10,10 +13,9 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 BINARY="$SCRIPT_DIR/solutions"
 
-TESTS_DIR="$REPO_ROOT/hidden_tests"
+TESTS_DIR=""
 VERBOSE=0
 
 # Parse arguments
@@ -33,6 +35,11 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+if [[ -z "$TESTS_DIR" ]]; then
+    echo "ERROR: --tests-dir <dir> is required (no default). Hidden tests are graded by the owner only (AGENTS.md section 5)." >&2
+    exit 2
+fi
 
 # Build if needed
 if [[ ! -x "$BINARY" ]] || [[ "$SCRIPT_DIR/solutions.c" -nt "$BINARY" ]]; then

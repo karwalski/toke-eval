@@ -4,18 +4,21 @@
 Runs solutions against task YAML files, scores pass/fail per test case,
 and generates a JSON report with per-task and aggregate metrics.
 
+Hidden tests are graded by the owner only (AGENTS.md section 5): never point
+--tasks-dir at a hidden_tests/ directory.
+
 Usage (baseline evaluation):
-    python run_benchmark.py --solutions-dir baselines/python --tasks-dir hidden_tests/ \\
+    python run_benchmark.py --solutions-dir baselines/python --tasks-dir <tasks-dir> \\
         [--output report.json] [--language python] [--timeout 10] [--dry-run]
 
-    python run_benchmark.py --solutions-dir baselines/c --tasks-dir hidden_tests/ \\
+    python run_benchmark.py --solutions-dir baselines/c --tasks-dir <tasks-dir> \\
         --language c
 
-    python run_benchmark.py --solutions-dir path/to/toke-files/ --tasks-dir hidden_tests/ \\
+    python run_benchmark.py --solutions-dir path/to/toke-files/ --tasks-dir <tasks-dir> \\
         --language toke
 
 Usage (model inference / Pass@1):
-    python run_benchmark.py --tasks-dir hidden_tests/ \\
+    python run_benchmark.py --tasks-dir <tasks-dir> \\
         --model-endpoint http://localhost:8000/generate \\
         [--n-samples 5] [--api-key KEY]
 

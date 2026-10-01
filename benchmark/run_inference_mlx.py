@@ -5,8 +5,10 @@ Loads Qwen 2.5 Coder 7B (4-bit quantized) + toke LoRA adapter,
 generates solutions for each benchmark task, saves as .toke files.
 
 Usage:
-    python run_inference_mlx.py
-    python run_inference_mlx.py --tasks-dir hidden_tests/ --output-dir solutions/
+    python run_inference_mlx.py --tasks-dir <tasks-dir> --output-dir solutions/
+
+--tasks-dir is required; there is no default.  Hidden tests are graded by the
+owner only (AGENTS.md section 5).
     python run_inference_mlx.py --base-model Qwen/Qwen2.5-Coder-7B-Instruct --adapter ../toke-models/results/train-results-20260402-055104/adapter
 """
 from __future__ import annotations
@@ -143,8 +145,9 @@ def main():
     parser.add_argument("--adapter", type=Path,
                         default=Path("../toke-models/results/train-results-20260402-055104/adapter-mlx"),
                         help="LoRA adapter directory (MLX format)")
-    parser.add_argument("--tasks-dir", type=Path, default=Path("hidden_tests/"),
-                        help="Directory with task-*.yaml files")
+    parser.add_argument("--tasks-dir", type=Path, required=True,
+                        help="Directory with task-*.yaml files (required; no default. "
+                             "Hidden tests are graded by the owner only, AGENTS.md section 5)")
     parser.add_argument("--output-dir", type=Path, default=Path("solutions/"),
                         help="Output directory for .toke files")
     parser.add_argument("--max-tokens", type=int, default=1024)

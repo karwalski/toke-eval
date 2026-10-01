@@ -2,7 +2,10 @@
 """Runner that verifies Python baseline solutions against hidden test YAML files.
 
 Usage:
-    python3 baselines/python/run_baselines.py [--tests-dir hidden_tests]
+    python3 baselines/python/run_baselines.py --tests-dir <tests-dir>
+
+--tests-dir is required; there is no default.  Hidden tests are graded by
+the owner only (AGENTS.md section 5).
 
 Exits with code 0 if all tests pass, 1 otherwise.
 """
@@ -110,8 +113,9 @@ def main() -> None:
     parser.add_argument(
         "--tests-dir",
         type=Path,
-        default=Path(__file__).resolve().parents[2] / "hidden_tests",
-        help="Directory containing task-a-*.yaml files (default: hidden_tests/)",
+        required=True,
+        help="Directory containing task-a-*.yaml files (required; no default. "
+             "Hidden tests are graded by the owner only, AGENTS.md section 5)",
     )
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args()

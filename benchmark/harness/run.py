@@ -64,16 +64,17 @@ harness/run.py is a retired entry point and was never implemented.
 Use instead:
 
     python benchmark/run_benchmark.py \\
-        --solutions-dir <dir> --tasks-dir benchmark/hidden_tests/ \\
+        --solutions-dir <dir> --tasks-dir <tasks-dir> \\
         --language toke --output results/run.json
 
     # model inference (strict Pass@1: one sample, one attempt)
     python benchmark/run_benchmark.py \\
-        --tasks-dir benchmark/hidden_tests/ \\
+        --tasks-dir <tasks-dir> \\
         --model-endpoint <url> --n-samples 1
 
 Note: benchmark/tasks/ holds only schema.json -- there are no task files
-there.  Point the harness at benchmark/hidden_tests/.
+there.  Point the harness at a directory of task YAML files.
+Hidden tests are graded by the owner only (AGENTS.md section 5).
 
 For Pass@k use scripts/pass_at_k.py, the only permitted implementation
 (toke-model/docs/training-reset-128.md §6.3).
