@@ -13,11 +13,10 @@ ci: lint test check-bench-disjoint
 test:
 	cd benchmark && $(PY) -m pytest -q tests
 
-# 128.27: all of scripts/ (the older scripts' findings are fixed), plus the gate tests.
+# 128.27: all of scripts/; 128.33: all of benchmark/ (tests included) and toke_eval/.
+# Any hidden_tests/ directory is excluded so lint never opens one (AGENTS.md section 5).
 lint:
-	$(PY) -m ruff check scripts/ \
-		benchmark/tests/test_check_bench_disjoint.py benchmark/tests/test_check_gate1_attribution.py \
-		benchmark/tests/test_hidden_tests_guard.py
+	$(PY) -m ruff check --extend-exclude hidden_tests scripts/ benchmark/ toke_eval/
 
 # 128.1b: D1-D8. Runs for real once BENCH-128 is frozen (128.1a); until then the
 # checker's own fixtures run under `test`, and this target says plainly that it did not run.

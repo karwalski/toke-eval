@@ -17,7 +17,10 @@ dev = [
     "mypy>=1.8",
 ]
 
+# 128.33: inherit the root rule set pinned by 128.29, so `make lint` over
+# benchmark/ does not drift with whichever ruff is installed.
 [tool.ruff]
+extend = "../pyproject.toml"
 line-length = 100
 target-version = "py311"
 
