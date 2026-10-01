@@ -11,6 +11,7 @@ statements of what the harness is now forbidden to do:
 
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -487,8 +488,23 @@ class TestHarnessStubsAreNotSilent:
 # The live benchmark set actually validates
 # ===========================================================================
 
+# OWNER ONLY. AGENTS.md section 5 forbids agents from reading any
+# hidden_tests/ directory, so this test never touches it unless the owner
+# sets TOKE_OWNER_HIDDEN_TESTS=1 by hand. Agents and CI must never set it.
+_OWNER_HIDDEN_OPT_IN = "TOKE_OWNER_HIDDEN_TESTS"
+
+
 def test_hidden_tests_match_the_declared_schema() -> None:
-    """Guards against the mismatch reappearing from the data side."""
+    """Guards against the mismatch reappearing from the data side.
+
+    Owner-only (story 128.30): the directory is not even checked for
+    existence unless ``TOKE_OWNER_HIDDEN_TESTS=1`` is set.
+    """
+    if os.environ.get(_OWNER_HIDDEN_OPT_IN) != "1":
+        pytest.skip(
+            "hidden tests are graded by the owner only (AGENTS.md section 5); "
+            f"set {_OWNER_HIDDEN_OPT_IN}=1 (owner only) to run this check"
+        )
     hidden = _BENCH / "hidden_tests"
     if not hidden.is_dir():
         pytest.skip("hidden_tests/ not present")
