@@ -224,7 +224,7 @@ def compile_toke(source_path: Path, compiler: str, output: Path,
         # flip (124.4g) can't fail these evaluated binaries closed at a sink.
         result = subprocess.run(
             [compiler, "--allow-all", str(source_path)],
-            capture_output=True, text=True, timeout=timeout
+            capture_output=True, text=True, timeout=timeout, check=False
         )
         if result.returncode != 0:
             return False, result.stderr or result.stdout
@@ -235,7 +235,7 @@ def compile_toke(source_path: Path, compiler: str, output: Path,
         result = subprocess.run(
             ["clang", "-x", "ir", ll_path, "-o", str(output),
              "-lm"],
-            capture_output=True, text=True, timeout=timeout
+            capture_output=True, text=True, timeout=timeout, check=False
         )
         if result.returncode != 0:
             return False, result.stderr
@@ -268,7 +268,7 @@ def run_tests(binary: Path, test_file: Path,
         try:
             result = subprocess.run(
                 [str(binary), input_val],
-                capture_output=True, text=True, timeout=timeout
+                capture_output=True, text=True, timeout=timeout, check=False
             )
             actual = result.stdout.strip()
             if actual == expected:

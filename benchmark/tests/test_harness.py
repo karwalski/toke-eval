@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import sys
 import textwrap
 import time
 from pathlib import Path
@@ -12,16 +13,11 @@ import pytest
 import yaml
 
 # Ensure the repo root is importable.
-import sys
-
 _REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_REPO))
 
-import run_benchmark  # noqa: E402
 from run_benchmark import (
-    BenchmarkReport,
     TaskResult,
-    TestCaseResult,
     _compare,
     discover_tasks,
     dry_run,
@@ -29,10 +25,9 @@ from run_benchmark import (
     load_python_solutions,
     main,
     report_to_dict,
-    run_benchmark as run_benchmark_fn,
     score_task,
 )
-
+from run_benchmark import run_benchmark as run_benchmark_fn
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -130,7 +125,7 @@ class TestCompare:
 
 class TestScoring:
     def test_all_pass(self) -> None:
-        fn = lambda x: x * 2  # noqa: E731
+        fn = lambda x: x * 2
         cases = [
             {"input": 1, "expected": 2},
             {"input": 3, "expected": 6},
@@ -143,7 +138,7 @@ class TestScoring:
         assert result.pass_at_1 == 1.0
 
     def test_partial_fail(self) -> None:
-        fn = lambda x: x + 1  # noqa: E731
+        fn = lambda x: x + 1
         cases = [
             {"input": 1, "expected": 2},   # pass
             {"input": 2, "expected": 99},   # fail
@@ -165,7 +160,7 @@ class TestScoring:
         assert "boom" in result.cases[0].error
 
     def test_all_fail(self) -> None:
-        fn = lambda x: -1  # noqa: E731  -- always wrong
+        fn = lambda x: -1
         cases = [
             {"input": 1, "expected": 1},
             {"input": 2, "expected": 2},
@@ -289,7 +284,7 @@ class TestTimeout:
         assert "timeout" in result.cases[0].error.lower()
 
     def test_fast_fn_not_timed_out(self) -> None:
-        fn = lambda x: x  # noqa: E731
+        fn = lambda x: x
         cases = [{"input": 42, "expected": 42}]
         result = score_task("task-a-fast", fn, cases, timeout=10)
         assert result.pass_count == 1
