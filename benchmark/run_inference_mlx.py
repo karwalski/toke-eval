@@ -20,7 +20,6 @@ import time
 from pathlib import Path
 
 import yaml
-from mlx_lm import load, generate
 
 SYSTEM_PROMPT = """You write programs in toke, a statically typed compiled language. Every program must compile under toke --check. Follow these rules exactly.
 
@@ -155,6 +154,15 @@ def main():
     parser.add_argument("--limit", type=int, default=0,
                         help="Only process first N tasks (0=all)")
     args = parser.parse_args()
+
+    # Imported here, after argument parsing, so --help and missing-argument
+    # errors work on machines without mlx-lm installed (story 128.32).
+    try:
+        from mlx_lm import generate, load
+    except ImportError:
+        print("ERROR: mlx-lm is not installed (pip install mlx-lm; Apple Silicon only)",
+              file=sys.stderr)
+        return 1
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
