@@ -1033,8 +1033,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--tasks-dir",
         type=Path,
-        default=Path("tasks/"),
-        help="Directory containing task YAML files (default: tasks/)",
+        required=True,
+        help="Directory containing task-*.yaml files (required; no default: "
+             "tasks/ holds only schema.json. Hidden tests are graded by the "
+             "owner only, AGENTS.md section 5)",
     )
     parser.add_argument(
         "--output",

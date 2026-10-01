@@ -5,7 +5,10 @@ A script whose path argument *defaults* to one reads hidden tests whenever it
 is run bare, so this guard fails if any tracked Python or shell file under
 ``benchmark/``, ``scripts/`` or ``toke_eval/`` holds a default value or an
 assignment pointing at ``hidden_tests``.  Usage text and refusal checks are
-fine; only defaults and assignments are flagged.
+fine; only defaults and assignments are flagged.  A single string literal
+passed as argparse text (``help=``, ``description=``, ``epilog=``,
+``usage=``) is a warning, not a path, so it is blanked before matching
+(story 128.32); a real default on the same line is still caught.
 
 The scan is a text search over files listed by ``git ls-files`` with
 ``benchmark/hidden_tests`` excluded by pathspec, so it never opens a hidden
@@ -35,6 +38,12 @@ _PATTERNS = [
     re.compile(r"\b(?:get|setdefault)\([^)\n]*,[^)\n]*" + _TOKEN),
 ]
 
+# argparse text keywords whose single string-literal value is blanked before
+# the patterns run, so help="... hidden_tests ..." is not read as an assignment.
+_TEXT_KWARG = re.compile(
+    r"""\b(?:help|description|epilog|usage)\s*=\s*[rRbBuUfF]{0,2}"""
+    r"""(?:"(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*')""")
+
 # Reviewed exceptions: (repo-relative path, stripped line).  Each one must be
 # unreachable without the owner's explicit opt-in.
 _ALLOW = {
@@ -61,7 +70,8 @@ def find_defaults(root: Path, rel_paths: list[str]) -> list[str]:
                 continue
             if (rel, line.strip()) in _ALLOW:
                 continue
-            if any(p.search(line) for p in _PATTERNS):
+            scan = _TEXT_KWARG.sub("help=''", line)
+            if any(p.search(scan) for p in _PATTERNS):
                 hits.append(f"{rel}:{n}: {line.strip()}")
     return hits
 
@@ -93,6 +103,12 @@ def test_no_tracked_code_defaults_to_hidden_tests() -> None:
     'DIR="${TESTS_DIR:-' + _TOKEN + '}"',
     'd = os.environ.get("TASKS", "' + _TOKEN + '")',
     'tests: Path = ROOT / "' + _TOKEN + '"',
+    # 128.32: help text on the same line does not hide a real default
+    'parser.add_argument("--tasks-dir", help="never ' + _TOKEN + '", '
+    'default="' + _TOKEN + '/")',
+    'p.add_argument("--t", default=Path("' + _TOKEN + '"), help="tasks")',
+    '        default=Path("' + _TOKEN + '"),',
+    'help = "x"; TASKS = "' + _TOKEN + '"',
 ])
 def test_negative_control_planted_default_is_caught(tmp_path: Path,
                                                    planted: str) -> None:
@@ -100,7 +116,7 @@ def test_negative_control_planted_default_is_caught(tmp_path: Path,
     rel = f"scripts/planted{ext}"
     (tmp_path / "scripts").mkdir()
     (tmp_path / rel).write_text(planted + "\n")
-    assert find_defaults(tmp_path, [rel]) == [f"{rel}:1: {planted}"]
+    assert find_defaults(tmp_path, [rel]) == [f"{rel}:1: {planted.strip()}"]
 
 
 @pytest.mark.parametrize("benign", [
@@ -109,6 +125,14 @@ def test_negative_control_planted_default_is_caught(tmp_path: Path,
     '        --tasks-dir <tasks-dir> \\\\  (not ' + _TOKEN + ')',
     'assert "--tasks-dir ' + _TOKEN + '/" not in readme',
     'x == "' + _TOKEN + '"',
+    # 128.32: argparse help/description text is a warning, not a default
+    '        help="Directory with task YAMLs (never ' + _TOKEN + '/)",',
+    'p.add_argument("--tasks-dir", type=Path, required=True, '
+    'help="not ' + _TOKEN + '")',
+    "    help=f'owner only; not {x} " + _TOKEN + "',",
+    'argparse.ArgumentParser(description="never ' + _TOKEN + '", '
+    'epilog="see AGENTS.md")',
+    '        usage="run.py --tasks-dir DIR  (not ' + _TOKEN + ')",',
 ])
 def test_usage_text_and_refusals_are_not_flagged(tmp_path: Path,
                                                  benign: str) -> None:
