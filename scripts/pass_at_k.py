@@ -13,16 +13,17 @@ The estimator:
 where n = total samples, c = correct samples, k = desired k.
 
 Usage:
+    # Hidden tests are graded by the owner only (AGENTS.md section 5): never point this at a hidden_tests/ directory.
     # Dry-run with synthetic data:
     python scripts/pass_at_k.py \
-        --benchmark-dir ../benchmark/hidden_tests/ \
+        --benchmark-dir path/to/tasks/ \
         --output-dir data/ \
         --dry-run --samples-per-task 10 --seed 42
 
     # Real evaluation from JSONL predictions:
     python scripts/pass_at_k.py \
         --predictions-dir predictions/ \
-        --benchmark-dir ../benchmark/hidden_tests/ \
+        --benchmark-dir path/to/tasks/ \
         --output-dir data/ \
         --k-values 1,5,10
 

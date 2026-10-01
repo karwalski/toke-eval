@@ -133,7 +133,7 @@ def render_md(s: dict) -> str:
     tot = s["totals"]
     has_tok = "cl100k" in tot
     out = [(f"Measured with tkc {s['tkc_version']} on toke-eval `{s['solutions_commit'][:8]}` "
-            f"(`TKC=~/tk/toke/tkc python3 scripts/gate1_60_v04.py --tests-dir <hidden_tests> --md docs/gate1-60-v04.md`)."),
+            f"(`TKC=~/tk/toke/tkc python3 scripts/gate1_60_v04.py --tests-dir <tests-dir> --md docs/gate1-60-v04.md`)."),
            "", "## Totals (60 programs)", "",
            "| Representation | cl100k | o200k | bytes | compile | tests |", "|---|---:|---:|---:|---:|---:|"]
     if has_tok:
