@@ -13,6 +13,12 @@ Categories and signatures are chosen for diversity across:
     [i64,i64]->@i64, [i64,i64]->bool
 
 Each task has 15-50 test cases with edge cases.
+
+Usage:
+    python generate_tasks.py <output-dir>
+
+The output directory is required; there is no default.  Hidden tests are
+graded by the owner only (AGENTS.md section 5).
 """
 
 import json
@@ -23,7 +29,7 @@ import yaml
 
 random.seed(42)
 
-TASKS_DIR = "hidden_tests"
+TASKS_DIR = None  # set from the required <output-dir> argument in main()
 START_ID = 501
 COUNT = 500
 
@@ -804,6 +810,14 @@ for k in range(1, 80):
 
 # Now generate the YAML files
 def main():
+    global TASKS_DIR
+    if len(sys.argv) != 2:
+        print("usage: python generate_tasks.py <output-dir>\n"
+              "The output directory is required (no default). Hidden tests are "
+              "graded by the owner only (AGENTS.md section 5).", file=sys.stderr)
+        return 2
+    TASKS_DIR = sys.argv[1]
+    os.makedirs(TASKS_DIR, exist_ok=True)
     rng = random.Random(2024)
 
     # Ensure we have exactly 500 templates
@@ -848,4 +862,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
