@@ -21,10 +21,10 @@ The output directory is required; there is no default.  Hidden tests are
 graded by the owner only (AGENTS.md section 5).
 """
 
-import json
 import os
 import random
 import sys
+
 import yaml
 
 random.seed(42)
@@ -91,7 +91,7 @@ def gen_factorial(rng):
         r = 1
         for i in range(2, n+1): r *= i
         return r
-    for n in range(0, 13):
+    for n in range(13):
         cases.append({"input": n, "expected": fact(n)})
     for _ in range(10):
         n = rng.randint(0, 12)
@@ -136,7 +136,7 @@ _add("Return the sum of digits of a non-negative integer", "i64", "i64", "arithm
 # 8. Power of 2 check
 def gen_is_pow2(rng):
     cases = []
-    for p in range(0, 20):
+    for p in range(20):
         cases.append({"input": 1 << p, "expected": True})
     for _ in range(15):
         n = rng.randint(3, 10000)
@@ -517,7 +517,7 @@ _add("Merge two sorted lists into one sorted list", "[@i64, @i64]", "@i64", "arr
 # 43. Triangular number
 def gen_triangular(rng):
     cases = []
-    for n in range(0, 20):
+    for n in range(20):
         cases.append({"input": n, "expected": n * (n + 1) // 2})
     for _ in range(15):
         n = rng.randint(0, 100)
@@ -537,7 +537,7 @@ def gen_is_prime(rng):
             i += 2
         return True
     cases = []
-    for n in range(0, 30):
+    for n in range(30):
         cases.append({"input": n, "expected": is_prime(n)})
     for _ in range(10):
         n = rng.randint(30, 200)
@@ -744,7 +744,7 @@ def gen_intersection(rng):
         a = _rand_list(rng, min_len=0, lo=-10, hi=10, max_len=10)
         b = _rand_list(rng, min_len=0, lo=-10, hi=10, max_len=10)
         bset = set(b)
-        result = sorted(set(x for x in a if x in bset))
+        result = sorted({x for x in a if x in bset})
         cases.append({"input": [a, b], "expected": result})
     return cases
 
@@ -754,7 +754,7 @@ def gen_difference(rng):
         a = _rand_list(rng, min_len=0, lo=-10, hi=10, max_len=10)
         b = _rand_list(rng, min_len=0, lo=-10, hi=10, max_len=10)
         bset = set(b)
-        result = sorted(set(x for x in a if x not in bset))
+        result = sorted({x for x in a if x not in bset})
         cases.append({"input": [a, b], "expected": result})
     return cases
 

@@ -182,10 +182,10 @@ def main():
     # Check if adapter exists and has MLX-compatible weights
     adapter_path = str(args.adapter) if args.adapter.exists() else None
     if adapter_path:
-        print(f"Loading model + adapter...")
+        print("Loading model + adapter...")
     else:
         print(f"WARNING: adapter not found at {args.adapter}, using base model only")
-        print(f"Loading base model...")
+        print("Loading base model...")
 
     model, tokenizer = load(
         args.base_model,
@@ -246,7 +246,7 @@ def main():
                 eta = remaining / (rate / 60) if rate > 0 else 0
                 print(f"  [{i+1}/{len(task_files)}] {rate:.1f} tasks/min, ETA {eta/60:.1f}min")
 
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - one task's failure must not stop the run
             print(f"  ERROR {task_id}: {exc}", file=sys.stderr)
             stats["errors"] += 1
 

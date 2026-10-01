@@ -24,8 +24,10 @@ _REPO = _BENCH.parent
 sys.path.insert(0, str(_BENCH))
 sys.path.insert(0, str(_REPO))
 
-import run_benchmark  # noqa: E402
-from run_benchmark import (  # noqa: E402
+from toke_eval import pass_at_k as tepk
+
+import run_benchmark
+from run_benchmark import (
     BenchmarkSchemaError,
     TaskResult,
     generate_report,
@@ -36,9 +38,6 @@ from run_benchmark import (  # noqa: E402
     score_task,
     validate_tasks_dir,
 )
-
-from toke_eval import pass_at_k as tepk  # noqa: E402
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -443,7 +442,7 @@ class TestHarnessStubsAreNotSilent:
     def test_exits_nonzero(self, name: str) -> None:
         proc = subprocess.run(
             [sys.executable, str(_BENCH / "harness" / name)],
-            capture_output=True, text=True, timeout=60,
+            capture_output=True, text=True, timeout=60, check=False,
         )
         assert proc.returncode != 0, (
             f"harness/{name} exited 0 without doing any work"
@@ -454,7 +453,7 @@ class TestHarnessStubsAreNotSilent:
     def test_points_at_the_live_tooling(self, name: str) -> None:
         proc = subprocess.run(
             [sys.executable, str(_BENCH / "harness" / name)],
-            capture_output=True, text=True, timeout=60,
+            capture_output=True, text=True, timeout=60, check=False,
         )
         assert "128.1c" in proc.stderr
         assert any(

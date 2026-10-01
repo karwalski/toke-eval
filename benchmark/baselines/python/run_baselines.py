@@ -28,7 +28,7 @@ except ImportError:
 _HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))
 
-from solutions import SOLUTIONS  # noqa: E402
+from solutions import SOLUTIONS
 
 
 def _compare(actual: object, expected: object) -> bool:
@@ -75,7 +75,7 @@ def run(tests_dir: Path, verbose: bool = False) -> bool:
             expected = tc["expected"]
             try:
                 actual = fn(inp)
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - any error a solution raises is a FAIL
                 print(f"  FAIL  {task_id} case {i}: raised {exc!r}")
                 task_passed = False
                 break

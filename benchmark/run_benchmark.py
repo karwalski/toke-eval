@@ -61,8 +61,7 @@ import signal
 import subprocess
 import sys
 import tempfile
-import time
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -113,7 +112,8 @@ class TaskResult:
 
     def __post_init__(self) -> None:
         if self.n_correct is None:
-            self.n_correct = int(round(self.pass_at_1 * self.n_samples))
+            # int() kept: pass_at_1 may be a numpy float, whose round() need not be an int
+            self.n_correct = int(round(self.pass_at_1 * self.n_samples))  # noqa: RUF046
         if self.best_of_n is None:
             self.best_of_n = 1.0 if self.n_correct > 0 else 0.0
 
@@ -359,6 +359,7 @@ def _make_subprocess_runner(binary: str | Path, task_id: str | None = None) -> A
             capture_output=True,
             text=True,
             timeout=_SUBPROCESS_TIMEOUT,
+            check=False,
         )
         if proc.returncode != 0:
             raise RuntimeError(
@@ -470,7 +471,7 @@ def _compile_toke(
     Returns (success, error_message).
     """
     cmd = [tkc, "--out", str(output_path), str(source_path)]
-    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=60, check=False)
     if proc.returncode != 0:
         diag = proc.stderr.strip() or proc.stdout.strip()
         return False, diag[:500]
@@ -624,7 +625,7 @@ def load_model_solutions(
                     stats["failed_gen"] += 1
                     continue
                 stats["generated"] += 1
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - a failed request skips one sample
                 print(
                     f"WARNING: model request failed for {task_id} "
                     f"sample {sample_idx}: {exc}",
@@ -638,7 +639,7 @@ def load_model_solutions(
             src_path.write_text(source)
             bin_path = task_dir / f"sample-{sample_idx}"
 
-            ok, err = _compile_toke(src_path, bin_path, tkc)
+            ok, _err = _compile_toke(src_path, bin_path, tkc)
             if not ok:
                 stats["failed_compile"] += 1
                 continue
@@ -809,7 +810,7 @@ def score_task(
                 pass_count += 1
         except TimeoutError:
             result.error = f"timeout ({timeout}s)"
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - any error a solution raises fails the case
             result.error = repr(exc)
         finally:
             if has_alarm:
