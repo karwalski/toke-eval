@@ -32,7 +32,6 @@ import numpy as np
 import pandas as pd
 from scipy import stats as sp_stats
 
-
 # ---------------------------------------------------------------------------
 # Data classes for structured output
 # ---------------------------------------------------------------------------
@@ -505,15 +504,15 @@ def format_stdout(r: AnalysisResults) -> str:
         f"    => reduction:     {_pct_str(r.overall_median_ratio)}",
         f"  Trimmed mean (10%): {_ci_str(r.overall_trimmed_mean_ratio)}",
         f"    => reduction:     {_pct_str(r.overall_trimmed_mean_ratio)}",
-        f"  CI method:          {r.overall_median_ratio.method} bootstrap "
-        f"({r.overall_median_ratio.ci_level:.0%} level)",
+        (f"  CI method:          {r.overall_median_ratio.method} bootstrap "
+         f"({r.overall_median_ratio.ci_level:.0%} level)"),
         "",
         "--- Paired Wilcoxon Signed-Rank Test ---",
-        f"  H0: no difference between toke and python token counts",
+        "  H0: no difference between toke and python token counts",
         f"  Test statistic:     {r.wilcoxon_test.statistic:.1f}",
         f"  p-value:            {r.wilcoxon_test.p_value:.2e}",
-        f"  Effect size ({r.wilcoxon_test.effect_size_name}): "
-        f"{r.wilcoxon_test.effect_size:.4f}",
+        (f"  Effect size ({r.wilcoxon_test.effect_size_name}): "
+         f"{r.wilcoxon_test.effect_size:.4f}"),
         f"  n (pairs):          {r.wilcoxon_test.n}",
         "",
         "--- Power Analysis ---",
@@ -590,22 +589,22 @@ def format_markdown(r: AnalysisResults) -> str:
         "### Hypothesis Test",
         "",
         f"**Wilcoxon signed-rank test** (two-sided, n={r.wilcoxon_test.n})  ",
-        f"H0: no difference between toke and python token counts  ",
+        "H0: no difference between toke and python token counts  ",
         f"Statistic: {r.wilcoxon_test.statistic:.1f}  ",
         f"p-value: {r.wilcoxon_test.p_value:.2e}  ",
-        f"Effect size ({r.wilcoxon_test.effect_size_name}): "
-        f"{r.wilcoxon_test.effect_size:.4f}",
+        (f"Effect size ({r.wilcoxon_test.effect_size_name}): "
+         f"{r.wilcoxon_test.effect_size:.4f}"),
         "",
         "### Power Analysis",
         "",
-        f"| Parameter | Value |",
-        f"|-----------|------:|",
+        "| Parameter | Value |",
+        "|-----------|------:|",
         f"| Observed Cohen's d | {r.power_analysis['observed_cohens_d']:.4f} |",
-        f"| Min n for 80% power | "
-        f"{r.power_analysis['min_sample_size_80pct_power']} |",
+        (f"| Min n for 80% power | "
+         f"{r.power_analysis['min_sample_size_80pct_power']} |"),
         f"| Current n | {r.power_analysis['current_n']} |",
-        f"| Adequately powered | "
-        f"{'Yes' if r.power_analysis['adequately_powered'] else 'No'} |",
+        (f"| Adequately powered | "
+         f"{'Yes' if r.power_analysis['adequately_powered'] else 'No'} |"),
     ])
 
     if r.category_results:

@@ -30,7 +30,7 @@ import yaml
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(ROOT / "benchmark"))
-import run_benchmark as rb  # noqa: E402
+import run_benchmark as rb
 
 IDS = [f"task-a-{i:04d}" for i in range(1, 61)]
 
@@ -39,7 +39,7 @@ KERN_PUBLISHED = {"Kern Compact": 3012, "Python (JSON-CLI)": 3565, "toke legacy 
 
 
 def run(cmd: list[str], timeout: int = 120) -> tuple[int, str, str]:
-    p = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+    p = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, check=False)
     return p.returncode, p.stdout, p.stderr
 
 
@@ -55,7 +55,7 @@ def main() -> int:
     try:
         import tiktoken
         enc = {n: tiktoken.get_encoding(n) for n in ("cl100k_base", "o200k_base")}
-    except Exception:  # pragma: no cover - optional
+    except Exception:  # noqa: BLE001  # pragma: no cover - tiktoken is optional
         enc = {}
     tkc = rb._find_tkc()
     rb._SUBPROCESS_TIMEOUT = a.timeout
@@ -75,7 +75,8 @@ def main() -> int:
         binary = tmp / tid
         ok, err = rb._compile_toke(src, binary, tkc)
         r["compile_ok"] = ok
-        task = yaml.safe_load(open(a.tests_dir / f"{tid}.yaml"))
+        with open(a.tests_dir / f"{tid}.yaml") as fh:
+            task = yaml.safe_load(fh)
         cases = task["test_inputs"]
         r["description"] = task["description"]
         r["tests_total"] = len(cases)
@@ -131,8 +132,8 @@ def render_md(s: dict) -> str:
     rows = s["per_task"]
     tot = s["totals"]
     has_tok = "cl100k" in tot
-    out = [f"Measured with tkc {s['tkc_version']} on toke-eval `{s['solutions_commit'][:8]}` "
-           f"(`TKC=~/tk/toke/tkc python3 scripts/gate1_60_v04.py --tests-dir <hidden_tests> --md docs/gate1-60-v04.md`).",
+    out = [(f"Measured with tkc {s['tkc_version']} on toke-eval `{s['solutions_commit'][:8]}` "
+            f"(`TKC=~/tk/toke/tkc python3 scripts/gate1_60_v04.py --tests-dir <hidden_tests> --md docs/gate1-60-v04.md`)."),
            "", "## Totals (60 programs)", "",
            "| Representation | cl100k | o200k | bytes | compile | tests |", "|---|---:|---:|---:|---:|---:|"]
     if has_tok:

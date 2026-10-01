@@ -31,7 +31,6 @@ import tempfile
 import time
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any
 
 from scipy.special import comb
 
@@ -125,7 +124,7 @@ def compile_toke(source_path: Path, compiler: str, output: Path,
         # 124.4f: --allow-all so the deny-by-default flip (124.4g) is a no-op here.
         result = subprocess.run(
             [compiler, "--allow-all", str(source_path)],
-            capture_output=True, text=True, timeout=timeout,
+            capture_output=True, text=True, timeout=timeout, check=False,
         )
         if result.returncode != 0:
             return False, result.stderr or result.stdout
@@ -134,7 +133,7 @@ def compile_toke(source_path: Path, compiler: str, output: Path,
 
         result = subprocess.run(
             ["clang", "-x", "ir", ll_path, "-o", str(output), "-lm"],
-            capture_output=True, text=True, timeout=timeout,
+            capture_output=True, text=True, timeout=timeout, check=False,
         )
         if result.returncode != 0:
             return False, result.stderr
@@ -174,7 +173,7 @@ def run_test_cases(binary: Path, test_file: Path,
         try:
             result = subprocess.run(
                 [str(binary), input_val],
-                capture_output=True, text=True, timeout=timeout,
+                capture_output=True, text=True, timeout=timeout, check=False,
             )
             actual = result.stdout.strip()
             if actual == expected:
@@ -494,7 +493,7 @@ def main():
 
     # Print summary
     print(f"\n{'=' * 60}", file=sys.stderr)
-    print(f"  EvalPlus Harness Results", file=sys.stderr)
+    print("  EvalPlus Harness Results", file=sys.stderr)
     print(f"  Tasks:         {report.tasks_total}", file=sys.stderr)
     s = report.summary
     if s:

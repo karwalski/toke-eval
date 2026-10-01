@@ -39,12 +39,9 @@ import json
 import random
 import subprocess
 import sys
-import tempfile
-import time
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
-
 
 # ---------------------------------------------------------------------------
 # Error taxonomy (consistent with teacher_student_loop.py, Story 10.6.2)
@@ -257,6 +254,7 @@ def run_tkc(source: str, tkc_path: str) -> list[Diagnostic]:
             capture_output=True,
             text=True,
             timeout=10,
+            check=False,
         )
         if result.stdout.strip():
             raw = json.loads(result.stdout)
@@ -397,7 +395,6 @@ def run_repair_loop(
     """
     task_id = task.get("task_id", "unknown")
     description = task.get("prompt", task.get("description", ""))
-    stage = task.get("stage", 3)
 
     # Initial "generation" -- in dry-run mode, a synthetic snippet.
     source = task.get("canonical_solution", "")
