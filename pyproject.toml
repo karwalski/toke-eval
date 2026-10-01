@@ -17,6 +17,8 @@ dependencies = [
 
 [project.optional-dependencies]
 safety = ["transformers", "torch"]
+# 128.29: scripts/statistical_analysis.py
+analysis = ["pandas>=2.0", "scipy>=1.10"]
 # 128.29: the ruff `make lint` is pinned to (see [tool.ruff.lint] below)
 dev = ["ruff==0.16.8", "pytest"]
 
