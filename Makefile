@@ -16,7 +16,8 @@ test:
 # 128.27: all of scripts/ (the older scripts' findings are fixed), plus the gate tests.
 lint:
 	$(PY) -m ruff check scripts/ \
-		benchmark/tests/test_check_bench_disjoint.py benchmark/tests/test_check_gate1_attribution.py
+		benchmark/tests/test_check_bench_disjoint.py benchmark/tests/test_check_gate1_attribution.py \
+		benchmark/tests/test_hidden_tests_guard.py
 
 # 128.1b: D1-D8. Runs for real once BENCH-128 is frozen (128.1a); until then the
 # checker's own fixtures run under `test`, and this target says plainly that it did not run.
