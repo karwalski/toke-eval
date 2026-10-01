@@ -7,8 +7,9 @@ runs test cases, and computes Pass@k using the unbiased estimator from
 Chen et al. (2021).
 
 Usage:
+    # Hidden tests are graded by the owner only (AGENTS.md section 5): never point this at a hidden_tests/ directory.
     python scripts/evalplus_harness.py \
-        --tasks-dir ../benchmark/hidden_tests/ \
+        --tasks-dir path/to/tasks/ \
         --solutions-dir ../benchmark/solutions/ \
         --compiler ../toke/toke \
         --n-samples 10 \

@@ -19,8 +19,9 @@ Several ``--tasks-dir`` may be given; for an id evaluated by more than one, the
 first directory wins.  Ids no directory evaluates are reported as "no tests".
 
 Usage:
+    # Hidden tests are graded by the owner only (AGENTS.md section 5): never point this at a hidden_tests/ directory.
     TKC=~/tk/toke/tkc python3 scripts/solutions_v04.py \\
-        --tasks-dir benchmark/hidden_tests \\
+        --tasks-dir <tasks-dir> \\
         --tasks-dir <dir holding the task-a-0001..0500 YAMLs> \\
         [--solutions-dir benchmark/solutions] [--json out.json] [--md docs/solutions-v04.md]
 

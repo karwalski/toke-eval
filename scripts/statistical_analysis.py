@@ -29,8 +29,18 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-import pandas as pd
-from scipy import stats as sp_stats
+
+# 128.29: pandas and scipy are the optional `analysis` extra, not core deps.
+try:
+    import pandas as pd
+    from scipy import stats as sp_stats
+except ImportError as _exc:
+    _HINT = (f"statistical_analysis.py needs pandas and scipy ({_exc.name} is missing).\n"
+             "Install them with:  pip install -e '.[analysis]'  "
+             "(or: pip install pandas scipy)")
+    if __name__ == "__main__":
+        sys.exit(_HINT)
+    raise ImportError(_HINT) from _exc
 
 # ---------------------------------------------------------------------------
 # Data classes for structured output

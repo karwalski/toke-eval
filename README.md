@@ -71,9 +71,10 @@ model result or as a Pass@1.
 pip install -e .
 
 # Run Pass@1 evaluation
+# Hidden tests are graded by the owner only (AGENTS.md section 5): never point this at a hidden_tests/ directory.
 python -m toke_eval.pass_at_k \
     --solutions-dir /path/to/solutions/ \
-    --tests-dir /path/to/hidden_tests/ \
+    --tests-dir /path/to/tests/ \
     --compiler /path/to/toke \
     --output results.json
 

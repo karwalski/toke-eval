@@ -11,13 +11,13 @@ whole set as it stands after Part B.
 report (pass/total per id); it never opens a test file and discards the
 harness's stdout/stderr.
 
-**Reproduce** (tests for 0501–1000 are in `benchmark/hidden_tests/`; 0001–0500
+**Reproduce** (owner only: hidden tests are graded by the owner only, AGENTS.md section 5; tests for 0501–1000 are in `benchmark/hidden_tests/`; 0001–0500
 are in the archived toke-benchmark copy — pass that directory as a second
 `--tasks-dir`):
 
 ```
 TKC=~/tk/toke/tkc python3 scripts/solutions_v04.py \
-    --tasks-dir benchmark/hidden_tests --tasks-dir <dir with task-a-0001..0500> \
+    --tasks-dir <tasks-dir> --tasks-dir <dir with task-a-0001..0500> \
     --json /tmp/solutions-v04.json --md docs/solutions-v04.md   # regenerates the block below
 ```
 
