@@ -7,9 +7,12 @@ producing the CSV required by Gate 1.5 (gate-criteria.md).
 Usage:
     python -m toke_eval.generate_token_counts \
         --solutions ../benchmark/solutions \
-        --tasks ../benchmark/hidden_tests \
+        --tasks <tasks-dir> \
         --results ../benchmark/results/gate1_v5_1000.json \
         --output data/gate1_token_counts.csv
+
+Hidden tests are graded by the owner only (AGENTS.md section 5): never point
+--tasks at a hidden_tests/ directory.
 
 Output CSV columns:
     task_id, category, toke_tokens_cl100k, toke_chars, python_tokens_cl100k,

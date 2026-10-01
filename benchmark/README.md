@@ -6,7 +6,8 @@ Benchmark task definitions and evaluation harness for
 ## What is here
 
 - `tasks/` — the task **schema** (`schema.json`) only; there are no task files here
-- `hidden_tests/` — the task YAML files the harness actually reads
+- `hidden_tests/` — placeholder name only: not in git, and never read by agents
+  or CI. Hidden tests are graded by the owner only (AGENTS.md section 5).
 - `baselines/` — Python, C, and Java reference implementations per task
 - `harness/` — retired entry points (see below); the live harness is
   `run_benchmark.py` in this directory
@@ -18,16 +19,19 @@ They are stored separately and never committed to any repository.
 
 ## Running a benchmark
 
+`<tasks-dir>` is a directory of task YAML files you supply.
+Hidden tests are graded by the owner only (AGENTS.md section 5); never pass a `hidden_tests/` directory here.
+
     # reference solutions (python / c / toke)
     python run_benchmark.py \
       --solutions-dir baselines/python \
-      --tasks-dir hidden_tests/ \
+      --tasks-dir <tasks-dir> \
       --language python \
       --output results/baseline.json
 
     # model inference — strict Pass@1: one sample, one attempt
     python run_benchmark.py \
-      --tasks-dir hidden_tests/ \
+      --tasks-dir <tasks-dir> \
       --model-endpoint http://localhost:8000/generate \
       --n-samples 1
 

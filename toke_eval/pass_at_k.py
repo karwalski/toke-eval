@@ -6,9 +6,12 @@ Compiles solutions with the toke compiler, runs against test cases, and computes
 Usage:
     python -m toke_eval.pass_at_k \\
         --solutions-dir solutions/ \\
-        --tests-dir hidden_tests/ \\
+        --tests-dir <tests-dir> \\
         --compiler ./toke \\
         --output results.json
+
+Hidden tests are graded by the owner only (AGENTS.md section 5): never point
+--tests-dir at a hidden_tests/ directory.
 
 Exit codes:
     0  success

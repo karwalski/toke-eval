@@ -481,7 +481,11 @@ class TestHarnessStubsAreNotSilent:
             "holds only the schema"
         )
         assert (tasks_dir / "schema.json").exists()
-        assert "hidden_tests/" in (_BENCH / "README.md").read_text()
+        readme = (_BENCH / "README.md").read_text()
+        assert "--tasks-dir <tasks-dir>" in readme
+        assert "--tasks-dir hidden_tests/" not in readme
+        assert ("Hidden tests are graded by the owner only "
+                "(AGENTS.md section 5)") in readme
 
 
 # ===========================================================================
