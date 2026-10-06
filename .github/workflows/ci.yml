@@ -1,7 +1,10 @@
 name: CI
 
 # 128.27 (1): moved from benchmark/.github/workflows/, where GitHub never ran it.
-# Runs `make ci` (lint + tests + check-bench-disjoint), the same entry point as a
+# 128.34: benchmark/.github/workflows/benchmark.yml, which never ran either, is
+# retired rather than moved: its unit-test job is `make test`, its Python dry run
+# discovered 0 tasks, and its C build is now `make check-c-baselines`.
+# Runs `make ci` (lint + tests + check-bench-disjoint + check-c-baselines), the same entry point as a
 # local run. TOKE_OWNER_HIDDEN_TESTS is deliberately never set here: the owner-only
 # tests that read hidden tests stay skipped (AGENTS.md section 5).
 

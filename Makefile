@@ -6,9 +6,9 @@ BENCH_LABELS ?= pre131
 BENCH_EXPORTS ?=
 BENCH_DESCRIPTIONS ?=
 
-.PHONY: ci test lint check-bench-disjoint check-gate1-attribution
+.PHONY: ci test lint check-bench-disjoint check-gate1-attribution check-c-baselines
 
-ci: lint test check-bench-disjoint
+ci: lint test check-bench-disjoint check-c-baselines
 
 test:
 	cd benchmark && $(PY) -m pytest -q tests
@@ -28,6 +28,13 @@ check-bench-disjoint:
 	else \
 		echo "check-bench-disjoint: NOT RUN - benchmark/bench128/manifest.json does not exist (BENCH-128 not frozen, 128.1a). This is not a PASS."; \
 	fi
+
+# 128.34: the C baselines must still compile. This is the one check of the retired
+# benchmark/.github/workflows/benchmark.yml that `make test` did not already cover.
+# Built into a temp dir so no binary lands in the tree.
+check-c-baselines:
+	@d=$$(mktemp -d) && $(MAKE) --no-print-directory -C benchmark/baselines/c TARGET=$$d/solutions \
+		&& rm -rf $$d && echo "check-c-baselines: OK - benchmark/baselines/c/solutions.c compiles"
 
 # 128.22: needs full git history (not a shallow clone).
 check-gate1-attribution:
