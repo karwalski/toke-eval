@@ -109,32 +109,6 @@ static void parse_nested_array(const char **pp, NestedArray *na) {
     *pp = p;
 }
 
-/*
- * Detect whether the input is:
- *   - a scalar integer (possibly negative)
- *   - a flat array  [1,2,3]
- *   - a nested array [[1,2],[3,4]]
- *   - a mixed pair  [[1,2,3], 5]
- */
-typedef enum { INPUT_SCALAR, INPUT_FLAT_ARRAY, INPUT_NESTED_ARRAY, INPUT_MIXED_PAIR } InputKind;
-
-static InputKind detect_input_kind(const char *json) {
-    const char *p = skip_ws(json);
-    if (*p != '[') return INPUT_SCALAR;
-    p++; p = skip_ws(p);
-    if (*p == ']') return INPUT_FLAT_ARRAY; /* empty array */
-    if (*p == '[') return INPUT_NESTED_ARRAY;
-    /* It's [something...  -- check if all elements are scalars */
-    /* Scan for nested '[' after the opening one */
-    int depth = 1;
-    while (*p && depth > 0) {
-        if (*p == '[') return INPUT_NESTED_ARRAY; /* found inner array */
-        if (*p == ']') depth--;
-        p++;
-    }
-    return INPUT_FLAT_ARRAY;
-}
-
 /* -----------------------------------------------------------------------
  * Output helpers
  * ----------------------------------------------------------------------- */
@@ -607,7 +581,7 @@ static void task_a_0051(const int64_t *arr, int n) {
 }
 
 /* task-a-0052: add constant k to each element; input = [[list], k] */
-static void task_a_0052(const NestedArray *na, const char *json) {
+static void task_a_0052(const char *json) {
     /*
      * Input is [list, k] where list is an array and k is a scalar.
      * We need to re-parse: the first element is an array, the second is a scalar.
@@ -627,7 +601,6 @@ static void task_a_0052(const NestedArray *na, const char *json) {
     int64_t out[MAX_ELEMS];
     for (int i = 0; i < list_len; i++) out[i] = list_elems[i] + k;
     print_int_array(out, list_len);
-    (void)na;
 }
 
 /* task-a-0053: deduplicate (preserve order) */
@@ -942,9 +915,9 @@ static void dispatch_nested(int task_num, const NestedArray *na) {
 /* -----------------------------------------------------------------------
  * Mixed-input dispatch (needs raw JSON)
  * ----------------------------------------------------------------------- */
-static void dispatch_mixed(int task_num, const char *json, const NestedArray *na) {
+static void dispatch_mixed(int task_num, const char *json) {
     switch (task_num) {
-        case 52: task_a_0052(na, json); break;
+        case 52: task_a_0052(json); break;
         case 54: task_a_0054(json); break;
         case 55: task_a_0055(json); break;
         case 57: task_a_0057(json); break;
@@ -997,12 +970,10 @@ int main(int argc, char *argv[]) {
             dispatch_nested(te->task_num, &na);
             break;
         }
-        case CAT_MIXED: {
-            NestedArray na;
-            /* Some mixed tasks need the raw JSON, others need parsed nested array */
-            dispatch_mixed(te->task_num, json, &na);
+        case CAT_MIXED:
+            /* Mixed [list, k] inputs: each task parses the raw JSON itself. */
+            dispatch_mixed(te->task_num, json);
             break;
-        }
     }
 
     return 0;
