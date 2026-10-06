@@ -75,7 +75,8 @@ that still fails lost a test case.
 
 Classified from the public task description (the archived toke-benchmark's
 `data/humaneval_format.jsonl` prompts and `public/metadata.json`, and the
-description strings of `benchmark/generate_tasks.py`) and the solution
+description strings of `benchmark/generate_tasks.py`, since moved to an
+owner-only location under 128.31) and the solution
 source, and by running each program on inputs written from that description.
 No hidden test was read. **The harness has not been re-run on this
 classification** (see the note at the end), so the generated block above
