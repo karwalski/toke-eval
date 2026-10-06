@@ -32,9 +32,12 @@ check-bench-disjoint:
 # 128.34: the C baselines must still compile. This is the one check of the retired
 # benchmark/.github/workflows/benchmark.yml that `make test` did not already cover.
 # Built into a temp dir so no binary lands in the tree.
+# 128.35: also run the smoke test, which asserts each output.
 check-c-baselines:
-	@d=$$(mktemp -d) && $(MAKE) --no-print-directory -C benchmark/baselines/c TARGET=$$d/solutions \
-		&& rm -rf $$d && echo "check-c-baselines: OK - benchmark/baselines/c/solutions.c compiles"
+	@d=$$(mktemp -d) && $(MAKE) --no-print-directory -s -C benchmark/baselines/c test TARGET=$$d/solutions \
+		>$$d/log 2>&1 \
+		|| { cat $$d/log; rm -rf $$d; exit 1; }; \
+	rm -rf $$d && echo "check-c-baselines: OK - benchmark/baselines/c/solutions.c compiles and its smoke test passes"
 
 # 128.22: needs full git history (not a shallow clone).
 check-gate1-attribution:
