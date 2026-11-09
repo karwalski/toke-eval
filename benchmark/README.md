@@ -67,4 +67,4 @@ Held-out tasks are added by the project maintainer only.
 
 ## Licence
 
-Apache 2.0.
+Apache 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
