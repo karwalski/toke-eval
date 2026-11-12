@@ -30,7 +30,7 @@ and nowhere else.*
 
 | Component | Path | Purpose |
 |-----------|------|---------|
-| **Benchmark tasks** | `benchmark/tasks/` | Task definitions, reference solutions, and baseline implementations in Python/C/Java |
+| **Benchmark tasks** | `benchmark/tasks/`, `benchmark/solutions/`, `benchmark/baselines/` | The task schema (`schema.json`), reference toke solutions, and baseline implementations in Python and C |
 | **Evaluation harness** | `toke_eval/` | Pass@k scorer, token efficiency measurement, and gate report generator |
 | **Statistical analysis** | `scripts/statistical_analysis.py` | Bootstrap CIs, Wilcoxon tests, and power analysis for token efficiency claims |
 | **Result data** | `data/` | Evaluation outputs (token counts, pass@k results, ablation tables). A row or record stamped `dry-run-synthetic` is random output from a `--dry-run`, not a result |
@@ -75,7 +75,7 @@ pip install -e .
 python -m toke_eval.pass_at_k \
     --solutions-dir /path/to/solutions/ \
     --tests-dir /path/to/tests/ \
-    --compiler /path/to/toke \
+    --compiler /path/to/tkc \
     --output results.json
 
 # Measure token efficiency
@@ -90,7 +90,8 @@ python -m toke_eval.report \
     --token-efficiency efficiency.json \
     --output gate_report.json
 
-# Run statistical analysis (synthetic data for validation)
+# Run statistical analysis (synthetic data for validation; needs pandas and scipy:
+# pip install -e '.[analysis]')
 python scripts/statistical_analysis.py --generate-mock --n-tasks 1000
 ```
 
@@ -107,11 +108,13 @@ checkout.
 ```
 toke-eval/
   benchmark/
-    tasks/           Task YAML definitions and schema
-    solutions/       Reference toke solutions
-    baselines/       Python/C/Java reference implementations
+    tasks/           Task schema (schema.json)
+    solutions/       Reference toke solutions (v0.4)
+    solutions-pre133/  The same solutions before the 133.4 v0.4 re-delivery
+    baselines/       Python and C reference implementations
     harness/         Retired entry points (128.1c); use run_benchmark.py
     run_benchmark.py The live execution harness
+    run_inference_mlx.py  MLX inference driver for generating solutions
     results/         Past gate evaluation results
     tests/           Harness unit tests
   toke_eval/         Python package
@@ -121,16 +124,16 @@ toke-eval/
     generate_token_counts.py  Token count extraction
   scripts/           Standalone analysis and benchmarking scripts
   data/              Evaluation result datasets (CSV, JSON)
-  docs/              Design documents (contamination analysis)
+  docs/              Contamination analysis, the v0.4 Gate-1 re-delivery, suspect-number audit
 ```
 
 ## Related Repositories
 
 | Repository | Role |
 |------------|------|
-| [toke](https://github.com/karwalski/toke) | Language specification and reference compiler (`toke`) |
+| [toke](https://github.com/karwalski/toke) | Language specification and reference compiler (`tkc`) |
 | [toke-corpus](https://github.com/karwalski/toke-corpus) | Training-data generation and curation (the corpora this harness measures against) |
-| [toke-model](https://github.com/karwalski/toke-models) | Model training, adapter merging (the models this harness evaluates) |
+| [toke-models](https://github.com/karwalski/toke-models) (local checkout `toke-model`) | Model training, adapter merging (the models this harness evaluates) |
 | [toke-tokenizer](https://github.com/karwalski/toke-tokenizer) | Custom tokenizer used for token-efficiency measurements |
 | [toke-mcp](https://github.com/karwalski/toke-mcp) | MCP server providing toke tooling to AI assistants |
 
