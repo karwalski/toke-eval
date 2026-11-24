@@ -13,7 +13,7 @@ standalone `toke-benchmark` repository (now retired and archived).
 
 toke is a compiled programming language designed for LLM code generation. It has 14
 keywords, a 59-character set, a backtrack-free grammar with bounded lookahead, and one
-canonical form per construct, chosen by measurement in a 46-pattern catalogue and
+canonical form per construct, chosen by measurement in a 47-pattern catalogue and
 reproduced by `tkc --min`. That makes generated code cheap to constrain during decoding and
 cheap for a compiler to verify afterwards. Token efficiency is one
 measured property of toke, always reported with its tokenizer and its baseline, not the
